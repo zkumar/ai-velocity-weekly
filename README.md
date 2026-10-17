@@ -6,26 +6,6 @@ source of the agent frameworks we build on, runs at least one mechanism, and
 reports what changed for anyone putting an agent into a clinical or payer
 workflow. The code behind each finding is in this repository.
 
-## Why this exists
-
-An assistant answers. An agent acts. The moment software writes a medication
-order, submits a prior authorisation or files a regulatory document, you inherit
-three obligations a chatbot never had: a human must approve the action, you must
-be able to prove afterwards what happened, and you must show the system is under
-control and validated.
-
-None of the frameworks were designed for those obligations, and every release
-quietly moves where approval, state and audit live. When they move and nobody
-notices, the audit trail and the system of record stop agreeing: the log says the
-clinician approved and the order went in, and the FHIR server has no order. That
-gap is the subject of this publication.
-
-Both issues so far found it by running the code. In one, a forged approval
-identifier was correctly rejected, no write happened, and the model still
-reported "Order placed." In the other, a clinician's approval arriving after the
-agent's wall-clock budget was discarded in silence, and the model said the same
-thing. Start with [start-here.html](start-here.html) for the full framing, or
-[index.html](index.html) for the front page.
 
 ## How an issue is laid out
 
