@@ -1,7 +1,7 @@
 # AI Velocity Technology Update
 
 A weekly technical brief for people building healthcare AI systems, by
-[Vijay Kumar](https://www.linkedin.com/in/vijayzharotia/). Every issue reads the
+[Vijay Zharotia](https://www.linkedin.com/in/vijayzharotia/). Every issue reads the
 source of the agent frameworks we build on, runs at least one mechanism, and
 reports what changed for anyone putting an agent into a clinical or payer
 workflow. The code behind each finding is in this repository.
