@@ -1,0 +1,204 @@
+{
+ "issue": 3,
+ "week_ending": "2026-09-18",
+ "prices_read": "2026-09-20",
+ "workload": "10,000 docs x (4,000 in + 500 out) tokens",
+ "aa_index": "v4.3, unchanged in window",
+ "models": [
+  {
+   "model": "GPT-6 Astra",
+   "licence": "closed",
+   "price": {
+    "in": 10,
+    "out": 50,
+    "cached": 1.0
+   },
+   "aa": 53,
+   "verified": true,
+   "note": "unchanged; Batch/Flex 5/25/0.50, long context 20/75/2.00",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 650,
+   "cost_10k_docs_80pct_cached": 362.0
+  },
+  {
+   "model": "Claude Fable 5.1",
+   "licence": "closed",
+   "price": {
+    "in": 10,
+    "out": 50,
+    "cached": 0.25
+   },
+   "aa": 53,
+   "verified": true,
+   "note": "unchanged",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 650,
+   "cost_10k_docs_80pct_cached": 338.0
+  },
+  {
+   "model": "Claude Opus 5",
+   "licence": "closed",
+   "price": {
+    "in": 5,
+    "out": 25,
+    "cached": 0.5
+   },
+   "aa": 51,
+   "verified": true,
+   "note": "unchanged",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 325,
+   "cost_10k_docs_80pct_cached": 181.0
+  },
+  {
+   "model": "GPT-5.6 Sol",
+   "licence": "closed",
+   "price": {
+    "in": 4,
+    "out": 20,
+    "cached": 0.4
+   },
+   "aa": 47,
+   "verified": true,
+   "note": "CORRECTION: issue 02 listed 5/30/0.50; the pricing page shows 4/20/0.40, promotional to at least 21 Nov",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 260,
+   "cost_10k_docs_80pct_cached": 144.8
+  },
+  {
+   "model": "Muse Spark 1.3",
+   "licence": "closed",
+   "price": {
+    "in": 1.25,
+    "out": 4.25,
+    "cached": 0.15
+   },
+   "aa": 48,
+   "verified": true,
+   "note": "unchanged (OpenRouter listing)",
+   "src": "https://openrouter.ai/meta/muse-spark-1.3",
+   "cost_10k_docs_no_cache": 71.25,
+   "cost_10k_docs_80pct_cached": 36.05
+  },
+  {
+   "model": "GLM-5.3",
+   "licence": "open, custom licence",
+   "price": {
+    "in": 1.4,
+    "out": 4.4,
+    "cached": 0.26
+   },
+   "aa": 45,
+   "verified": true,
+   "note": "unchanged",
+   "src": "https://docs.z.ai/guides/overview/pricing",
+   "cost_10k_docs_no_cache": 78.0,
+   "cost_10k_docs_80pct_cached": 41.52
+  },
+  {
+   "model": "Qwen3.8-Max-0902",
+   "licence": "API only",
+   "price": {
+    "in": 2,
+    "out": 6,
+    "cached": 0.25
+   },
+   "aa": 45,
+   "verified": false,
+   "note": "price page shows no prices, last week's carried; AA reads 45 where issue 02 printed 40, reason not established",
+   "src": "https://artificialanalysis.ai/leaderboards/models",
+   "cost_10k_docs_no_cache": 110,
+   "cost_10k_docs_80pct_cached": 54.0
+  },
+  {
+   "model": "GLM-5.3-Flash",
+   "licence": "open, MIT",
+   "price": {
+    "in": 0.15,
+    "out": 0.5,
+    "cached": 0.03
+   },
+   "aa": 42,
+   "verified": true,
+   "note": "unchanged",
+   "src": "https://docs.z.ai/guides/overview/pricing",
+   "cost_10k_docs_no_cache": 8.5,
+   "cost_10k_docs_80pct_cached": 4.66
+  },
+  {
+   "model": "Gemini 3.8 Flash",
+   "licence": "closed",
+   "price": {
+    "in": 0.75,
+    "out": 3.75,
+    "cached": 0.075
+   },
+   "aa": 41,
+   "verified": true,
+   "note": "promo to 31 Dec; 1.50/7.50/0.15 from 1 Jan 2027",
+   "src": "https://ai.google.dev/gemini-api/docs/pricing",
+   "cost_10k_docs_no_cache": 48.75,
+   "cost_10k_docs_80pct_cached": 27.15
+  },
+  {
+   "model": "DeepSeek-V4.1-Flash",
+   "licence": "open, MIT",
+   "price": {
+    "in": 0.3,
+    "out": 1.2,
+    "cached": 0.006
+   },
+   "aa": 40,
+   "verified": true,
+   "note": "unchanged; off-peak half",
+   "src": "https://api-docs.deepseek.com/quick_start/pricing",
+   "cost_10k_docs_no_cache": 18.0,
+   "cost_10k_docs_80pct_cached": 8.59
+  },
+  {
+   "model": "Qwen3.8-27B",
+   "licence": "open, Apache 2.0",
+   "price": {
+    "in": 0.1,
+    "out": 1.8,
+    "cached": null
+   },
+   "aa": 22,
+   "verified": true,
+   "note": "REPRICED on OpenRouter from 0.22/2.42; AA reads 22 where issue 02 printed 34, reason not established",
+   "src": "https://openrouter.ai/qwen/qwen3.8-27b",
+   "cost_10k_docs_no_cache": 13.0,
+   "cost_10k_docs_80pct_cached": null
+  },
+  {
+   "model": "Granite 4.2 8B",
+   "licence": "open, Apache 2.0",
+   "price": {
+    "in": 0.06,
+    "out": 0.25,
+    "cached": 0.015
+   },
+   "aa": 12,
+   "verified": false,
+   "note": "price page not read this week, last week's carried",
+   "src": "https://artificialanalysis.ai/leaderboards/models",
+   "cost_10k_docs_no_cache": 3.65,
+   "cost_10k_docs_80pct_cached": 2.21
+  },
+  {
+   "model": "Qwen3.8-Omni-Flash",
+   "licence": "API only",
+   "price": {
+    "in": 0.15,
+    "out": 0.47,
+    "cached": 0.016
+   },
+   "aa": null,
+   "verified": false,
+   "note": "NEW 18 Sept per a release tracker; not confirmed on a vendor page",
+   "src": "https://www.digitalapplied.com/blog/ai-model-releases-september-2026-tracker",
+   "cost_10k_docs_no_cache": 8.35,
+   "cost_10k_docs_80pct_cached": 4.06
+  }
+ ]
+}

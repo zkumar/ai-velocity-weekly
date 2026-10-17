@@ -1,0 +1,205 @@
+issue: 4
+series: ARCHITECT INTELLIGENCE
+strapline: HEALTHCARE AI FOR BUILDERS
+week_label: WEEK OF SEP 19–25, 2026
+week_ending: 2026-09-25
+author: Vijay Zharotia
+author_line: HEALTHCARE AI ARCHITECTURE
+site: https://zkumar.github.io/AI-Velocity-Technology-Update-
+repo: https://github.com/zkumar/AI-Velocity-Technology-Update-
+longform: issue-04/ai-velocity-weekly-04.html
+mytake: issue-04/mytake04.html
+lab: issue-04/lab/
+theme:
+  label: THE WEEK'S THEME
+  title: AFTER THE YES
+  text: Issue 03 asked which arguments a clinician's approval covers. This week the frameworks answered a later question, how many times the approved write actually runs, and the answers were zero, two, and not promised.
+stats:
+- n: '22'
+  label: REPOS CLONED AND READ
+- n: '3'
+  label: MECHANISMS EXECUTED
+- n: '8'
+  label: PAPERS READ
+- n: '17'
+  label: MODELS PRICED
+one_line: Last week the yes was bound to arguments. This week a reviewer approved two writes and one ran zero times, a failing write ran twice, and a vendor put in writing that recovery is not exactly-once.
+pillars:
+- name: COUNT
+  text: Two approvals, one success result, one row in the record. Which of the three does your reconciliation read, and which one does the model report? Slides 04 and 08.
+- name: REPLAY
+  text: A retry the caller never saw and a recovery the vendor will not call exactly-once. What makes the second execution a no-op instead of a second order? Slides 04 and 09.
+- name: LEAKAGE
+  text: A client secret in the session table, a token in the compaction prompt, a patient id on the tracer the policy did not govern. What did the trace carry that you had switched off? Slide 05.
+five:
+- tag: EXECUTED
+  label: An approved second write executes zero times after the signature
+  where: 08
+  source: DEEPAGENTS 0.7.16
+- tag: EXECUTED
+  label: A failing single-argument tool was called again, one error, two rows
+  where: '04'
+  source: LLAMA-INDEX-CORE 0.14.25
+- tag: EXECUTED
+  label: A typed approval validates for the node and persists the raw value
+  where: '04'
+  source: LANGGRAPH 1.2.12
+- tag: DOCS
+  label: A child agent's unresolved approval fails the parent tool
+  where: '04'
+  source: AGENT FRAMEWORK MAIN
+- tag: DOCS
+  label: The PHI-on-span flag answered for the wrong instrumentation
+  where: '05'
+  source: PYDANTIC-AI 2.49.0
+sections:
+- key: approval
+  num: '04'
+  label: AFTER THE YES
+  title: How Many Times an Approved Write Runs
+  intro: Two executed, one read from source. The deepagents change is executed on slide 08.
+  accent: 0EA5E9
+  items:
+  - kicker: LLAMA-INDEX-CORE 0.14.25
+    tag: EXECUTED
+    headline: One tool call, one error in the trace, two rows in the record
+    body: Below 0.14.25 call_tool() ran a one-parameter FunctionTool positionally, caught any exception, and ran it again with keyword arguments. A tool that appends a note then raises a gateway timeout wrote twice on 0.14.24 and once on 0.14.25. The caller saw one call and is_error=True both times.
+    changed: The retry lived inside the framework, below the trace and the transcript. Nothing you export could have shown the second row.
+    change: Give every write an idempotency key the tool checks before it commits, and count duplicate rows created within seconds of a tool error on any llama-index deployment below 0.14.25.
+    link: lab
+  - kicker: LANGGRAPH 1.2.12
+    tag: EXECUTED
+    headline: interrupt(response_schema=Decision) refuses "aprove" and stays paused
+    body: A Pydantic schema validates the resume value before the node sees it; a typo raises out of invoke() and the graph stays at the gate. A JSON Schema dict validates nothing, and the same typo is committed and read as a rejection, as 1.2.11 did with no schema. The checkpoint persists the raw value the client sent.
+    changed: The approval can be a typed object with an approver id, and a bad one is refused before the checkpoint moves.
+    change: Use a Pydantic model, never a dict. Catch ValidationError in the approval service and re-prompt. Store the validated decision from inside the node; the checkpoint holds the unvalidated one.
+    link: lab
+  - kicker: MICROSOFT · AGENT FRAMEWORK MAIN
+    tag: DOCS
+    headline: Unresolved child approvals fail closed, and a matched result is terminal
+    body: On main since 1.19.0. An agent used as a tool that returns only an approval request now fails the parent call; delayed approval belongs in a workflow. A matched function result is terminal "regardless of its text, including an exact or embedded [APPROVAL_PENDING]". Sequential output waits for approval; .NET consumes stored approvals only when the run succeeds.
+    changed: Placeholder-text approvals are gone, a parent cannot forward a child's yes to the human, and one approval can now authorise a retried run.
+    change: Migrate any session store holding [APPROVAL_PENDING] before upgrading, give parent and child middleware distinct source_id values, and make the idempotency key cover the retry.
+    link: longform
+  signal: An approval with no matching success result is a claim about the record, not a fact about it. Join approvals to tool results by call id before anything is reported as done.
+- key: export
+  num: '05'
+  label: WHAT THE TRACE CARRIED
+  title: Secrets and PHI Outside the Policy's Reach
+  intro: Both read from source and commit messages, neither executed. Each is data that left by a path the redaction setting did not govern.
+  accent: 00B4A0
+  items:
+  - kicker: PYDANTIC-AI 2.49.0
+    tag: DOCS
+    headline: ctx.trace_include_content answered for the global settings, not the run's
+    body: With instrument_all(include_content=True) and an agent-level Instrumentation(include_content=False), the run context reported True and handed tools the global tracer. A tool that put a patient id on a span only when the flag allowed it wrote PHI to a second tracer provider. From 2.49.0 the context follows the capability that instruments the run.
+    changed: Two records again, the run's spans redacted and your own audit spans not, on different providers feeding the same collector.
+    change: Upgrade, then search custom spans from tools since you set a per-agent redaction. Add a test that a tool span carries no PHI attribute when the agent's setting is off.
+    link: longform
+  - kicker: GOOGLE ADK MAIN
+    tag: DOCS
+    headline: A client secret in the session table, a user token in the compaction prompt
+    body: Unreleased since 2.9.2. One commit keeps the client secret out of session state, and says a session already persisted by a durable backend "still holds the secret in clear text, so rotate any OAuth2 client secret". Another keeps credential-request events, "the end user's token, PKCE verifier and auth code", out of the compaction prompt. A third skips confirmation requests authored by another agent, matched by name.
+    changed: The FHIR server's client secret and the end user's token both had paths into stores and prompts that no policy covered.
+    change: Rotate the client secret for every durable session backend now, search summarised sessions for credential events, and give every sub-agent a unique name before you rely on the confirmation fix.
+    link: longform
+  signal: A redaction setting governs the spans the framework writes. Everything your own code writes, and everything the framework persisted before the fix, is a separate audit.
+- key: models
+  num: '06'
+  label: MODELS ON ONE WORKLOAD
+  title: The Frontier Repriced and the Index Re-anchored
+  intro: 4,000 input and 500 output tokens per document, list prices read 25 September. Artificial Analysis moved to v4.3.2 on 19 September; two rows dropped a point with no release.
+  accent: F59E0B
+  items:
+  - kicker: ANTHROPIC · CLAUDE OPUS 5.5, NEW 22 SEPT
+    headline: Opus 5.5 does the job for $260 and leads both indexes, 58 and 60.5
+    body: $4 in, $20 out, $0.20 cached, against Opus 5 at 5/25/0.50. That is $65 under Opus 5 uncached and $43 under it cached, and first on the Intelligence Index and the Healthcare & Medical Index. Anthropic says the 4.7-and-later tokenizer yields about 30% more tokens for the same text*, so real documents may cost up to a third more than the table.
+    changed: The cheapest frontier row is now also the strongest, and the cache-read rate fell by more than the list price did.
+    change: Re-tokenise a sample of your own documents before you budget on the table, and price the cached run, because the cache rate is where this release moved most.
+    link: longform
+  - kicker: OPENAI · GPT-6 SOL AND LUNA, NEW 22 SEPT
+    headline: Sol at $130 is half its predecessor and two points lower on the medical index
+    body: Sol is 2/10/0.20, Luna 0.10/0.50/0.01, with Batch and Flex at half. Sol reads 48 on the general index against GPT-5.6 Sol's 47, and 43.5 on the medical index against 45.4, with a long-context sub-score of 16 against 26. Luna at $6.50 is the cheapest row above index 35. AA marks GPT-5.6 Sol and Opus 5 deprecated.
+    changed: A successor can be cheaper and higher on the general index while lower on the medical one. The two indexes disagreed this week for the first time in the series.
+    change: Record both index scores, the date read and the deprecation flag in the validation file. A deprecated model is a migration deadline you do not control.
+    link: longform
+  signal: Two new cache rates and a new tokenizer moved the cached column more than the sticker did. Price the run you will actually make, with your own documents.
+- key: papers
+  num: '07'
+  label: PAPERS TO IMPLEMENTATION
+  title: Approve A, Execute B, and the Rows Nobody Counted
+  intro: Three results on substitution after approval, effects beyond the approved call, and successes a tool never reported. Each is a claim; each note is the build change.
+  accent: A78BFA
+  items:
+  - kicker: LOOPJACKING · 2609.21081, APPROVAL LAUNDERING · 2609.28586
+    headline: A human approves A and the system executes B, in 7 Agno and 12 LangGraph server versions
+    body: Substitution after approval, by misrepresentation or by mutating workflow state, reproduced in seven Agno AgentOS releases and 12 LangGraph Agent Server compositions; OpenAI Agents SDK 0.22.x rejected the mutated call. The companion paper counts what an approval record omits, 40 residual effects under explicit fields down to 13 with decision-time metadata.
+    changed: The approval object needs the canonical payload and the predicted downstream effects, not the entry call alone.
+    change: Hash the full action payload at approval and compare it at execution; write linked orders and notifications into the approval row, not only the top-level call.
+    link: longform
+  - kicker: SYNTHETIC HOSPITAL · 2609.30027
+    headline: 1,268 synthetic patients behind a function-calling EHR, and the best model misses half the findings
+    body: A PHI-free longitudinal record, every finding coded and traceable, served through a simulated hospital system with interoperability APIs and role-based access. Physicians told it from real charts at 53%. The best model rebuilds the problem list at severity-weighted F1 0.73, level with the mean of seven physicians, and "misses roughly half of clinically relevant findings when summarizing a chart".
+    changed: A CI harness for a tool-calling EHR agent now exists with no PHI in it.
+    change: Put it in the pipeline and gate chart summarisation on recall of findings, not on fluency or a task score.
+    link: longform
+  - kicker: SILENT FAILURES · 2609.26836
+    headline: 91 tool calls that looked like successes and returned incomplete data
+    body: An audit of 15 biomedical tools for calls that return missing fields, unapplied filters or inconsistent rankings with no error signal to the agent. 51 of the 91 failures were in the API layer and 25 in the wrapper. The agent proceeded on every one of them.
+    changed: A tool result with status success is a claim from the wrapper, and the wrapper was wrong 91 times.
+    change: Validate every tool response for expected fields, plausible counts and applied filters before the model sees it, and record a failed check as provenance on the answer.
+    link: longform
+  signal: Substitution after the yes, effects beyond the call, successes the tool never earned. Each is a row the audit table needs and the framework does not write.
+mechanism:
+  num: 08
+  label: MECHANISM OF THE WEEK
+  title: The approved write that was refused after the signature
+  kicker: DEEPAGENTS 0.7.16 · SCRIPTED MODEL, 0.7.15 AGAINST 0.7.16, NO MODEL KEY
+  body: A care plan behind human-in-the-loop on write_file. The scripted model proposes two writes to the same plan in one response; the reviewer is shown both and approves both. On 0.7.15 both ran and the record held the second, Plan B. On 0.7.16 a new check in wrap_tool_call, after the approval middleware, answered the second with an error ToolMessage and never ran it; the record held Plan A. Without a gate, which write wins flipped from last to first. The model said "Both plans written." on both versions.
+  stats:
+  - n: '2 → 1'
+    label: WRITES EXECUTED FOR 2 APPROVALS, 0.7.15 TO 0.7.16
+  - n: '0'
+    label: NOTICES TO THE REVIEWER THAT AN APPROVED CALL WAS REFUSED
+  - n: 'last → first'
+    label: WHICH PARALLEL WRITE WINS THE RECORD
+  changed: The gap moved from the screen to the count. The reviewer signed a call the framework had already decided not to run, and the only record of that is a status field on a ToolMessage.
+  move: After every resume, join each approved action request to a success ToolMessage by call id and treat a miss as an incident, not a retry. Re-run any evaluation that scored a final plan, because first-wins is a different system from last-wins. test_da_parallel_writes.py runs both versions in under two minutes.
+  link: lab
+  signal: The fix is defensible and the reviewer is not told. Whether an approval became a write is a join you have to run yourself, every time.
+shipped:
+  num: 09
+  label: WHAT THE ARCHITECTS SHIPPED
+  title: Technical output only, no job moves
+  items:
+  - who: CHAI
+    text: Takes stewardship of OVERT, an open specification for cryptographically signed runtime evidence of agent tool calls, from Glacis. The first candidate record format for the evidence this series keeps asking for.
+  - who: LANGCHAIN
+    text: A healthcare reliability write-up with Abridge's five-stage release gates and clinician annotation queues, and Trajectories, a readable per-session projection over traces in LangSmith.
+  - who: MICROSOFT
+    text: Checkpoint-and-recover hosting for Agent Framework with the line "Recovery does not imply exactly-once execution of external effects", and Foundry egress policies with Audit and Enforced modes.
+  - who: UK AISI
+    text: Verified transcript-level results on five benchmarks including HealthBench across six frontier models, published with Hugging Face and EvalEval in the Every Eval Ever schema.
+  - who: OPENAI
+    text: Seven principles for third-party assessments, pre-registered claims and remediation time among them, and MentalHealthBench, built with 80-plus licensed clinicians across 19 languages.
+  quiet: Nothing in window from HL7 beyond a webinar notice, FDA on generative AI, ONC, CMS on AI, NIST, Epic, the MCP blog, the Anthropic engineering blog, NVIDIA healthcare or Google Health. Oracle Health launched write-side agents for oncology and revenue cycle with no published approval or audit contract.
+  signal: A signed-evidence specification found a health-sector home the same week two EHR agent launches published no evidence format at all.
+constraints:
+  num: '10'
+  label: CONSTRAINTS AND RADAR
+  title: Autonomy Gets a Docket and Critical Care Gets a Budget
+  items:
+  - kicker: FDA · DOCKET FDA-2026-N-9505 AND A DECEMBER WORKSHOP
+    headline: The first FDA forum on benefit-risk for autonomous devices, comments on surgical robots due 24 November
+    body: A public workshop on 2 to 3 December on robotic devices with "autonomous and/or remote teleoperation capabilities", and a draft guidance on robotically-assisted surgical device submissions, described as "teleoperated, software-controlled systems". The generative-AI discussion paper is unchanged and its comments close 19 October.
+    move: How FDA frames autonomy for a robot in December is the vocabulary it will reuse for an agent. File on both dockets; the earlier one closes in three weeks.
+  - kicker: ARPA-H · CIRCLE
+    headline: $144.9M over five years for ICU decision support, and no data or audit standard named
+    body: Performers selected 22 September, Stanford, Vermont, Novelna, Verily, Sage Bionetworks and Vanderbilt, for real-time monitoring and immunotherapy guidance in critical care. Like ADVOCATE in Issue 02, the announcement names an AI decision-support role and no record format for what the system recommended and who acted.
+    move: If you are on a performer team, propose the evidence record now, before the platform is built around a log that cannot answer an auditor.
+  radar:
+    text: Every dated source for this week is in the long-form edition. The cumulative Radar was not refreshed this week.
+    link: radar
+  signal: One regulator opened a vocabulary for autonomy and one funder opened a budget for it. Neither said what the record of a decision must contain; that is still yours to write.
+close:
+  text: Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key.

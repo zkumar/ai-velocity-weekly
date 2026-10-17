@@ -1,0 +1,281 @@
+{
+ "issue": 4,
+ "week_ending": "2026-09-25",
+ "prices_read": "2026-09-25",
+ "workload": "10,000 docs x (4,000 in + 500 out) tokens",
+ "aa_index": "v4.3.2 (changelog 19 Sept 2026); healthcare index read 25 Sept",
+ "models": [
+  {
+   "model": "GPT-6 Astra",
+   "licence": "closed",
+   "price": {
+    "in": 10,
+    "out": 50,
+    "cached": 1.0
+   },
+   "aa": 53,
+   "med": 51.7,
+   "verified": true,
+   "note": "unchanged; Batch/Flex 5/25/0.50",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 650,
+   "cost_10k_docs_80pct_cached": 362.0
+  },
+  {
+   "model": "Claude Fable 5.1",
+   "licence": "closed",
+   "price": {
+    "in": 10,
+    "out": 50,
+    "cached": 0.25
+   },
+   "aa": 53,
+   "med": 58.0,
+   "verified": true,
+   "note": "unchanged",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 650,
+   "cost_10k_docs_80pct_cached": 338.0
+  },
+  {
+   "model": "Claude Opus 5",
+   "licence": "closed",
+   "price": {
+    "in": 5,
+    "out": 25,
+    "cached": 0.5
+   },
+   "aa": 51,
+   "med": 53.3,
+   "verified": true,
+   "note": "unchanged; AA now lists it deprecated; Anthropic retirement not sooner than 24 Jul 2027",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 325,
+   "cost_10k_docs_80pct_cached": 181.0
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "licence": "closed",
+   "price": {
+    "in": 4,
+    "out": 20,
+    "cached": 0.2
+   },
+   "aa": 58,
+   "med": 60.5,
+   "verified": true,
+   "note": "NEW 22 Sept; cache read 0.20 against Opus 5's 0.50; Anthropic says the 4.7+ tokenizer yields about 30% more tokens for the same text*",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 260,
+   "cost_10k_docs_80pct_cached": 138.4
+  },
+  {
+   "model": "GPT-6 Sol",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 10,
+    "cached": 0.2
+   },
+   "aa": 48,
+   "med": 43.5,
+   "verified": true,
+   "note": "NEW 22 Sept; Batch/Flex 1/5/0.10; prices for prompts up to 272K tokens",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 130,
+   "cost_10k_docs_80pct_cached": 72.4
+  },
+  {
+   "model": "GPT-5.6 Sol",
+   "licence": "closed",
+   "price": {
+    "in": 4,
+    "out": 20,
+    "cached": 0.4
+   },
+   "aa": 47,
+   "med": 45.4,
+   "verified": true,
+   "note": "unchanged, promotional to at least 21 Nov; AA now lists it deprecated; superseded by GPT-6 Sol",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 260,
+   "cost_10k_docs_80pct_cached": 144.8
+  },
+  {
+   "model": "Grok 4.7",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 6,
+    "cached": 0.5
+   },
+   "aa": 46,
+   "med": 47.2,
+   "verified": true,
+   "note": "NEW 21 Sept; OpenRouter lists 1.60/4.80/0.40, 20% under the vendor page; vendor price used",
+   "src": "https://docs.x.ai/docs/pricing",
+   "cost_10k_docs_no_cache": 110,
+   "cost_10k_docs_80pct_cached": 62.0
+  },
+  {
+   "model": "Muse Spark 1.3",
+   "licence": "closed",
+   "price": {
+    "in": 1.25,
+    "out": 4.25,
+    "cached": 0.15
+   },
+   "aa": 48,
+   "med": 49.7,
+   "verified": false,
+   "note": "unchanged; OpenRouter listing with Meta as provider, no vendor page found",
+   "src": "https://openrouter.ai/meta/muse-spark-1.3",
+   "cost_10k_docs_no_cache": 71.25,
+   "cost_10k_docs_80pct_cached": 36.05
+  },
+  {
+   "model": "GLM-5.3",
+   "licence": "open, custom licence",
+   "price": {
+    "in": 1.4,
+    "out": 4.4,
+    "cached": 0.26
+   },
+   "aa": 45,
+   "med": 46.7,
+   "verified": true,
+   "note": "unchanged",
+   "src": "https://docs.z.ai/guides/overview/pricing",
+   "cost_10k_docs_no_cache": 78.0,
+   "cost_10k_docs_80pct_cached": 41.52
+  },
+  {
+   "model": "Qwen3.8-Max-0902",
+   "licence": "API only",
+   "price": {
+    "in": 2,
+    "out": 6,
+    "cached": 0.25
+   },
+   "aa": 45,
+   "med": 41.4,
+   "verified": true,
+   "note": "in/out now read on the Alibaba Model Studio page; cached rate is OpenRouter's, Alibaba gives no exact figure",
+   "src": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+   "cost_10k_docs_no_cache": 110,
+   "cost_10k_docs_80pct_cached": 54.0
+  },
+  {
+   "model": "GLM-5.3-Flash",
+   "licence": "open, MIT",
+   "price": {
+    "in": 0.15,
+    "out": 0.5,
+    "cached": 0.03
+   },
+   "aa": 42,
+   "med": 44.8,
+   "verified": true,
+   "note": "unchanged",
+   "src": "https://docs.z.ai/guides/overview/pricing",
+   "cost_10k_docs_no_cache": 8.5,
+   "cost_10k_docs_80pct_cached": 4.66
+  },
+  {
+   "model": "Gemini 3.8 Flash",
+   "licence": "closed",
+   "price": {
+    "in": 0.75,
+    "out": 3.75,
+    "cached": 0.075
+   },
+   "aa": 41,
+   "med": 41.8,
+   "verified": true,
+   "note": "promo to 31 Dec; 1.50/7.50/0.15 from 1 Jan 2027",
+   "src": "https://ai.google.dev/gemini-api/docs/pricing",
+   "cost_10k_docs_no_cache": 48.75,
+   "cost_10k_docs_80pct_cached": 27.15
+  },
+  {
+   "model": "DeepSeek-V4.1-Flash",
+   "licence": "open, MIT",
+   "price": {
+    "in": 0.3,
+    "out": 1.2,
+    "cached": 0.006
+   },
+   "aa": 39,
+   "med": 40.6,
+   "verified": true,
+   "note": "unchanged; off-peak half; API name now deepseek-flash; AA 40 to 39 under v4.3.2",
+   "src": "https://api-docs.deepseek.com/quick_start/pricing",
+   "cost_10k_docs_no_cache": 18.0,
+   "cost_10k_docs_80pct_cached": 8.59
+  },
+  {
+   "model": "GPT-6 Luna",
+   "licence": "closed",
+   "price": {
+    "in": 0.1,
+    "out": 0.5,
+    "cached": 0.01
+   },
+   "aa": 37,
+   "med": 36.7,
+   "verified": true,
+   "note": "NEW 22 Sept; Batch 0.05/0.25/0.005",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 6.5,
+   "cost_10k_docs_80pct_cached": 3.62
+  },
+  {
+   "model": "Qwen3.8-27B",
+   "licence": "open, Apache 2.0",
+   "price": {
+    "in": 0.1,
+    "out": 1.8,
+    "cached": null
+   },
+   "aa": 34,
+   "med": 34.4,
+   "verified": false,
+   "note": "single FP4 host on OpenRouter; default listing now 0.42/3.00/0.085, Alibaba first-party 0.50/3.00 ($35); AA split into effort variants, xhigh 34, non-reasoning 20",
+   "src": "https://openrouter.ai/qwen/qwen3.8-27b",
+   "cost_10k_docs_no_cache": 13.0,
+   "cost_10k_docs_80pct_cached": null
+  },
+  {
+   "model": "Qwen3.8-Omni-Flash",
+   "licence": "API only",
+   "price": {
+    "in": 0.15,
+    "out": 0.47,
+    "cached": 0.016
+   },
+   "aa": null,
+   "med": null,
+   "verified": true,
+   "note": "now read on the Alibaba Model Studio page (updated 24 Sept); not scored by AA",
+   "src": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+   "cost_10k_docs_no_cache": 8.35,
+   "cost_10k_docs_80pct_cached": 4.06
+  },
+  {
+   "model": "Granite 4.2 8B",
+   "licence": "open, Apache 2.0",
+   "price": {
+    "in": 0.06,
+    "out": 0.25,
+    "cached": 0.015
+   },
+   "aa": 11,
+   "med": null,
+   "verified": false,
+   "note": "OpenRouter (DeepInfra) only; IBM lists no first-party price; AA 12 to 11 under v4.3.2",
+   "src": "https://openrouter.ai/ibm-granite/granite-4.2-8b",
+   "cost_10k_docs_no_cache": 3.65,
+   "cost_10k_docs_80pct_cached": 2.21
+  }
+ ]
+}

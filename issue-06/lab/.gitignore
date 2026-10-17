@@ -1,0 +1,6 @@
+.venv/
+.venv-prev/
+node-prev/
+node-new/
+tmp/
+__pycache__/

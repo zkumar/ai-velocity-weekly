@@ -1,0 +1,390 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="../assets/mermaid.min.js"></script></head><body>
+<title>AI Velocity Weekly 06</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B2432; --ground: #F7F5F0; --panel: #FFFFFF; --muted: #66707F; --line: #DDD8CC;
+    --accent: #0F6E6B; --accent-soft: #E3EFEE; --amber: #B8860B; --code-bg: #F1EEE6; --code-ink: #1B2432;
+    --verified: #2E7D4F; --unverified: #A0522D;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #E6E8EC; --ground: #0F1419; --panel: #171D26; --muted: #98A2B3; --line: #2A3340;
+      --accent: #4FB3AE; --accent-soft: #15302F; --amber: #E2B341; --code-bg: #111720; --code-ink: #D7DCE3;
+      --verified: #6CC08B; --unverified: #E0946A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #E6E8EC; --ground: #0F1419; --panel: #171D26; --muted: #98A2B3; --line: #2A3340;
+    --accent: #4FB3AE; --accent-soft: #15302F; --amber: #E2B341; --code-bg: #111720; --code-ink: #D7DCE3;
+    --verified: #6CC08B; --unverified: #E0946A;
+  }
+  body { background: var(--ground); color: var(--ink); font-family: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+  .mono, code, pre, .kbd { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, Menlo, monospace; }
+  .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
+  h1 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 600; font-size: 38px; line-height: 1.15; margin: 0 0 8px; text-wrap: balance; }
+  h2 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 600; font-size: 26px; margin: 56px 0 12px; text-wrap: balance; padding-top: 18px; border-top: 1px solid var(--line); }
+  h3 { font-weight: 600; font-size: 18px; margin: 32px 0 8px; }
+  h4 { font-weight: 600; font-size: 15px; margin: 22px 0 6px; color: var(--muted); }
+  p { margin: 0 0 14px; max-width: 70ch; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+  a:hover, a:focus-visible { border-bottom-color: var(--accent); outline: none; }
+  .stamp { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+  .thesis { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; margin: 24px 0 8px; }
+  .thesis p { font-size: 17px; }
+  .sidebar { background: var(--panel); border: 1px solid var(--line); padding: 14px 18px; margin: 28px 0; }
+  .sidebar .eyebrow { color: var(--muted); }
+  .sidebar ol { margin: 0; padding-left: 20px; font-size: 14.5px; }
+  .sidebar li { margin: 4px 0; }
+  pre { background: var(--code-bg); color: var(--code-ink); border: 1px solid var(--line); padding: 14px 16px; overflow-x: auto; font-size: 12.5px; line-height: 1.5; margin: 12px 0 18px; }
+  code { font-size: .92em; background: var(--code-bg); padding: 1px 5px; border-radius: 3px; }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  pre.mermaid { background: var(--panel); text-align: center; }
+  .tag { display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid currentColor; padding: 1px 7px; border-radius: 2px; margin-left: 8px; vertical-align: middle; }
+  .tag.ok { color: var(--verified); } .tag.un { color: var(--unverified); }
+  .consequence { background: var(--accent-soft); padding: 12px 16px; margin: 14px 0 18px; }
+  .consequence p:last-child { margin-bottom: 0; }
+  .gotchas { font-size: 14.5px; color: var(--ink); }
+  .gotchas li { margin: 4px 0; }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); background: var(--panel); margin: 14px 0 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--panel); position: sticky; top: 0; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; font-family: "IBM Plex Mono", monospace; }
+  tr:nth-child(even) td { background: color-mix(in srgb, var(--panel) 92%, var(--ground)); }
+  .note { font-size: 13.5px; color: var(--muted); }
+  .paper { margin: 0 0 18px; }
+  .paper .t { font-weight: 600; }
+  .paper .m { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+  .shipped { list-style: none; padding: 0; margin: 0; }
+  .shipped li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .shipped .who { font-weight: 600; }
+  .shipped .d { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); margin-left: 6px; }
+  .post { background: var(--panel); border: 1px solid var(--line); padding: 20px 24px; margin-top: 16px; }
+  .post p { max-width: 62ch; }
+  .sources { font-size: 13px; color: var(--muted); }
+  .sources a { color: var(--accent); }
+  .sources li { margin: 3px 0; }
+  ul.tight { margin: 6px 0 14px; padding-left: 20px; }
+  ul.tight li { margin: 4px 0; }
+  @media (max-width: 640px) { h1 { font-size: 30px; } .wrap { padding: 24px 16px 60px; } }
+  @media (prefers-reduced-motion: no-preference) { a { transition: border-color .15s; } }
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">AI Velocity Weekly</p>
+  <h1>The pharmacist answered once and the record holds three pharmacy signatures: this week the pause turned out to be state that nobody was reading correctly</h1>
+  <div class="stamp">Issue 06 · week ending 9 October 2026 · for architects and engineers building healthcare AI agents that take real actions · Vijay Zharotia</div>
+
+  <div class="thesis">
+    <p>A discharge needs two signatures, a pharmacist's and a physician's. Your agent pauses and asks both. The pharmacist answers first. Until the physician answers, the workflow is neither running nor finished; it is waiting. Here is the question nobody asks at design review: while it waits, what does the system believe is still open, and what has it already done? This week five frameworks changed their answer to that, and I ran all five.</p>
+  </div>
+
+  <p>In LangGraph below 1.2.13, the paused thread went on listing the pharmacist's question as open after it was answered. That is a display problem until you look at the record. When the approval gate was a node that signs and returns nothing, the framework did not consider it finished, and ran it again every time anyone resumed the thread. One pharmacist, one answer, three pharmacy signature rows. A second reviewer who answered the stale item with a rejection was accepted without error and ignored. 1.2.13 fixes both, for threads that start after the upgrade. A thread paused before it wrote the signature again when I opened it on the new version.</p>
+
+  <p>The other four are the same seam from different sides. Agent Framework 1.21.0 now runs a local write that arrives in the same model response as a question for a human, before the human answers, unless you give it a session. FastMCP 4.1.0 reports a timeout for a tool call whose write committed. OpenAI's JavaScript Agents SDK 0.20.0 runs the approved tool and then throws because the turn budget is spent. pydantic-ai 2.54.0 moves the audit hooks inside the wrapper, so a cache hit leaves no audit row. Each is a defensible change. Each moves what your system says happened away from what happened, in a different direction.</p>
+
+  <p>Three checks against your own system. Build your approval inbox from your own table of asked and answered questions, keyed by interrupt id, and treat the framework's pending list as a hint. For every write that can arrive beside a question in one model response, decide whether it may run before the answer, and test which one your version does. And for every tool result marked error, timeout or exception, ask the system of record whether the write is there before anyone retries.</p>
+
+  <p>If this is your first issue, read the <a href="../start-here.html">Start here</a> page first; it sets out the obligations and the vocabulary used below.</p>
+
+  <div class="thesis">
+    <p>The week in one paragraph. LangGraph 1.2.13 gives the paused thread one reader of task status; below it an answered interrupt stayed in the pending list and a finished gate with no state output ran again on every resume (executed). Agent Framework 1.21.0 splits a model response that mixes a host-owned tool with a local one; without a session the local write runs before the human answers (executed). FastMCP 4.1.0 rejects a result that arrives after the tool's timeout; the write still commits (executed). pydantic-ai 2.54.0 puts <code>before_*</code> and <code>after_*</code> hooks inside <code>wrap_*</code>; a wrapper that short-circuits skips them (executed). @openai/agents 0.20.0 counts the model call after an approval against <code>maxTurns</code> (executed), and 0.19.0 rejects older paused checkpoints (docs). Google ADK ships an HMAC stamp on every function call (docs). Claude Haiku 5.5 arrived at $6.50 for the workload and Sonnet 5.5's cache read halved. CMS finalised Transparency in Coverage, and ONC funded an open-source "gated and verifiable" agent middleware.</p>
+  </div>
+
+  <p>Same shape every week: framework changes read from source with runnable code; a model table priced on one real workload; papers with the implementation note; what the people worth following shipped; a lab you can run in thirty minutes. News gets five lines.</p>
+
+  <p>How to read this. Tagged <span class="tag ok">executed</span> means I installed the stated version and ran the mechanism in a clean sandbox with no API key, and the output quoted is what came back. Tagged <span class="tag un">docs</span> means I read the documentation, release notes or source but did not run it. Tagged <span class="tag un">unverified</span> means I could not confirm it from a primary source. An asterisk on a number means the vendor reported it about its own model; unasterisked numbers name their independent source.</p>
+
+  <div class="sidebar">
+    <p class="eyebrow">Five lines of news, then back to the code</p>
+    <ol>
+      <li>Anthropic released <a href="https://www.anthropic.com/claude-haiku-5-5">Claude Haiku 5.5</a> (7 Oct) at $0.10 in and $0.50 out for prompts up to 100,000 tokens, and cut Sonnet 5.5 cache reads to $0.10. Section 2 prices both.</li>
+      <li>OpenAI added <a href="https://developers.openai.com/api/docs/changelog">in-product BAA acceptance and a HIPAA compliance setting</a> for eligible organisations (5 Oct), and a Decisions API beta on <span class="mono">gpt-6-luna</span> (6 Oct).</li>
+      <li>CMS, Treasury and Labor published the <a href="https://www.federalregister.gov/documents/2026/10/06/2026-20447/transparency-in-coverage">Transparency in Coverage final rule</a> (6 Oct, CMS-9882-F, effective 7 Dec): one in-network file per provider network, new taxonomy and utilisation files, quarterly cadence. No AI, FHIR or prior-authorisation content.</li>
+      <li>ASTP/ONC named its <a href="https://healthit.gov/news/hhs-announces-2026-leap-in-health-it-awardees-to-accelerate-the-use-of-agentic-ai-in-clinical-care-and-close-gaps-in-laboratory-interoperability/">2026 LEAP awardees</a> (6 Oct): MedStar Health Research Institute for open-source agent middleware with durable processes, patient-gated data and tamper-evident certificates. Section 4.</li>
+      <li>FDA published nothing on AI in window; comments on the <a href="https://www.fda.gov/medical-devices/digital-health-center-excellence/considerations-regulation-generative-ai-enabled-medical-devices-discussion-paper-and-request">generative-AI device discussion paper</a> close 19 October. CMS-0057-F API requirements are still due 1 January 2027, twelve weeks out, with no new notice.</li>
+    </ol>
+  </div>
+
+  <!-- ============================ SECTION 1 ============================ -->
+  <p class="eyebrow">Section 1</p>
+  <h2>Framework changes, read from source</h2>
+  <p>You want an agent to stop and wait for a person, and you want the waiting to be safe: nothing runs that the person has not seen, nothing runs twice, and what the system reports as open is what is open. Everything below is what the frameworks did this week to the state of a paused run.</p>
+  <p>Window 3 to 9 October. Release dates are PyPI, npm and NuGet upload times. Versions installed and executed: <span class="mono">langgraph 1.2.12 and 1.2.13 (langgraph-checkpoint-sqlite 3.1.1), agent-framework-core 1.20.0 and 1.21.0, fastmcp 4.0.11 and 4.1.0, pydantic-ai-slim 2.53.0 and 2.54.0, @openai/agents-core 0.19.0 and 0.20.0</span>. Read from release notes, changelogs, pull requests or wheel diffs, not run: <span class="mono">langchain 1.4.4, langchain-core 1.6.7 to 1.6.9, langgraph-sdk 0.4.6, deepagents 0.7.22 and 0.7.23, semantic-kernel 1.45.0, Microsoft.Agents.AI 1.24.0, google-adk 2.11.0, @google/adk 2.2.1, openai 3.25.0 to 3.26.1, anthropic 1.12.0 and 1.12.1, claude-agent-sdk (TypeScript) 0.3.289 to 0.3.295</span>. No release in window: llama-index-core (0.14.25, 21 Sept), llama-index-workflows (2.25.0, 25 Sept), openai-agents for Python (0.23.1, 2 Oct), the MCP Python SDK (2.3.0, 2 Oct), smolagents (1.26.0, 29 May). This week's sweep read release artefacts and pull-request pages; it did not clone repositories, so unreleased commits on main are not covered.</p>
+
+  <h3>1.1 LangGraph 1.2.13: the answered question that stayed in the inbox, and the gate that ran again <span class="tag ok">executed</span></h3>
+  <p>The problem: two people must approve, one has, and you ask the paused thread what is still waiting.</p>
+  <p>PR <span class="mono">#9103</span>, released in langgraph 1.2.13 on 5 October, adds <span class="mono">langgraph/pregel/_task_status.py</span>. Its docstring: "This module is the single place that turns that log into task status." Before it, execution, state snapshots and resume validation each read the checkpoint's pending writes on their own. The new rule: "A task is therefore treated as finished if and only if it has an output write", and when a task finishes with no state update the runner now adds a <code>NO_WRITES</code> marker. The docstring is plain about what came before: "Writes recorded before rule 1 existed may describe a finished task with no output using only control writes. Those tasks read as unfinished. The executor treated them the same way before and runs them again."</p>
+<pre><code class="language-python">def pharmacy(state):
+    decision = interrupt("pharmacy: approve apixaban 5 mg BID?")
+    sign("pharmacy", decision)      # one signature row in the record; the node returns no state update
+
+app.invoke({"patient": "pt-123"}, cfg)                           # both gates pause
+ids = {i.value: i.id for i in app.get_state(cfg).interrupts}     # the approval inbox
+app.invoke(Command(resume={ids[Q_PHARM]: "approve by rph-7"}), cfg)
+print([i.value for i in app.get_state(cfg).interrupts])          # what is still waiting?</code></pre>
+  <p class="note">Observed. <strong>1.2.12:</strong> after the pharmacist's answer the inbox still listed both questions. A second answer to the pharmacy item, <code>"REJECT by rph-9"</code>, was accepted with no error; the pharmacy node ran again with the first answer and wrote a second row. When the physician answered it ran a third time. Two approvals, four signature rows. <strong>1.2.13:</strong> the inbox listed the physician's question only; the second answer was accepted with no error and changed nothing; two rows. <strong>Control:</strong> with each gate also returning one state key, both versions wrote two rows, and 1.2.12 still showed the stale inbox item. <strong>Upgrade in flight:</strong> a thread paused and half-answered on 1.2.12 with a sqlite checkpointer, opened by a new process on 1.2.13, listed the pharmacy question again with <code>next=('pharmacy', 'physician')</code>, and wrote the pharmacy signature a second time when the physician answered: three rows. Script <span class="mono">test_lg_pending_interrupts.py</span>; full output in section 5.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> Two separate faults shared one cause. The stale inbox item affected every parallel approval below 1.2.13. The repeated execution needed one more condition, a gate that finishes without writing state, which is exactly what a node that only calls an API looks like. If you run parallel approvals on 1.2.12 or earlier, search the record for duplicate writes from any node that follows an <code>interrupt()</code> and returns nothing. Upgrading does not clean up a thread that is already paused: drain in-flight approvals before you deploy 1.2.13, or make the write idempotent first. And on both versions a resume addressed to an already-answered interrupt id is accepted silently, so your approval service must refuse the second decision itself.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li>Same release, PRs <span class="mono">#9165</span> and <span class="mono">#9170</span>: <code>update_state</code> or a replay against a checkpoint the thread has moved past no longer leaks the edit into sibling branches of a <code>DeltaChannel</code>. Threads that already leaked keep the leaked write, and <code>Command(resume=...)</code> at a superseded checkpoint still does not fork. Read from the pull requests, not reproduced. <span class="tag un">docs</span></li>
+    <li>Per PR #9103 a bare <code>Command(resume=value)</code> now also raises when several interrupts are pending inside a subgraph task. The top-level case already raised on 1.2.12; the subgraph case I did not run. <span class="tag un">unverified</span></li>
+    <li>langgraph-sdk 0.4.6 (6 Oct, <span class="mono">#9213</span>) percent-encodes <code>thread_id</code> and <code>assistant_id</code> in thread-stream requests. An id containing <code>/</code>, <code>?</code> or <code>#</code> used to alter the request path. If thread ids derive from MRNs or encounter ids, upgrade. <span class="tag un">docs</span></li>
+    <li>langgraph 1.2.14 (6 Oct) changes one line, the dependency floor <code>langgraph-sdk&gt;=0.4.6</code>. No checkpointer package released this week.</li>
+  </ul>
+
+  <h3>1.2 Agent Framework 1.21.0: the write that travels with a question <span class="tag ok">executed</span></h3>
+  <p>The problem: the model asks a clinician a question and writes to the record in the same response.</p>
+  <p>PR <span class="mono">#9050</span> (fixes #8898), released in agent-framework-core 1.21.0 on 8 October. Before, one model response carrying a declaration-only tool, which the host answers, and a local tool turned the whole batch into a user-input pause; the local call never ran. Now the batch is split. In <span class="mono">_tools.py</span> the executable siblings are stored under <code>deferred_function_calls</code> when the run has an authoritative <code>AgentSession</code>, and released once the host results arrive. Without a session they run at once.</p>
+<pre><code class="language-python">ask_clinician = FunctionTool(name="ask_clinician", description="...", func=None, input_model={...})   # host-owned
+
+@tool
+def hold_medication(patient_id: str, drug: str) -&gt; str:
+    RECORD.append((patient_id, drug)); return "hold written"
+
+r = await Agent(client=scripted, tools=[ask_clinician, hold_medication]).run("Review pt-123 potassium.")
+print(r.user_input_requests, len(RECORD))      # what is the human shown, and what is already written?</code></pre>
+  <p class="note">Observed, one scripted response with both calls. <strong>1.20.0:</strong> both calls returned as user-input requests, zero writes, with or without a session. <strong>1.21.0, no session:</strong> only <code>ask_clinician</code> was shown to the human and the hold was already in the record. <strong>1.21.0, with <code>agent.create_session()</code>:</strong> zero writes while the question was open; after the clinician answered "No. Do not hold; recheck K+ first." the deferred hold ran, one write. Script <span class="mono">test_af_mixed_batch.py</span>. The final text "Lisinopril held." is the stub's scripted line.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> On 1.20.0 the human saw a write as a request and it never ran. On 1.21.0 the human no longer sees the write at all. Without a session it has already happened when the question appears. With a session it waits for the answer and then runs whatever the answer was, because the framework orders the calls and does not read the reply. If a write must depend on a clinician's answer, the model has to see the answer and propose the write in a later response, behind its own approval. Check whether every production path passes a session; a stateless endpoint is now the path where the write goes first.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li><span class="mono">#9180</span> (fixes #9177): DevUI kept pending approvals keyed by <code>request_id</code> across the whole executor, so another conversation could consume one. Each entry now stores <code>conversation_id</code> and a mismatched response is rejected; entries with no recorded id keep the old behaviour. <span class="tag un">docs</span></li>
+    <li><span class="mono">#8853</span>: with <code>as_tool(propagate_session=True)</code>, provider-owned continuation keys are filtered in both directions, and a custom loop that cannot establish ownership fails closed on a non-empty session. <span class="tag un">docs</span></li>
+    <li><span class="mono">#9032</span> (fixes #8909): two providers sharing one <code>AgentFileStore</code> could lose an edit while both reported success. The new lock is per process; the cross-process case (#8912) is open. <span class="tag un">docs</span></li>
+    <li>.NET Microsoft.Agents.AI 1.24.0 (7 Oct), titles only: #8834 "Bind MCP approval headers to approved invocation", #8873 "Fix Foundry MCP approval replay IDs", #8855 "Validate handoff request lifecycle before routing", #8877 "Preserve A2A run errors when session save fails". <span class="tag un">docs</span></li>
+  </ul>
+
+  <h3>1.3 FastMCP 4.1.0: the result that arrived after the deadline <span class="tag ok">executed</span></h3>
+  <p>The problem: a tool has a timeout, the downstream system is slow, and the write lands after the clock runs out.</p>
+  <p>PR <span class="mono">#5379</span> (fixes #5378), in fastmcp 4.1.0 on 8 October: a result that arrives after the tool's timeout is rejected. A synchronous tool declared with <code>@mcp.tool(timeout=0.2)</code> sleeps one second, appends an order to the record and returns.</p>
+  <p class="note">Observed through the in-memory client. <strong>4.0.11:</strong> <code>is_error=False</code>, content "ORDER PLACED", one row. <strong>4.1.0:</strong> <code>is_error=True</code>, "Tool 'place_order' execution timed out after 0.2s", one row. The caller waited about one second on both; the synchronous body is not interrupted. Script <span class="mono">test_fm_late_result.py</span>.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> The old behaviour ignored the timeout you set. The new one honours it in the report and not in the world: the caller is told the call failed, and the order exists. An agent that sees an error retries. Treat a timeout on any write tool as "outcome unknown", look the write up by its idempotency key before retrying, and never let the model's retry be the reconciliation.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li><span class="mono">#5455</span>, breaking: <code>MultiAuth</code> returns a source-qualified <code>client_id</code> and keeps the original in <code>original_client_id</code>. Existing sessions and tasks start new ownership scopes, so a task pending across the upgrade no longer belongs to the client that started it. Drain first. <span class="tag un">docs</span></li>
+    <li><span class="mono">#5229</span>, breaking: <code>http_session_idle_timeout</code> defaults to <code>"auto"</code>, the SDK's 30-minute idle expiry. It used to never expire. A human approval that takes 31 minutes now meets an expired session unless you set <code>FASTMCP_HTTP_SESSION_IDLE_TIMEOUT=none</code>. <span class="tag un">docs</span></li>
+    <li>4.0.11 (4 Oct) security fixes: transforms, enabled state and auth are applied to hashed tool lookups (<span class="mono">#5415</span>), and component-manager routes use the server's auth provider (<span class="mono">#5425</span>). No advisory id is listed. <span class="tag un">docs</span></li>
+  </ul>
+
+  <h3>1.4 pydantic-ai 2.54.0: the audit hook moved inside the wrapper <span class="tag ok">executed</span></h3>
+  <p>The problem: your audit counter lives in a before-request hook, and a caching layer wraps the request.</p>
+  <p>PR <span class="mono">#7053</span>, in 2.54.0 (PyPI upload 3 October; the GitHub release page is dated 2 October): <code>wrap_*</code> hooks now enclose the whole stage lifecycle for run, node, model-request, tool-validate and tool-execute stages.</p>
+  <p class="note">Observed with <code>FunctionModel</code> and one capability that logs both kinds of hook. <strong>2.53.0:</strong> order <code>before, wrap-enter, MODEL, wrap-exit, after</code>; when the wrapper answered from a cache and never called the handler, <code>before</code> and <code>after</code> still ran, two audit rows. <strong>2.54.0:</strong> order <code>wrap-enter, before, MODEL, after, wrap-exit</code>; on the cache hit neither ran, zero audit rows for an answer the caller received. Script <span class="mono">test_pai_wrap_hooks.py</span>. The pull request adds that a skipped provider call records no usage and no span attributes. <span class="tag un">docs</span> for that last sentence.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> Any authorisation check, redaction or audit row placed in <code>before_*</code> or <code>after_*</code> can now be bypassed by a wrapper that returns early, and a cache or a guard is precisely the wrapper that does. Put mandatory checks in the outermost wrapper, or outside the agent. Add a test that a short-circuited request still produces your audit row.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li>2.53.0 (2 Oct) carries a High advisory, <span class="mono">GHSA-6fqq-452j-qhrp</span>: <code>ConcurrencyLimitedModel</code> leaks slots on streamed requests, affected from 2.10.0. The workaround is agent-level <code>max_concurrency</code>. <span class="tag un">docs</span></li>
+    <li><span class="mono">#9434</span>: an unexpected exception in a background tool now ends the run and cancels its siblings; before, the model was told "failed" and carried on. Raise <code>ModelRetry</code> or <code>ToolFailed</code> for anything recoverable. <span class="tag un">docs</span></li>
+    <li><span class="mono">#9041</span>, harness: a <code>ToolCallJudge</code> lets a second model block or escalate selected tool calls. Its <code>on_verdict</code> callback is invoked again on durable replay, so an audit row written there needs the tool call id as its key. <span class="tag un">docs</span></li>
+  </ul>
+
+  <h3>1.5 OpenAI Agents SDK for JavaScript 0.19.0 and 0.20.0: approved, executed, then failed <span class="tag ok">executed</span></h3>
+  <p>The problem: the reviewer says yes, the tool runs, and the run that carried it does not finish.</p>
+  <p>0.20.0 (8 October), <span class="mono">#2032</span>: the model call that follows an approval resume now counts toward <code>maxTurns</code>.</p>
+  <p class="note">Observed with a scripted <code>Model</code>, a tool with <code>needsApproval: true</code>, a round trip through <code>RunState.toString()</code> and a resume with <code>maxTurns: 1</code>. <strong>0.19.0:</strong> the tool ran once, the model was called a second time, the caller received "Discharge signed." <strong>0.20.0:</strong> the tool ran once, then <code>MaxTurnsExceededError: Max turns (1) exceeded</code>; one write, one model call, an exception. Script <span class="mono">test_oa_maxturns_after_approval.mjs</span>.</p>
+  <p>0.19.0 (5 October), read from the changelog, is the larger change for anyone holding paused runs. <span class="tag un">docs</span> The <code>RunState</code> schema moves from 1.20 to 1.21; 1.20 still loads. On a durable resume the current approval policy is evaluated again rather than the stored decision (<span class="mono">#1948</span>). A resumed MCP call is bound to its original server, and an older pending call without that provenance throws "Original function tool is unavailable; restore its configuration or start a new run." (<span class="mono">#1963</span>). Checkpoints that lack <code>initialInputGuardrailsCompleted</code>, which includes every older snapshot past turn zero, are rejected (<span class="mono">#2012</span>). In 0.20.0, when a run is aborted before output validation the checkpoint's tool output is replaced with "Tool output discarded because the run was cancelled before output validation." (<span class="mono">#2036</span>).</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> "The tool ran and the run failed" is now an ordinary outcome of a tight turn budget, and the exception carries no hint that a write happened. Catch <code>MaxTurnsExceededError</code> on a resume and reconcile before reporting failure. Before upgrading past 0.19.0, count the paused runs you hold: some will not restore, and those that do will have their approvals judged by today's policy, which is the right behaviour and a different one from what the reviewer saw.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li>openai for Python 3.25.0 to 3.26.1 (6 to 8 Oct), <span class="mono">#4028</span>: <code>client.beta.agents.sessions.stream(..., on_tool_error=...)</code> receives an <code>AgentToolError</code> with <code>tool_name</code>, <code>call_id</code> and a <code>stage</code> of arguments, execution or output. The local exception is never sent to the model and nothing is logged for you. Wire the callback to your audit log. <span class="tag un">docs</span></li>
+    <li>API changelog: the <code>chat-latest</code> alias moved on 7 Oct; pin model ids. Deprecations dated 1 Oct remove <code>gpt-5.1</code>, <code>gpt-5.3-codex</code> and <code>gpt-5.4-nano</code> on 1 April 2027, and existing evals become read-only on 31 October 2026. <span class="tag un">docs</span></li>
+  </ul>
+
+  <h3>1.6 Google ADK: a signature on every function call <span class="tag un">docs, changelog and source, not executed</span></h3>
+  <p>The problem: a function call is stored in session history, and something edits its arguments between the model writing it and the tool running it.</p>
+  <p>google-adk 2.11.0 reached PyPI on 2 October at 00:46 UTC, hours before this window, and @google/adk 2.2.1 brought the same feature to JavaScript on 6 October (<span class="mono">#979</span>). <code>ToolCallIntegrityPlugin(secret_key, *, allow_unstamped_calls=False)</code> HMAC-stamps each function call into <code>custom_metadata</code>. The stamp covers app, user, session, invocation, branch, author, name, id and arguments. Stamps are verified before the run, and <code>before_tool_callback</code> refuses any call without a valid one with <code>ToolCallIntegrityError</code>. Tools run as workflow nodes are not checked.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> This is the first framework-shipped answer to substitution after approval: the call that runs is provably the call the model emitted, inside one session, under a key you hold. It does not sign what the reviewer saw, and it skips workflow-node tools, which is where ADK's confirmation flow lives. Turn it on, keep the key out of session state, and record the stamp in your approval row. Python 2.11.0 also seals a call aborted through the new <code>abort_signal</code> with a synthetic response, <code>error_code='INVOCATION_ABORTED'</code>, and does not replay it on resume: one more place where an error result says nothing about whether the tool body finished.</p>
+  </div>
+
+  <h3>1.7 Anthropic: an approval callable in the SDK, and a fetch tool that only follows links it has seen <span class="tag un">docs, release notes and changelog, not executed</span></h3>
+  <p>The problem: the agent drives a browser or fetches a URL, and the gate is whatever your callback returns.</p>
+  <p>anthropic 1.12.0 (7 Oct) adds beta browser and computer toolset classes that take a <code>confirm</code> callable; every call is shown to it before running, and per the docstring any exception from it that is not a <code>ToolError</code> declines the call. Managed Agents, same day: <code>web_fetch</code> fetches only URLs already present in the session and returns <code>url_not_in_prior_context</code> otherwise; <code>allowed_hosts</code> now applies to both web tools; session creation returns 400 if <code>allowed_domains</code> is not inside <code>allowed_hosts</code>. The TypeScript agent SDK fixed three permission paths: deny and ask rules written with wildcards missed aliased tools (0.3.290), a subagent with a declared auto permission mode was decided by the classifier instead of <code>canUseTool</code> when auto mode was unavailable (0.3.292), and a permission answer with more than 4,096 <code>updatedPermissions</code> entries now counts as a denial (0.3.295).</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> A <code>confirm</code> callback that fails closed is the right default, and it also means a bug in your callback reads as a clinician saying no. Log the exception separately from the decision. The fetch restriction is an exfiltration control worth copying in your own tools: an agent that can only fetch what it was shown cannot be talked into posting PHI to a new address. If you wrote <code>Bash*</code>-style deny rules in the TypeScript SDK before 0.3.290, some aliased tools were not covered; re-test them. Haiku 5.5 rejects <code>budget_tokens</code> with a 400, and <span class="mono">claude-sonnet-4-5-20250929</span> retires on 30 November 2026.</p>
+  </div>
+
+  <h3>1.8 LangChain 1.4.4: a compaction retry that drops the middle <span class="tag un">docs, wheel diff, not executed</span></h3>
+  <p>The problem: the summariser itself overflows the context window.</p>
+  <p>langchain 1.4.4 (8 Oct), <span class="mono">#41159</span>. Before, <code>SummarizationMiddleware</code> re-sent the identical prompt three times after a <code>ContextOverflowError</code>. Now it retries once with a shortened prompt that keeps the head and the tail and inserts "[... middle of conversation omitted ...]", budgeted at half the tokens and capped at 40% of <code>max_input_tokens</code>. The event is logged at DEBUG. langchain-core 1.6.9 lets <code>with_retry(retry_if_exception_type=...)</code> take a predicate (<span class="mono">#41158</span>), which is how the middleware now skips errors marked non-retryable.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> A summary that silently omits the middle of a long chart review is a provenance problem if the summary is what the next step reasons from. Raise that logger to INFO for clinical agents, or wrap the middleware and record when the fallback fired, alongside the summary it produced.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li>langchain-core 1.6.8 (8 Oct, <span class="mono">#41151</span>) hardens the SSRF policy for IPv6: with <code>SSRFPolicy(block_private_ips=False)</code>, <code>::127.0.0.1</code>, <code>::169.254.169.254</code> and <code>::1%lo</code> were allowed on 1.6.7 and are blocked on 1.6.8. IPv4-compatible addresses are now unwrapped and judged as IPv4, so re-test any blocklist written as an IPv6 <code>::/96</code> range. Checked by calling <code>validate_resolved_ip</code> on both versions during research; not in this week's lab package. No advisory is attached to the PR. <span class="tag un">docs</span></li>
+    <li>deepagents 0.7.22 (5 Oct, <span class="mono">#6552</span>): skill tools load only once the skill is read, tracked in a checkpointed state key, and if compaction drops the read the tool disappears. The set of tools the agent could call at step N is now state, so an audit of it must read the checkpoint. <span class="tag un">docs</span></li>
+  </ul>
+
+  <h3>1.9 Semantic Kernel 1.45.0: the HTTP plugin stops reaching private addresses by default <span class="tag un">docs, wheel diff, PR numbers unverified</span></h3>
+  <p>The problem: a general-purpose HTTP tool can be pointed at your internal network.</p>
+  <p>semantic-kernel for Python 1.45.0 (6 Oct), read by diffing the 1.44.1 and 1.45.0 wheels because the release page would not open. <code>HttpPlugin</code> gains <code>allow_private_network_access: bool = False</code>; non-public addresses and DNS failures are blocked unless that or <code>allow_all_domains</code> is set, and the docstring says the check does not pin the resolved IP, so DNS rebinding remains possible. MCP server export gains <code>use_plugin_names: bool = False</code>; a duplicate bare tool name now keeps the first function and warns. Postgres filters are parameterised rather than inlined.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> If an agent reached a FHIR server on a private address through <code>HttpPlugin</code>, it stops working on upgrade until you allow it, and you should allow it by domain list rather than by the blanket flag. If two plugins export a tool with the same name over MCP, the second one is no longer callable; turn on <code>use_plugin_names</code> and check what your clients have been calling.</p>
+  </div>
+
+  <h3>Short notes</h3>
+  <ul class="tight gotchas">
+    <li><strong>MCP</strong>: the specification is still 2026-07-28 and the draft changelog is empty. Whether any SEP merged in window is unverified; the commit list could not be opened. The TypeScript SDK's 1.32.1 (5 Oct) is documentation only.</li>
+    <li><strong>Hugging Face</strong>: transformers 5.19.0 (6 Oct) and huggingface_hub 2.2.0 (8 Oct) carry nothing on agents, tool calling or MCP. One break worth knowing: <code>HfApi.fetch_job_metrics</code> returns a single snapshot unless <code>follow=True</code>.</li>
+    <li><strong>ADK for Java</strong> 1.11.0 (changelog 2 Oct, just before the window) scopes the tool-confirmation resume scan to the current branch and adds opt-in rejection of duplicate session ids.</li>
+    <li><strong>Anthropic Compliance API</strong> (8 Oct, beta, Enterprise): chat endpoints now also return chats from the unified Claude experience. If your retention process reads that API, the result set grew.</li>
+  </ul>
+
+  <h3>Where each change sits in a paused run</h3>
+<pre class="mermaid">
+flowchart TB
+  M["Model response: question for a human + local write"] --> S{"Session on the run? (2)"}
+  S -->|"no: write runs now"| W["Write executes"]
+  S -->|"yes: write deferred"| P["Run paused"]
+  M --> P
+  P --> I["Inbox: what is still waiting? (1)"]
+  I -->|"human answers by id"| R["Resume"]
+  R -->|"gate with no state output, below 1.2.13: runs again (1)"| W
+  R --> W
+  W --> T{"Tool finishes after its timeout? (3)"}
+  T -->|"4.1.0: caller told error"| E["Error result"]
+  T -->|"in time"| OK["Success result"]
+  W --> REC["Record"]
+  OK --> B{"Turn budget left? (5)"}
+  B -->|"no: exception after the write"| X["MaxTurnsExceededError"]
+  B -->|"yes"| F["Final answer"]
+  A["Audit hooks inside the wrapper (4)"] -.->|"skipped on a short-circuit"| F
+</pre>
+  <p class="note">Numbers match the lab scripts in section 5: (1) LangGraph, (2) Agent Framework, (3) FastMCP, (4) pydantic-ai, (5) OpenAI Agents SDK for JavaScript. Every path into "Record" was observed; the error and exception boxes are what the caller was told about a write that had already happened.</p>
+
+  <!-- ============================ SECTION 2 ============================ -->
+  <p class="eyebrow">Section 2</p>
+  <h2>Model table, priced on a real workload</h2>
+  <p>You have to pick a model for a real clinical workload, and a leaderboard cannot do that for you. It scores tasks you are not running. So this table prices one workload, with the benchmark beside the price rather than ahead of it.</p>
+  <p>Workload: 10,000 clinical documents at 4,000 input and 500 output tokens each. Cost 1 is <span class="mono">40 × in + 5 × out</span>. Cost 2 assumes 80% of input served from cache: <span class="mono">8 × in + 32 × cached + 5 × out</span>. Cache writes are excluded. Prices are vendor list prices read on 9 October from the vendors' own pages. AA is the Artificial Analysis Intelligence Index, an independent measurement, version v4.3.2 (changelog entry 19 September, no change since), best listed variant, read on 9 October. The Artificial Analysis healthcare index page did not load on 9 October, so there is no medical column this week; I would rather leave it out than repeat a reading from an earlier date. Asterisk means vendor-reported.</p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Model</th><th>Weights / licence</th><th class="n">In / Out / Cached $/M</th><th class="n">AA v4.3.2</th><th class="n">10k docs, no cache</th><th class="n">80% cached</th><th>This week</th></tr></thead>
+    <tbody>
+      <tr><td>Claude Haiku 5.5 <span class="tag ok">new</span></td><td>closed</td><td class="n">0.10 / 0.50 / 0.01</td><td class="n">43</td><td class="n">$6.50</td><td class="n">$3.62</td><td>7 Oct; prompts over 100,000 tokens pay 0.50 / 2.50 / 0.05; AA 29 at low effort</td></tr>
+      <tr><td>GPT-6 Luna</td><td>closed</td><td class="n">0.10 / 0.50 / 0.01</td><td class="n">38</td><td class="n">$6.50</td><td class="n">$3.62</td><td>unchanged; AA 18 non-reasoning</td></tr>
+      <tr><td>gpt-oss-120b on Nebius</td><td>open, Apache 2.0</td><td class="n">0.15 / 0.60 / n/a</td><td class="n">12</td><td class="n">$9.00</td><td class="n">n/a</td><td>price page looks stale; current Token Factory page unreadable <span class="tag un">unverified</span></td></tr>
+      <tr><td>DeepSeek V4.1 Flash</td><td>open, MIT</td><td class="n">0.30 / 1.20 / 0.006</td><td class="n">39</td><td class="n">$18.00</td><td class="n">$8.59</td><td>peak rate; off-peak is half, $9.00; cache rate carried from 25 Sept</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td>closed</td><td class="n">0.75 / 3.75 / 0.075</td><td class="n">41</td><td class="n">$48.75</td><td class="n">$27.15</td><td>promotional to 31 Dec, then 1.50 / 7.50; cache rate carried from 25 Sept</td></tr>
+      <tr><td>Mistral Large 4 (preview) <span class="tag ok">new</span></td><td>open weights announced, licence not named</td><td class="n">1.36 / 4.18 / 0.14</td><td class="n">38</td><td class="n">$75.30</td><td class="n">$36.26</td><td>6 Oct, 1M context; launch sale 0.68 / 2.09 / 0.07 is $37.65 and $18.13</td></tr>
+      <tr><td>Grok 4.7</td><td>closed</td><td class="n">2.00 / 6.00 / 0.50</td><td class="n">46</td><td class="n">$110.00</td><td class="n">$62.00</td><td>unchanged; above 200k prompt tokens 4 / 12; cache rate carried from 25 Sept</td></tr>
+      <tr><td>Claude Sonnet 5.5</td><td>closed</td><td class="n">2.00 / 10.00 / 0.10</td><td class="n">56</td><td class="n">$130.00</td><td class="n">$69.20</td><td>released 28 Sept; cache read cut from 0.20 on 7 Oct, which was $72.40</td></tr>
+      <tr><td>GPT-6.1 Sol</td><td>closed</td><td class="n">2.00 / 10.00 / 0.10</td><td class="n">52</td><td class="n">$130.00</td><td class="n">$69.20</td><td>released 29 Sept; <span class="mono">gpt-6-sol</span> is gone from the price page; Ultrafast tier added 8 Oct</td></tr>
+      <tr><td>Gemini 4 Argon</td><td>closed</td><td class="n">2.00 / 10.00 / n/a</td><td class="n">53</td><td class="n">$130.00</td><td class="n">n/a</td><td>not on Google's price, models or changelog pages; price is a third-party report <span class="tag un">unverified</span></td></tr>
+      <tr><td>Kimi K3</td><td>API only</td><td class="n">3.00 / 15.00 / 0.30</td><td class="n">44</td><td class="n">$195.00</td><td class="n">$108.60</td><td>not in the Issue 04 table; 1,048,576-token context; no price change in window</td></tr>
+      <tr><td>Claude Opus 5.5</td><td>closed</td><td class="n">4.00 / 20.00 / 0.20</td><td class="n">58</td><td class="n">$260.00</td><td class="n">$138.40</td><td>unchanged; first on the index</td></tr>
+      <tr><td>GPT-6 Astra</td><td>closed</td><td class="n">10.00 / 50.00 / 1.00</td><td class="n">53</td><td class="n">$650.00</td><td class="n">$362.00</td><td>unchanged; long-context tier 20 / 75 / 2.00</td></tr>
+      <tr><td>Claude Fable 5.1</td><td>closed</td><td class="n">10.00 / 50.00 / 0.25</td><td class="n">53</td><td class="n">$650.00</td><td class="n">$338.00</td><td>unchanged</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">Every row, with its source URL, is in <span class="mono">models.json</span>; <span class="mono">build_models.py</span> regenerates the costs. Rows that earlier issues carried from resellers (Granite, GLM, Qwen, Muse Spark) are not here this week because their prices were not re-read. Artificial Analysis scores depend heavily on reasoning effort, and higher effort raises output tokens and therefore real cost above these figures.</p>
+  <p><strong>Reading it.</strong> The bottom of the table moved. Haiku 5.5 does the workload for $6.50, the same price as GPT-6 Luna to the cent, cached and uncached, and reads 43 on the independent index against Luna's 38. Anthropic says it is 90% cheaper than Haiku 4.5*, and the list prices agree: 1.00 / 5.00 was $65. The catch is in the price page: "a request whose prompt is over 100,000 tokens pays higher prices", five times higher, on the whole request, even when part of it is a cache hit. A 4,000-token document never gets there. A long-context chart review does on every call, at $32.50 for the same token volume. The middle moved less visibly: Sonnet 5.5 now sits two index points under Opus 5.5 at half the price, and its cache read fell to the same $0.10 as GPT-6.1 Sol's, so the two $130 rows are identical in both columns and differ by four index points. Haiku 5.5's own benchmark figures, 39.2% on Terminal-Bench 4.0* and 1620 on GDPval-AA*, are Anthropic's; 43 is Artificial Analysis's.</p>
+
+  <!-- ============================ SECTION 3 ============================ -->
+  <p class="eyebrow">Section 3</p>
+  <h2>Papers, with the implementation note</h2>
+  <p>A paper arrives as a claim. A builder needs the sentence the abstract leaves out: what to change in your own system on Monday, and how far the evidence supports it. Each entry ends with that sentence. Identifiers, dates and numbers were read from the arXiv and medRxiv abstract records; full texts were not read this week, so every number below is the abstract's.</p>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2610.04375">Do tool calls execute as intended? Measuring and repairing intent-execution correspondence in LLM agents</a></div><div class="m">arXiv 2610.04375 · 3 Oct · Yanshan, Zhejiang, Nanjing and Aalto universities</div>
+    <p>The closest paper to this issue's theme. In 47,828 production shell calls, one coding agent's shell tool altered 12.0% of calls that carried code, escapes or long text, and 80.7% of the calls altered by backslash handling ran the wrong action with no error. All ten harnesses tested altered at least one call. The repair the authors propose recovers 79.2%, measured by them on their own tool*. Implementation note: log the call as received at every hop, model output, harness, wrapper, tool, and diff the hops. A transcript that records only what the model emitted cannot show this.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2610.11030">NOMOS: compiling written policies into statically verified tool-call gates for LLM agents</a></div><div class="m">arXiv 2610.11030 · 8 Oct · affiliation not confirmed</div>
+    <p>Natural-language policy compiled into deterministic gates that sit in front of tool calls, evaluated on τ²-bench and AgentDojo. Violations among state-changing calls fell from 66.3% to 2.6% in the airline domain and from 30.8% to 6.9% in retail. The number to remember is the other one: a development version of one binding wrongly refused 95.9% of valid calls until the gates were replayed over past transcripts. Implementation note: enforce payer and clinical policy in code outside the model, and replay every new gate over recorded traffic before it ships, because a gate that refuses everything also has zero violations.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2605.16679">CHI-Bench: can AI agents automate end-to-end, long-horizon, policy-rich healthcare workflows?</a></div><div class="m">arXiv 2605.16679 v3 · 30 Sept (first posted 15 May) · actAVA.ai with Johns Hopkins Medicine, Wellstar, Stanford, CMU, UCSD</div>
+    <p>Provider prior authorisation, payer utilisation management and care management, in a simulator of 20 healthcare applications behind 87 MCP tools, with an operations handbook of more than 1,290 documents. The best of 30 harness and model configurations resolves 28.0% of tasks; none clears 20% on the strict three-of-three measure; putting all tasks in one session drops the best to 3.8%. The benchmark is vendor-authored and scores third-party models. Implementation note: one case per session, and report pass-on-every-repeat rather than a single-run success rate for anything that touches prior authorisation.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2610.05778">MedicalHarness: a controlled evaluation of LLMs and agent harnesses on medical tasks</a></div><div class="m">arXiv 2610.05778 · 5 Oct · Northwestern</div>
+    <p>107 tasks in four domains, five open-weight models crossed with five harnesses, with ablations of context management, planning and tool exposure. The harness and the interaction between model and harness explain about a quarter of the variance in outcome, and no harness is best across models. Implementation note: a validation result belongs to a model and harness pair. Swap either and re-run it; this week's five framework changes are five harness changes.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.39371">EHR-RobustGym: benchmarking and training agents for robust clinical reasoning</a></div><div class="m">arXiv 2609.39371 · 30 Sept · Zhejiang University and Ant Group</div>
+    <p>MIMIC-IV with 5,486 paired clean and noisy tasks, solved by executing SQL and Python. Average success falls from 62.2% on clean inputs to 37.9% on noisy ones, and most models stay under 50% when a task must pass four times in four. The fine-tuning gains reported are for the authors' own models*. Implementation note: add cases where the evidence is absent, and require the agent to say so instead of answering.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2610.04156">Trajectory-derived confidence for reliable, resource-aware clinical text-to-SQL agents</a></div><div class="m">arXiv 2610.04156 · 2 Oct · UCLA</div>
+    <p>A classifier over the agent's reasoning, code and database outputs with three stopping points: refuse before running, halt mid-run, withhold at delivery. On EHRSQL, delivered accuracy rises from 54% to 69% as coverage falls from 84% to 55%, with 13 to 28% fewer steps. Implementation note: an abstain-and-escalate gate is a pause, so everything in section 1 applies to it. Tune the threshold to the cost of a wrong answer in your workflow, and record each abstention as a decision.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.30205">A living benchmark for information retrieval from electronic health records (BRIE)</a> and <a href="https://arxiv.org/abs/2604.16364">TRACE</a></div><div class="m">arXiv 2609.30205 v2 · 1 Oct · Stanford; arXiv 2604.16364 v2 · 1 Oct</div>
+    <p>BRIE's revision keeps its finding, frequent omission of clinically important information, worst when the answer spans documents and encounters. The companion, TRACE, removes duplicated note text using metadata and cuts chart text by 47.3%, about 220,167 fewer tokens per patient, with F1 moving within roughly ±0.02. Implementation note: de-duplicate copied-forward note text before you reach for a summariser. It is deterministic, it is auditable, and it is where half the tokens are.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.32961">Beyond token savings: a systematic study of context compression in LLM agents</a></div><div class="m">arXiv 2609.32961 · 26 Sept · UT Austin</div>
+    <p>Nearly 35,000 runs across three open-weight models on coding benchmarks, not clinical ones. Policies that used about a third of the tokens took 20 to 80% longer than no compression on Terminal-Bench with one model. Implementation note: judge a compaction policy on wall-clock time and task success for your model, not on tokens saved, and read it beside the LangChain change in 1.8.</p></div>
+  <p class="note">Also read: CLAIRE on administrative form completion, where removing validation halved stress-suite success to 0.500 (<a href="https://arxiv.org/abs/2609.32787">arXiv 2609.32787</a>); a local OCR-plus-LLM pipeline on 200 synthetic faxed referrals with weighted accuracy 0.990 and 0 of 11,993 facts fabricated (<a href="https://doi.org/10.64898/2026.10.03.26364667">medRxiv 10.64898/2026.10.03.26364667</a>, UT Austin, 5 Oct). No FHIR-agent benchmark paper appeared in the searches run this week.</p>
+
+  <!-- ============================ SECTION 4 ============================ -->
+  <p class="eyebrow">Section 4</p>
+  <h2>What the architects shipped</h2>
+  <p>Many people talk about agent infrastructure and fewer build it. The useful question is who put out something this week that you can read, install or copy.</p>
+  <p>Technical output only, 3 to 9 October, with two items from 30 September to 2 October that carry dates you need.</p>
+  <ul class="shipped">
+    <li><span class="who">ASTP/ONC and MedStar Health Research Institute</span><span class="d">6 Oct</span> · <a href="https://healthit.gov/news/hhs-announces-2026-leap-in-health-it-awardees-to-accelerate-the-use-of-agentic-ai-in-clinical-care-and-close-gaps-in-laboratory-interoperability/">2026 LEAP in Health IT awards</a>: "Sovereign Execution: Vigilant, Gated and Verifiable Agentic Care", open-source middleware with durable long-running processes, patient-gated data pods on the Solid protocol and tamper-evident certificates for AI routing. Two awards, $1.5M in total; the other is a laboratory terminology toolkit from Regenstrief. No FHIR or MCP binding is named. It is the first federally funded reference architecture I have seen that lists durable execution, gating and verifiable audit together, which is this series' three obligations in a grant title.</li>
+    <li><span class="who">OpenAI</span><span class="d">2 to 8 Oct</span> · <a href="https://developers.openai.com/api/docs/changelog">In-product BAA acceptance and a HIPAA compliance setting</a> under organisation settings (5 Oct), which turns a sales process into a toggle and makes "which organisations have it on" something you can audit. Also <a href="https://openai.com/index/practical-guide-building-gpt-6/">a practical guide to building with GPT-6</a> (2 Oct) on effort selection, cache-friendly prompt order, compaction and cost per successful task; its numbers are OpenAI's and its customers'*.</li>
+    <li><span class="who">Anthropic</span><span class="d">7 and 8 Oct</span> · <a href="https://www.anthropic.com/claude-haiku-5-5">Claude Haiku 5.5</a>, and a <a href="https://www.anthropic.com/news/2026-usage-policy-update">Usage Policy update</a> effective 12 November that rewrites the high-risk section: uses that affect health still require a qualified human in the loop and disclosure that AI is involved. A policy that names the human in the loop is a requirement on the gate, so the gate has to be one you can show.</li>
+    <li><span class="who">Anaconda</span><span class="d">2 and 5 Oct</span> · <a href="https://www.anaconda.com/blog/anaconda-mcp-general-availability">Anaconda MCP reaches general availability</a> as a remote, read-only server with four tools, package_info, package_security, org_config and search_forum; Anaconda advises removing the beta local package. Its <a href="https://www.anaconda.com/blog/indirect-prompt-injection-ai-agents">guide to indirect prompt injection</a> recommends per-step runtime guardrails and an MCP gateway with human approval. The 73% figure for vulnerable MCP servers comes from a company Anaconda owns*.</li>
+    <li><span class="who">HL7</span><span class="d">8 Oct</span> · <a href="https://blog.hl7.org/see-the-2026-hl7-ai-challenge-winners-in-action">2026 AI Challenge winners</a>: 73 submissions from 25 countries, including an MCP server for health information exchange and a notes-to-FHIR converter, with showcases on 14 and 28 October. No Da Vinci, US Core, CDS Hooks or core FHIR publication in window; the versions to build against are still PAS 2.2.1, CRD 2.2.1, DTR 2.2.0 and PDex 2.2.0.</li>
+    <li><span class="who">ARPA-H</span><span class="d">30 Sept</span> · <a href="https://arpa-h.gov/explore-funding/programs/surpass">SURPASS</a>, solicitation ARPA-H-SOL-26-164, for adaptive clinical trials; its third technical area is an "agentic operations layer" for trial start-up, data cleaning and dataset construction. Proposers' Day is 6 November, solution summaries are due 30 November and proposals 22 January 2027. An agent that constructs a trial dataset writes to a regulated record, and the solicitation is the place to say what evidence it leaves.</li>
+    <li><span class="who">Mistral</span><span class="d">6 Oct</span> · <a href="https://docs.mistral.ai/models/model-cards/mistral-large-4-0">Mistral Large 4</a> in public preview, 1M context, described as open-weight with no licence named yet. An open-weight model near index 38 with a million-token window matters for on-premises chart review only once the licence is published.</li>
+    <li><span class="who">Matt Pocock</span><span class="d">5 Oct</span> · <a href="https://www.aihero.dev/skills-changelog-v13-implement-spec-pr-retro-and-glossary-md">Skills v1.3</a>: an /implement-spec skill that builds a specification with parallel subagents, /pr and /retro, and CONTEXT.md renamed GLOSSARY.md. Not healthcare, and worth reading for how a shared vocabulary file is treated as a build input.</li>
+  </ul>
+  <p class="note">Nothing in window from Epic (the newsroom's latest post is 23 Sept; Open@Epic runs 21 to 22 October and Agent Factory training for early adopters starts this month), from FDA on AI or digital health, from OCR on HIPAA, from the MCP specification, or from Moonshot on Kimi (the platform changelog's last entries are September). NVIDIA's one healthcare post (5 Oct) profiles startups using MONAI and ships no release. Nebius announced the acquisition of Inferize for Token Factory on 1 Oct, with no user-facing change yet. This run could not read the newsletters delivered to the editor's inbox; the vendors' public blogs, changelogs and release notes were read instead, so anything sent by email only is not covered.</p>
+
+  <!-- ============================ SECTION 5 ============================ -->
+  <p class="eyebrow">Section 5</p>
+  <h2>Lab: five things to run this week</h2>
+  <p>Reading about a failure mode is not the same as watching it happen, and only one of those changes what you build. All five scripts run twice, on the week's release and the release before it, from one <span class="mono">run_all.sh</span> with no API key. Package: <a href="lab/">issue-06/lab</a>.</p>
+  <h3>5.1 One answer, three signatures</h3>
+  <p>The problem: you have never compared the framework's list of open questions with your own, or counted writes per approval while a thread waits.</p>
+  <p><span class="mono">test_lg_pending_interrupts.py</span>, langgraph 1.2.12 and 1.2.13, no model. Two parallel gates that sign and return nothing. One is answered by id; the inbox is read; the answered item is answered again; the other gate is answered; rows are counted. A second pair of runs pauses on 1.2.12 with a sqlite checkpointer and finishes on 1.2.13.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Run</th><th>1.2.12</th><th>1.2.13</th></tr></thead>
+    <tbody>
+      <tr><td>Inbox after one of two answers</td><td>2 items, the answered one included</td><td>1 item</td></tr>
+      <tr><td>Second answer to the answered item</td><td>accepted; gate runs again with the first answer</td><td>accepted; nothing happens</td></tr>
+      <tr><td>Signature rows for 2 approvals, gate returns nothing</td><td>4 (pharmacy 3, physician 1)</td><td>2</td></tr>
+      <tr><td>Same, gate returns a state key (control)</td><td>2</td><td>2</td></tr>
+      <tr><td>Paused on 1.2.12, finished on the version in this column</td><td>3 (pharmacy 2)</td><td>3 (pharmacy 2, one written by each version)</td></tr>
+      <tr><td>Paused and finished on 1.2.13</td><td class="n">n/a</td><td>2</td></tr>
+    </tbody></table></div>
+  <h3>5.2 The write that goes first</h3>
+  <p>The problem: a question for a human and a write share one model response.</p>
+  <p><span class="mono">test_af_mixed_batch.py</span>, agent-framework-core 1.20.0 and 1.21.0, a scripted chat client. Writes before the human answers: 0 on 1.20.0, and the write never runs; 1 on 1.21.0 without a session; 0 on 1.21.0 with a session, then 1 after an answer of "No". Then change one thing: give <code>hold_medication</code> its own approval requirement and see which question the human gets first.</p>
+  <h3>5.3 A timeout with a row behind it</h3>
+  <p>The problem: your retry policy treats a timeout as "did not happen".</p>
+  <p><span class="mono">test_fm_late_result.py</span>, fastmcp 4.0.11 and 4.1.0, in-memory client. Success and one row on 4.0.11; error and one row on 4.1.0.</p>
+  <h3>5.4 An audit hook a cache can skip</h3>
+  <p>The problem: the audit row is written by a hook, and something wraps the hook.</p>
+  <p><span class="mono">test_pai_wrap_hooks.py</span>, pydantic-ai-slim 2.53.0 and 2.54.0, <code>FunctionModel</code>. Audit rows on a cache hit: 2, then 0.</p>
+  <h3>5.5 Approved, executed, thrown</h3>
+  <p>The problem: your caller treats an exception as "nothing was done".</p>
+  <p><span class="mono">test_oa_maxturns_after_approval.mjs</span>, @openai/agents-core 0.19.0 and 0.20.0, a scripted model object. One write and a final answer on 0.19.0; one write and <code>MaxTurnsExceededError</code> on 0.20.0. Needs Node; <span class="mono">run_all.sh</span> skips it if Node is absent.</p>
+  <p class="note">Synthetic data only. Every "record" is an in-memory list or a local sqlite file; nothing writes to a FHIR server. The models are stubs, so any sentence a "model" says in the output is a scripted line.</p>
+
+  <!-- ============================ POST ============================ -->
+  <p class="eyebrow">LinkedIn post candidate</p>
+  <div class="post">
+    <p><strong>The pharmacist approved once. The record holds three pharmacy signatures.</strong></p>
+    <p>A discharge needs two approvals, pharmacy and physician, so the agent pauses and asks both. I built that in LangGraph with no model and no API key: two parallel gates, each of which signs the order and returns nothing. The pharmacist answered. On 1.2.12 the paused thread still listed the pharmacist's question as open. A second reviewer answered it again, with a rejection; it was accepted without error and ignored, and the gate signed again. When the physician answered, it signed a third time. Two approvals, four rows.</p>
+    <p>LangGraph 1.2.13, released Monday, fixes it: one question left in the inbox, two rows. But a thread that was already paused when I upgraded wrote the pharmacy signature again on the new version. The fix is real and it does not reach back.</p>
+    <p>Four other frameworks moved the same seam this week. One now runs a write before the human answers the question that came with it. One reports a timeout for a write that committed. One runs the approved tool and then throws. One lets a cache skip the audit hook. A paused run is state. Keep your own list of what was asked and what was answered, make the write idempotent, and after any error ask the record before you retry. Code in the issue.</p>
+    <p class="note">#HealthcareAI #AIVelocity #AgentArchitecture #FHIR #ClinicalSafety</p>
+  </div>
+
+  <h2>Corrections</h2>
+  <p>None to report against earlier issues this week, with one limit on that statement. When this issue was produced the archive folder was not readable from the machine that builds it, so Issue 05 could not be opened and nothing here was checked against it. If an item above repeats or contradicts Issue 05, Issue 05 was written with more context and this page will carry the correction next week. For the same reason this week's model table was built fresh from vendor pages and does not carry forward rows from the previous table.</p>
+
+  <h2>Sources and package</h2>
+  <ul class="sources">
+    <li>Lab package: <a href="lab/">issue-06/lab</a> (<span class="mono">test_lg_pending_interrupts.py</span>, <span class="mono">test_af_mixed_batch.py</span>, <span class="mono">test_fm_late_result.py</span>, <span class="mono">test_pai_wrap_hooks.py</span>, <span class="mono">test_oa_maxturns_after_approval.mjs</span>, <span class="mono">build_models.py</span>, <span class="mono">models.json</span>, README with full output). Previous issue: <a href="../issue-05/details.html">AI Velocity Weekly 05</a>.</li>
+    <li>LangGraph: <a href="https://github.com/langchain-ai/langgraph/pull/9103">#9103</a>, <a href="https://github.com/langchain-ai/langgraph/pull/9165">#9165</a>, <a href="https://github.com/langchain-ai/langgraph/pull/9170">#9170</a>, <a href="https://pypi.org/project/langgraph/1.2.13/">1.2.13 on PyPI</a>, <a href="https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.6">langgraph-sdk 0.4.6</a>. LangChain: <a href="https://github.com/langchain-ai/langchain/pull/41159">#41159</a>, <a href="https://github.com/langchain-ai/langchain/pull/41151">#41151</a>, <a href="https://github.com/langchain-ai/langchain/releases/tag/langchain-core%3D%3D1.6.9">langchain-core 1.6.9</a>. deepagents: <a href="https://github.com/langchain-ai/deepagents/pull/6552">#6552</a>.</li>
+    <li>Agent Framework: <a href="https://github.com/microsoft/agent-framework/pull/9050">#9050</a>, <a href="https://github.com/microsoft/agent-framework/pull/9180">#9180</a>, <a href="https://github.com/microsoft/agent-framework/pull/8853">#8853</a>, <a href="https://raw.githubusercontent.com/microsoft/agent-framework/main/python/CHANGELOG.md">Python changelog</a>, <a href="https://github.com/microsoft/agent-framework/releases/tag/dotnet-1.24.0">.NET 1.24.0</a>. Semantic Kernel: <a href="https://pypi.org/project/semantic-kernel/1.45.0/">1.45.0 on PyPI</a> (wheel diff against 1.44.1).</li>
+    <li>FastMCP: <a href="https://raw.githubusercontent.com/PrefectHQ/fastmcp/main/docs/changelog.mdx">changelog</a> (#5379, #5455, #5229, #5415, #5425). pydantic-ai: <a href="https://github.com/pydantic/pydantic-ai/pull/7053">#7053</a>, <a href="https://github.com/pydantic/pydantic-ai/pull/9434">#9434</a>, <a href="https://github.com/pydantic/pydantic-ai/pull/9041">#9041</a>, <a href="https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-6fqq-452j-qhrp">GHSA-6fqq-452j-qhrp</a>, <a href="https://github.com/pydantic/pydantic-ai/releases/tag/v2.54.0">v2.54.0</a>.</li>
+    <li>OpenAI: <a href="https://raw.githubusercontent.com/openai/openai-agents-js/main/packages/agents-core/CHANGELOG.md">agents-core changelog</a> (#2032, #2036, #1948, #1963, #2012), <a href="https://raw.githubusercontent.com/openai/openai-python/main/CHANGELOG.md">openai-python changelog</a> (#4028), <a href="https://developers.openai.com/api/docs/changelog">API changelog</a>, <a href="https://developers.openai.com/api/docs/deprecations">deprecations</a>. Google ADK: <a href="https://raw.githubusercontent.com/google/adk-python/main/CHANGELOG.md">Python changelog</a>, <a href="https://github.com/google/adk-js/releases/tag/adk-v2.2.1">adk-js 2.2.1</a>.</li>
+    <li>Anthropic: <a href="https://raw.githubusercontent.com/anthropics/anthropic-sdk-python/main/CHANGELOG.md">SDK changelog</a>, <a href="https://raw.githubusercontent.com/anthropics/claude-agent-sdk-typescript/main/CHANGELOG.md">agent SDK changelog</a>, <a href="https://platform.claude.com/docs/en/release-notes/overview">platform release notes</a> (5 to 8 Oct). MCP: <a href="https://modelcontextprotocol.io/specification/draft/changelog">draft changelog</a>.</li>
+    <li>Prices: <a href="https://developers.openai.com/api/docs/pricing">OpenAI</a>, <a href="https://platform.claude.com/docs/en/about-claude/pricing">Anthropic</a>, <a href="https://ai.google.dev/gemini-api/docs/pricing">Google</a>, <a href="https://api-docs.deepseek.com/quick_start/pricing">DeepSeek</a>, <a href="https://docs.x.ai/developers/models">xAI</a>, <a href="https://platform.kimi.ai/docs/pricing/chat">Moonshot</a>, <a href="https://docs.mistral.ai/models/model-cards/mistral-large-4-0">Mistral</a>, <a href="https://nebius.com/prices-ai-studio">Nebius</a>. Index: <a href="https://artificialanalysis.ai/leaderboards/models">Artificial Analysis leaderboard</a>, <a href="https://artificialanalysis.ai/changelog">changelog</a>.</li>
+    <li>Regulatory and health: <a href="https://www.federalregister.gov/documents/2026/10/06/2026-20447/transparency-in-coverage">Transparency in Coverage, 91 FR 63748</a>, <a href="https://www.cms.gov/newsroom/fact-sheets/transparency-coverage-final-rules-cms-9882-f">CMS fact sheet</a>, <a href="https://www.cms.gov/priorities/burden-reduction/overview/interoperability/policies-regulations/cms-interoperability-prior-authorization-final-rule-cms-0057-f">CMS-0057-F</a>, <a href="https://healthit.gov/news/hhs-announces-2026-leap-in-health-it-awardees-to-accelerate-the-use-of-agentic-ai-in-clinical-care-and-close-gaps-in-laboratory-interoperability/">LEAP awards</a>, <a href="https://arpa-h.gov/explore-funding/programs/surpass">ARPA-H SURPASS</a>, <a href="https://hl7.org/fhir/package-feed.xml">FHIR package feed</a>, <a href="https://open.epic.com/">open.epic</a>.</li>
+  </ul>
+  <p class="note">Method: window 3 to 9 October 2026. Release dates from PyPI, npm and NuGet; changes from release notes, changelogs, pull-request pages and wheel diffs; vendor pages read on 9 October. The five executed mechanisms were run from clean environments with no API key in the environment on 9 October, twice, with identical output apart from one timing figure. "Executed" means the mechanism ran in a sandbox against a scripted stub; it says nothing about how any real model behaves. Pull-request merge dates for pydantic-ai #7053 and deepagents #6552 are unverified because their pages were served stale; both changes are present in the released wheels. Synthetic data only.</p>
+</div>
+
+<script>mermaid.initialize({startOnLoad:true});</script></body></html>

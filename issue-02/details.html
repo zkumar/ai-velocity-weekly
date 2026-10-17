@@ -1,0 +1,415 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="../assets/mermaid.min.js"></script></head><body>
+<title>AI Velocity Weekly 02</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B2432; --ground: #F7F5F0; --panel: #FFFFFF; --muted: #66707F; --line: #DDD8CC;
+    --accent: #0F6E6B; --accent-soft: #E3EFEE; --amber: #B8860B; --code-bg: #F1EEE6; --code-ink: #1B2432;
+    --verified: #2E7D4F; --unverified: #A0522D;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #E6E8EC; --ground: #0F1419; --panel: #171D26; --muted: #98A2B3; --line: #2A3340;
+      --accent: #4FB3AE; --accent-soft: #15302F; --amber: #E2B341; --code-bg: #111720; --code-ink: #D7DCE3;
+      --verified: #6CC08B; --unverified: #E0946A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #E6E8EC; --ground: #0F1419; --panel: #171D26; --muted: #98A2B3; --line: #2A3340;
+    --accent: #4FB3AE; --accent-soft: #15302F; --amber: #E2B341; --code-bg: #111720; --code-ink: #D7DCE3;
+    --verified: #6CC08B; --unverified: #E0946A;
+  }
+  body { background: var(--ground); color: var(--ink); font-family: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+  .mono, code, pre, .kbd { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, Menlo, monospace; }
+  .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
+  h1 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 600; font-size: 38px; line-height: 1.15; margin: 0 0 8px; text-wrap: balance; }
+  h2 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 600; font-size: 26px; margin: 56px 0 12px; text-wrap: balance; padding-top: 18px; border-top: 1px solid var(--line); }
+  h3 { font-weight: 600; font-size: 18px; margin: 32px 0 8px; }
+  h4 { font-weight: 600; font-size: 15px; margin: 22px 0 6px; color: var(--muted); }
+  p { margin: 0 0 14px; max-width: 70ch; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+  a:hover, a:focus-visible { border-bottom-color: var(--accent); outline: none; }
+  .stamp { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+  .thesis { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; margin: 24px 0 8px; }
+  .thesis p { font-size: 17px; }
+  .sidebar { background: var(--panel); border: 1px solid var(--line); padding: 14px 18px; margin: 28px 0; }
+  .sidebar .eyebrow { color: var(--muted); }
+  .sidebar ol { margin: 0; padding-left: 20px; font-size: 14.5px; }
+  .sidebar li { margin: 4px 0; }
+  pre { background: var(--code-bg); color: var(--code-ink); border: 1px solid var(--line); padding: 14px 16px; overflow-x: auto; font-size: 12.5px; line-height: 1.5; margin: 12px 0 18px; }
+  code { font-size: .92em; background: var(--code-bg); padding: 1px 5px; border-radius: 3px; }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  pre.mermaid { background: var(--panel); text-align: center; }
+  .tag { display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid currentColor; padding: 1px 7px; border-radius: 2px; margin-left: 8px; vertical-align: middle; }
+  .tag.ok { color: var(--verified); } .tag.un { color: var(--unverified); }
+  .consequence { background: var(--accent-soft); padding: 12px 16px; margin: 14px 0 18px; }
+  .consequence p:last-child { margin-bottom: 0; }
+  .gotchas { font-size: 14.5px; color: var(--ink); }
+  .gotchas li { margin: 4px 0; }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); background: var(--panel); margin: 14px 0 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--panel); position: sticky; top: 0; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; font-family: "IBM Plex Mono", monospace; }
+  tr:nth-child(even) td { background: color-mix(in srgb, var(--panel) 92%, var(--ground)); }
+  .note { font-size: 13.5px; color: var(--muted); }
+  .paper { margin: 0 0 18px; }
+  .paper .t { font-weight: 600; }
+  .paper .m { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+  .shipped { list-style: none; padding: 0; margin: 0; }
+  .shipped li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .shipped .who { font-weight: 600; }
+  .shipped .d { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); margin-left: 6px; }
+  .post { background: var(--panel); border: 1px solid var(--line); padding: 20px 24px; margin-top: 16px; }
+  .post p { max-width: 62ch; }
+  .sources { font-size: 13px; color: var(--muted); }
+  .sources a { color: var(--accent); }
+  .sources li { margin: 3px 0; }
+  ul.tight { margin: 6px 0 14px; padding-left: 20px; }
+  ul.tight li { margin: 4px 0; }
+  @media (max-width: 640px) { h1 { font-size: 30px; } .wrap { padding: 24px 16px 60px; } }
+  @media (prefers-reduced-motion: no-preference) { a { transition: border-color .15s; } }
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">AI Velocity Weekly</p>
+  <h1>A clinician's approval that lands after the agent's time budget is dropped without a trace, and the model says "order placed"</h1>
+  <div class="stamp">Issue 02 · week ending 11 September 2026 · for architects and engineers building healthcare AI agents that take real actions · Vijay Kumar</div>
+
+  <div class="thesis">
+    <p>You want to put an agent inside a clinical or payer workflow, and you want it to do more than talk. It writes the order. It submits the prior authorisation. It files the document. The moment it acts you pick up three obligations a chatbot never had: a named human has to approve the action, you have to prove afterwards what happened, and you have to show the system is under control and validated. The failure to worry about is not a wrong answer. It is this: your log says the clinician approved and the order went in, and the FHIR server has no order. Your audit record and your system of record disagree, and nothing tells you which one is lying.</p>
+  </div>
+
+  <p>That gap does not sit still. The frameworks everyone builds on were not designed for approval, durable state and audit, and all three are being retrofitted release by release. Where the human step lives, where run state is held, what reaches the trail: it moves, and it moves in changelog lines that read like housekeeping. A bounded loop. A resumption fix. A permission default.</p>
+
+  <p>This week the frameworks put clocks, budgets and audiences around the human step. One now bounds the whole tool loop by wall time and counts the clinician's thinking time against that budget, so an approval that arrives late is dropped silently while the model says the order was placed. One lets a tool server check that the token it was handed was minted for it. One added a permission decision taken before a human ever sees the call. One changed what a resumed workflow does with a step that failed after its side effect, so work you thought was done runs again.</p>
+
+  <p>Three checks against your own system this week. Find every timeout between your agent and your humans, and ask what the audit trail records when the human answers after it has expired. Present a token from one tool server to a different one and see whether it is refused. Then, for anything that resumes after a failure, prove that a replay cannot write twice.</p>
+
+  <p>If this is your first issue, read the <a href="https://claude.ai/code/artifact/b0c4dd42-5843-474f-9993-5339c0281bf1">Start here</a> page first; it sets out those obligations and the vocabulary I use below.</p>
+
+  <div class="thesis">
+    <p>The week in one paragraph. Microsoft's Agent Framework bounds the whole tool loop by wall time and counts the clinician's thinking time against it; the MCP Python SDK lets a FHIR tool server refuse a token minted for another server; Anthropic's Managed Agents added a server-side <code>auto</code> policy that decides before a human sees the call; OpenAI opened an Agents API with no visible approval checkpoint; Google's ADK changed what a resumed workflow does with a node that failed after its side effect. I cloned each repo, ran two of the mechanisms in a sandbox with no model key, and found one behaviour that belongs in a design review before anyone ships it. Tags say what was executed and what was only read.</p>
+  </div>
+
+  <p>Same shape every week: framework changes read from source with runnable code; a model table priced on one real workload; papers with the implementation note the abstract leaves out; what the people worth following shipped; a lab you can run in thirty minutes. News gets five lines.</p>
+
+  <p>How to read this. Tagged <span class="tag ok">executed</span> means I installed the stated version and ran the mechanism myself. Tagged <span class="tag un">docs</span> means I read the vendor's documentation and SDK but did not run it. Tagged <span class="tag un">unverified</span> means I could not confirm the behaviour either way. An asterisk on a number means the vendor reported it and I did not reproduce it.</p>
+
+  <div class="sidebar">
+    <p class="eyebrow">Five lines of news, then back to the code</p>
+    <ol>
+      <li>DeepSeek released <a href="https://api-docs.deepseek.com/news/news260910/">V4.1-Flash</a> (10 Sept): open weights under MIT, 1M context, native vision, $0.30 in and $1.20 out at peak, half that off-peak, cache reads at $0.006 per M. Table in section 2.</li>
+      <li>Artificial Analysis rebased its <a href="https://artificialanalysis.ai/articles/artificial-analysis-intelligence-index-v4-3">Intelligence Index to v4.3</a> (7 Sept): Terminal-Bench 4.0 and AutomationBench-AA replace older components. Fable 5.1 and GPT-6 Astra both score 53; last week's 66 and 61 are not comparable.</li>
+      <li>HHS named <a href="https://www.hhs.gov/press-room/hhs-announces-key-fda-leadership-selections.html">FDA's first Deputy Commissioner for Technology and AI</a> (8 Sept). Comments on the generative-AI device discussion paper are still due 19 October.</li>
+      <li>ARPA-H launched <a href="https://www.fiercehealthcare.com/ai-and-machine-learning/arpa-h-launches-63m-cardiovascular-ai-initiative-naming-updoc-tempus-ai">ADVOCATE</a> (11 Sept), $62.7M for agentic cardiovascular AI: three agent builders, a Stanford supervisory safety AI, Duke validation on Epic and Cerner, a Kaiser RCT of about 2,500 patients.</li>
+      <li>OpenAI's <a href="https://developers.openai.com/api/docs/changelog">Agents API</a> and Anthropic's <a href="https://platform.claude.com/docs/en/release-notes/overview">Managed Agents auto permissions</a> both went public on 10 September. US-only residency and no zero-data-retention on the OpenAI side. Section 1.3 and 1.4.</li>
+    </ol>
+  </div>
+
+  <!-- ============================ SECTION 1 ============================ -->
+  <p class="eyebrow">Section 1</p>
+  <h2>Framework changes, read from source</h2>
+  <p>You want a clinician to sign off before the agent writes an order. Everything below is what the frameworks did this week to the moment that signature is collected: how long it may take, where it may come from, and what happens when it arrives late or after a machine has already decided.</p>
+  <p>Window 5 to 11 September. Clones at depth 80, PyPI JSON for dates. Versions installed and used: <span class="mono">agent-framework-core 1.18.0, mcp 2.2.0, fastmcp 4.0.3, openai 3.13.0, anthropic 1.5.0, pydantic-ai-slim 2.43.0, google-adk 2.9.0 (read only), langchain-core 1.6.3</span>. Nothing shipped in window from LangGraph (1.2.11, 11 Aug), llama-index-core (0.14.24, 19 Aug), semantic-kernel (1.44.1, 6 Aug), sentence-transformers (6.0.1, 31 Aug), NeMo Guardrails (0.24.0, 26 Aug; unreleased commits below), Letta (server retired 10 Sept, repo now points to letta-code), the MCP spec (still 2026-07-28), HL7 FHIR publications, Da Vinci IGs, or Epic open.epic.</p>
+
+  <h3>1.1 Agent Framework 1.18.0: the tool loop gets a wall clock, and the clinician is on it <span class="tag ok">executed</span></h3>
+  <p>The problem: you put a human approval step in front of the write, and nobody asked how long the human is allowed to take.</p>
+  <p><span class="mono">python/CHANGELOG.md</span> section <span class="mono">[1.18.0] - 2026-09-10</span> lists "a maximum-duration bound and stop-reason signal to the tool invocation loop" (#7772). The mechanism is in <span class="mono">python/packages/core/agent_framework/_tools.py</span>: <code>FunctionInvocationConfiguration.max_duration_seconds</code> (line 1493), checked in <code>_apply_batch_limit_decision</code> after each batch of tool calls. When exceeded, <code>options["tool_choice"] = "none"</code> and the model is asked for text. The docstring is explicit: "The budget includes time spent waiting for human approval responses. This is intentional so that long-running unattended sessions are always bounded."</p>
+  <p>The start time is a <code>perf_counter()</code> value stored under <code>session.state["_function_invocation_budget_state"]</code>, but only when the harness <code>ToolApprovalMiddleware</code> is attached: that middleware is what copies the budget dict into <code>client_kwargs</code> on every request (<span class="mono">_harness/_tool_approval.py</span> line 388). So the question for a CPOE assistant is simple. A 30-minute budget, the clinician signs at minute 40. What happens to the write?</p>
+<pre><code class="language-python">import asyncio, json, time
+from typing import Annotated
+from agent_framework import Agent, AgentSession, Message, ToolApprovalMiddleware, tool
+
+WRITES = []
+
+@tool(approval_mode="always_require")
+def write_medication_order(patient_id: Annotated[str, "FHIR Patient id"], rxnorm: Annotated[str, "RxNorm code"]) -> str:
+    """Write a MedicationRequest to the FHIR server."""
+    WRITES.append((patient_id, rxnorm)); return "MedicationRequest written"
+
+async def main(client):                                   # any shipped chat client; the lab uses a scripted one
+    client.function_invocation_configuration["max_duration_seconds"] = 30 * 60
+    agent = Agent(client=client, name="orders", tools=[write_medication_order],
+                  middleware=[ToolApprovalMiddleware()])   # without this the clock restarts on resume
+    session = AgentSession()
+    r1 = await agent.run("Start metformin 500 mg for pt-123", session=session)
+    req = next(c for m in r1.messages for c in m.contents if c.type == "function_approval_request")
+    blob = json.dumps(session.to_dict())                  # session goes to the store, clinician reads the order
+    ...                                                   # minutes pass, possibly on another worker
+    session = AgentSession.from_dict(json.loads(blob))
+    r2 = await agent.run(Message("user", [req.to_function_approval_response(approved=True)]), session=session)
+    results = [c for m in r2.messages for c in m.contents if c.type == "function_result"]
+    print(len(WRITES), results, r2.text)                  # what did the approval actually do?
+
+asyncio.run(main(client))</code></pre>
+  <p class="note">Observed, three scenarios, scripted model. 30 s budget and a 1 s approval: one write, one <code>function_result</code>, text "Done.". 2 s budget and a 3 s approval: <strong>zero writes, zero <code>function_result</code>, no rejection result, no exception</strong>; the only trace is an INFO log line "Maximum duration reached (3.00s / 2.00s)", the model is called with <code>tool_choice="none"</code>, and the scripted model, given no tool result, answers "Order placed." Same 2 s budget without <code>ToolApprovalMiddleware</code>: the budget state never reaches the session, the clock restarts on resume, the write happens. Script is <span class="mono">test_af_duration_budget.py</span> in the lab package.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> A late approval is not rejected, it is discarded, and the approved call falls through <code>_drop_unexecutable_tool_contents_from_response</code> with nothing returned to the model or the caller. The approval record you keep for audit will say "approved by NPI 1234567893 at 10:41" and the FHIR server will have no order. The fix is on your side: read <code>session.state["_function_invocation_budget_state"]["start_time"]</code> before you present the approval, and refuse to collect a signature the loop will not honour; or set <code>max_duration_seconds=None</code> on the client that serves approval resumes and enforce the deadline in your own queue, where you can emit an event. And note what the model said. As last week: the model's text is never the source of truth for whether a write happened.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li><code>start_time</code> is <code>time.perf_counter()</code>, <code>CLOCK_MONOTONIC</code> on Linux, seconds since that host booted. A session restored on a different worker compares against a different clock, so the elapsed time is meaningless; depending on uptimes the budget may never expire or expire at once. Source-visible (<span class="mono">_tools.py</span> line 4127), not executed across hosts.</li>
+    <li>The "stop-reason signal" in the changelog is not a public field. What is observable is <code>tool_choice="none"</code> on the next model call and a fallback text if the model returns nothing.</li>
+    <li>Same release, <span class="mono">f6a012a</span> (#8142): FIDES <code>PolicyEnforcementFunctionMiddleware</code> gains <code>max_pending_approvals=256</code> and <code>pending_approval_ttl=timedelta(hours=1)</code>. Per <span class="mono">docs/specs/004-python-function-calling-loop.md</span>, an expired approval "executes nothing and produces a replacement approval request with the same occurrence identity and a fresh request generation". That is the behaviour you want; it lives in the FIDES policy layer, not in the duration budget. Docs and source only, not executed.</li>
+    <li>Unreleased on main, <span class="mono">119c795</span> (#8236, 11 Sept): <code>RedisHistoryProvider</code> keys become tenant and application scoped and missing session ids are rejected; <code>key_format="legacy"</code> opts out. Plan the migration before 1.19.</li>
+  </ul>
+
+  <h3>1.2 MCP Python SDK 2.2.0: a FHIR tool server can refuse a token minted for the scheduling server <span class="tag ok">executed</span></h3>
+  <p>The problem: an agent holding a token for your scheduling server can usually present it to your FHIR server, and the write goes through.</p>
+  <p>Commit <span class="mono">0c91368</span> (5 Sept, #3447) adds <code>AuthSettings.validate_token_resource: bool | None</code> in <span class="mono">src/mcp/server/auth/settings.py</span> and <code>BearerAuthBackend(token_verifier, *, resource_server_url=None)</code> in <span class="mono">src/mcp/server/auth/middleware/bearer_auth.py</span>. With the URL set, a token is accepted only if the <code>AccessToken.resource</code> your verifier reports (the RFC 8707 resource indicator) equals the server URL, compared as URLs with the trailing slash ignored. Unset, the SDK now warns that the default flips to <code>True</code> in 3.0.</p>
+<pre><code class="language-python">from pydantic import AnyHttpUrl
+from mcp.server.auth.middleware.bearer_auth import BearerAuthBackend
+from mcp.server.auth.provider import AccessToken, TokenVerifier
+from mcp.server.auth.settings import AuthSettings
+
+FHIR_MCP = AnyHttpUrl("https://fhir-mcp.hospital.example/mcp")
+
+class IntrospectingVerifier(TokenVerifier):
+    async def verify_token(self, token: str) -> AccessToken | None:
+        claims = await introspect(token)                  # RFC 7662 call to your authorization server
+        if not claims or not claims["active"]:
+            return None
+        return AccessToken(token=token, client_id=claims["client_id"], scopes=claims["scope"].split(),
+                           resource=claims.get("aud"),      # the audience the AS bound the token to
+                           expires_at=claims.get("exp"))
+
+settings = AuthSettings(issuer_url=AnyHttpUrl("https://idp.hospital.example"),
+                        resource_server_url=FHIR_MCP, validate_token_resource=True)
+backend = BearerAuthBackend(IntrospectingVerifier(), resource_server_url=FHIR_MCP)
+# mount behind RequireAuthMiddleware(app, required_scopes=["patient/MedicationRequest.write"])</code></pre>
+  <p class="note">Observed with a stub verifier and three tokens: a token with <code>resource</code> equal to the FHIR MCP URL is accepted by both the loose and the pinned backend; a token issued for <span class="mono">scheduling-mcp.hospital.example</span> is accepted loose and refused pinned, with a WARNING naming both URLs; a token with <code>resource=None</code> (an authorisation server that ignores RFC 8707) is also refused when pinned. Script <span class="mono">test_mcp_token_audience.py</span>.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> Until now one SMART-style token from the hospital authorisation server would open every MCP server it signed, so a compromised low-risk tool (scheduling, directory lookup) could replay its token against the FHIR write server. Audience binding puts the blast radius per server, which is the property a HIPAA risk analysis wants to see stated. Audit gains a refusal event with both URLs in it. The cost: your authorisation server must actually bind tokens to the requested <code>resource</code>, and a legacy AS that omits the claim gets every token refused the day you enable it, so roll out with <code>validate_token_resource=False</code> and an alert on the WARNING first.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li>Commit <span class="mono">9972c21</span> (7 Sept, #3470) in the same release replaces Pydantic <code>RootModel</code> wrappers with type aliases: <code>ContentBlock</code>, <code>ElicitRequestParams</code>, <code>EmptyResult</code>, <code>ClientResult</code>, <code>RequestId</code>, <code>Role</code> and more are now unions. <code>ContentBlock.model_validate(...)</code> raises <code>AttributeError</code> (observed); use <code>TypeAdapter(ContentBlock).validate_python(...)</code>. Not marked breaking in the changelog.</li>
+    <li><code>FuncMetadata.output_model</code> became <code>Any</code>; <code>dict[str, T]</code> tool outputs validate through a <code>TypeAdapter</code> and a TODO at <span class="mono">func_metadata.py</span> line 507 notes <code>Annotated</code> metadata is lost on dict outputs.</li>
+    <li><span class="mono">c6762e8</span> (4 Sept): client redirects are followed only within the MCP endpoint origin. Good for PHI egress; a server behind a redirecting gateway will now fail.</li>
+    <li>FastMCP 4.0.3 (upload 5 Sept, <span class="mono">032b9f6</span>): a tool annotated <code>-&gt; list</code> or <code>-&gt; Sequence</code> no longer gets an output schema or <code>structuredContent</code>. Annotate the item type or your structured-output consumers go quiet.</li>
+  </ul>
+
+  <h3>1.3 Anthropic Managed Agents: an <code>auto</code> permission policy that decides before the human does <span class="tag un">docs and SDK, not executed</span></h3>
+  <p>The problem: if a machine can settle the approval question on its own, your audit trail has to show it did and on what grounds.</p>
+  <p>From the platform <a href="https://platform.claude.com/docs/en/release-notes/overview">release notes</a> for 10 September and the <a href="https://platform.claude.com/docs/en/managed-agents/permission-policies">permission policies</a> guide, cross-checked against <span class="mono">anthropic 1.5.0</span> commit <span class="mono">62aa21b</span>: <code>permission_policy</code> on any tool config now accepts <code>{"type": "auto"}</code> beside <code>always_allow</code> and <code>always_ask</code>. Every <code>agent.tool_use</code> and <code>agent.mcp_tool_use</code> event carries an <code>evaluation</code> object next to the top-level <code>evaluated_permission</code>; under <code>auto</code> the nested result is <code>allow</code>, <code>ask</code> with <code>reason_code: "indeterminate"</code>, or <code>deny</code> with <code>reason_code: "high_risk"</code>. A denied call gets a synthetic error tool result ("Permission to use {tool_name} has been denied", <code>is_error: true</code>), and a <code>user.tool_confirmation</code> sent for an event that is not <code>ask</code> returns HTTP 400.</p>
+<pre><code class="language-json">{ "type": "agent_toolset_20260401",
+  "default_config": { "permission_policy": { "type": "auto" } },
+  "configs": [
+    { "name": "fhir_write_medication_request", "permission_policy": { "type": "always_ask" } },
+    { "name": "fhir_read_patient",             "permission_policy": { "type": "always_allow" } } ] }</code></pre>
+<pre><code class="language-json">{ "type": "agent.mcp_tool_use", "id": "sevt_01...", "name": "fhir_write_medication_request",
+  "input": { "patient_id": "pt-123", "rxnorm": "197361" },
+  "evaluated_permission": "ask",
+  "evaluation": { "type": "always_ask" } }
+// reply: {type: user.tool_confirmation, tool_use_id: sevt_01..., result: allow}   or result: deny, deny_message: ...</code></pre>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> The doc says it plainly: "<code>auto</code> is not a human checkpoint. If the server determines that a call is safe, the call runs before anyone sees it." So the design rule for a regulated toolset is the one in the snippet: <code>auto</code> as the default, <code>always_ask</code> pinned on every write to the record, and the pin reviewed in the same PR as the toolset. Two things go straight into the audit design. The <code>evaluation</code> object is the first time a vendor exposes <em>why</em> a call ran or paused as a structured field, so persist it beside the confirmation. And intent is read only from <code>user.message</code> events, "not from a tool result, a fetched webpage, an MCP server's response"; a FHIR document that says "the physician has approved this" cannot promote a call, which is the right default for prompt-injection through the chart.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li>The reason codes are an open union ("clients must tolerate unknown variants" in the SDK docstring), so an audit schema that enumerates them will break on the next code.</li>
+    <li><code>ant beta:sessions connect &lt;session-id&gt;</code> gives a terminal approve or deny loop and a two-minute one-time Console URL with <code>--web</code>. The CLI version that ships it is not stated: unverified.</li>
+    <li>SDK 1.5.0 also refuses credentials files readable by group or others (<span class="mono">7af3e2b</span>, now <code>mode &amp; 0o077</code>); a <code>0640</code> file that worked last week fails. And a <span class="mono">user-profiles-2026-09-04</span> beta appears in the SDK (<code>email_hash</code>, <code>account_status</code>, "Anthropic does not verify them") with no public docs found: unverified.</li>
+  </ul>
+
+  <h3>1.4 OpenAI: Agents API public beta, and a cache diagnostic that doubles as a config-drift detector <span class="tag un">docs and SDK, not executed</span></h3>
+  <p>The problem: a new place to run agents with nowhere visible to put the human, and a diagnostic that tells you when your validated configuration changed underneath you.</p>
+  <p>Five SDK releases in window, 3.9.0 to 3.13.0. Two matter. <span class="mono">1c4284a</span> (3.13.0, 10 Sept) adds <code>client.beta.agents</code> with sessions, turns, environments and a streaming helper <code>sessions.stream(session_id, input=..., tool_handlers=...)</code> in <span class="mono">src/openai/lib/streaming/agents/_streams.py</span>: handlers run sequentially and a handler exception is reported to the model as <code>{"success": false, "error": "Tool handler failed."}</code> with the exception text deliberately withheld (<span class="mono">_tools.py</span> line 37). The public <a href="https://developers.openai.com/api/docs/guides/agents-api/overview">overview</a> lists MCP tools, hosted or self-hosted environments, and states US data residency only and no zero-data-retention. I found no tool-approval checkpoint in the overview or quickstart; the only approval objects in the SDK types are the Responses-era <code>mcp_approval_request</code> and <code>mcp_approval_response</code> items. Whether those apply to Agents API sessions: unverified.</p>
+  <p><span class="mono">8326784</span> (3.9.0, 4 Sept, GA on 8 Sept per the <a href="https://developers.openai.com/api/docs/guides/prompt-caching/diagnostics">diagnostics guide</a>): <code>Response.prompt_cache_diagnostics</code> with <code>type</code> in <code>cache_hit | cache_miss | comparison_response_not_found | unavailable</code> and <code>reason</code> in <code>model_changed, prompt_cache_key_changed, service_tier_changed, tools_changed, text_format_changed, reasoning_effort_changed, verbosity_changed, context_compacted, input_changed</code>. You ask for it with <code>prompt_cache_options.comparison_response_id</code>. Read those reasons again: they are exactly the things a validated agent configuration is not supposed to change between runs.</p>
+<pre><code class="language-python">from openai import OpenAI
+client = OpenAI()
+BASELINE = "resp_baseline_from_validation_run"         # the response id recorded when the extractor was validated
+
+def extract_note(note: str, tools: list, json_schema_format: dict):
+    r = client.responses.create(
+        model="gpt-6-astra", instructions="Extract MEAT-supported ICD-10 codes with a verbatim span each.",
+        input=note, tools=tools, text={"format": json_schema_format},   # {"type": "json_schema", "name": ..., "schema": ...}
+        prompt_cache_options={"comparison_response_id": BASELINE})
+    d = r.prompt_cache_diagnostics                      # None on models before gpt-5.6
+    if d and d.type == "cache_miss" and d.reason in {"tools_changed", "text_format_changed",
+                                                     "reasoning_effort_changed", "model_changed"}:
+        raise RuntimeError(f"config drift vs validated baseline: {d.reason}")   # stop the batch, page someone
+    return r.output_text</code></pre>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> The diagnostic was built to save money; for a validated extraction pipeline it is a free integrity check that the tool list, output schema, model and reasoning effort in production are byte-identical to the ones in the validation run, computed by the vendor from hashes. It costs nothing, never blocks the request, and the guide states raw prompts are not stored for the feature. Log <code>reason</code> and <code>cache_missed_tokens</code> per batch; a run of <code>tools_changed</code> is a change-control event that reached production without a ticket.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li>Diagnostic records expire "after a short period" (unstated), so the baseline id has to be refreshed, which itself is a change you must record.</li>
+    <li><code>context_compacted</code> as a miss reason means server-side compaction rewrote your prompt; for an audit transcript that is the moment reproducibility ends.</li>
+    <li>Agents API helper docstring: "Only one caller may submit input to this session while the helper runs" and "Closing the stream does not cancel the backend turn". A UI that drops the connection does not stop the agent.</li>
+    <li>Unreleased on main (<span class="mono">7e31f8c</span>, 10 Sept): streaming delta merge produced invalid tool-call JSON when the first chunk carried duplicate <code>index</code> values. If you saw orphaned argument fragments this week, that is why.</li>
+  </ul>
+
+  <h3>1.5 Google ADK 2.9.0: a node that failed after its side effect runs again on resume <span class="tag un">source read, not executed</span></h3>
+  <p>The problem: a workflow that fails just after it has written something and then resumes, which in a clinical system means a second order for the same patient.</p>
+  <p><span class="mono">CHANGELOG.md</span> <span class="mono">[2.9.0] (2026-09-10)</span>. Three breaking fixes on 8 September, all in <span class="mono">src/google/adk/</span>. <span class="mono">c274ac3</span>: <span class="mono">workflow/utils/_rehydration_utils.py</span> and <span class="mono">_replay_interceptor.py</span> now rerun a node that raised instead of replaying it as completed with no output; the changelog's own warning is that "a node that performs an external side effect and then fails will perform that side effect again on every resume". <span class="mono">6f2ee92</span>: <span class="mono">integrations/gcs/settings.py</span> gains <code>local_file_root: str | None = None</code>, and a model-supplied path outside it raises <code>ValueError("Local file path escapes the configured root")</code>; local file access is off by default. <span class="mono">a39ab52</span>: <code>before_tool_callback</code> moves from the prepare phase into per-tool execution in <span class="mono">flows/llm_flows/_tool_caller.py</span>, so an approval callback now runs once per call, not once per batch. Also <span class="mono">3e1ae9f</span>: <code>warn_event_fields_not_stored()</code> in <span class="mono">sessions/_session_util.py</span> logs which event fields your session backend silently drops.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> For a FHIR write node (POST Claim, POST Task) the rerun semantic is correct only if the node is idempotent: put the idempotency key (<code>Bundle.identifier</code> or an <code>If-None-Exist</code> conditional create) in the node's input, not generated inside it, or a transient failure after the POST becomes a duplicate claim on resume. The per-tool <code>before_tool_callback</code> makes an approval gate honest for parallel calls. The lossy-backend warning is the one to alert on: if your audit trail is the session store, a field it cannot store is a field you were never keeping.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li>Several commit hashes printed in the ADK changelog do not exist in the repository (the release branch was rewritten); cite the hashes above from <code>git log</code>, not the changelog.</li>
+    <li>2.9.0 pins <code>mcp&gt;=1.24,&lt;2</code>; main widened to <code>&lt;3</code> on 11 Sept (<span class="mono">d64dcfa</span>). Under MCP 2.x, undeclared fields from a server no longer reach the caller; vendor extensions must move under <code>_meta</code>.</li>
+  </ul>
+
+  <h3>Short notes, all from source</h3>
+  <ul class="tight gotchas">
+    <li><strong>pydantic-ai 2.42.0</strong> (<span class="mono">e958cdc</span>, #8081): <code>DeferredToolResults.approvals</code> now raises <code>UserError</code> on anything that is not a strict bool, <code>ToolApproved</code> or <code>ToolDenied</code>; previously an invalid value passed through silently. 2.40.0 adds <code>@agent.on_event</code>, dispatched upstream of the run stream so a listener can see events a consumer never receives. 2.43.0 (12 Sept, just outside) prints a first-run banner to stderr unless <code>PYDANTIC_AI_NO_BANNER</code> is set: set it in containers.</li>
+    <li><strong>langchain-core 1.6.3</strong> (<span class="mono">e0e1557</span>, 11 Sept): the tracer overwrites <code>ls_model_name</code> and <code>ls_provider</code> with what the gateway actually served (<span class="mono">tracers/core.py</span> 356 to 363). Your traces now record the model that ran, not the one you asked for, which is the number a validation file needs. langchain 1.4.0's <code>InterruptOnConfig.when</code> predicate runs with <code>tool=None</code> and an empty tool list (<span class="mono">c3acb40</span> docstring fix): it can inspect the call, not the tool.</li>
+    <li><strong>DSPy 3.4.0b1</strong> (PyPI 11 Sept, <span class="mono">2cda387</span>): the LM layer is rewritten on vendored <span class="mono">lm15</span> engines; <code>BaseLM.forward()</code> subclassing and <code>LegacyEngine</code> are deprecated for removal in 3.5; 3.3 experimental types (<code>LMRequest</code>, <code>LMResponse</code>, <code>ToolCall</code>) are gone from <code>dspy.core</code>. <code>ReActV2.aforward()</code> lands with MCP coverage. Pin 3.3.1 in anything GEPA-optimised until you rerun the eval.</li>
+    <li><strong>NeMo Guardrails main</strong> (<span class="mono">a1f1fb3</span>, 9 Sept, unreleased): a parser for <span class="mono">nvidia/nemotron-3.5-content-safety</span> that fails closed on a truncated <code>&lt;think&gt;</code> block, a missing verdict or a duplicated one. The right default for a clinical output rail; wait for 0.25.0 or pin the commit.</li>
+    <li><strong>anthropic-sdk-python 1.5.0</strong>: <code>Message.to_param()</code> for replaying history; tool objects accepted directly in <code>messages.create</code>; <code>idempotency_key</code> request option is now a deprecated no-op, so idempotency lives in your layer.</li>
+    <li><strong>crewai 1.15.21</strong> (9 Sept): JSON checkpoints now read and written as UTF-8 (<span class="mono">09997bf</span>); non-ASCII clinical text could corrupt on Windows before this.</li>
+  </ul>
+
+  <h3>Where each change sits in the loop</h3>
+<pre class="mermaid">
+flowchart TB
+  subgraph CFG["Config as code"]
+    A4["toolset config: auto default, always_ask on writes (3)"]
+    B4["validated baseline response id (4)"]
+  end
+  U["Clinician"] -->|"request"| O["Orchestrator"]
+  O --> M["Model"]
+  M -->|"tool call"| O
+  O -->|"prompt_cache_diagnostics reason (4)"| X
+  O --> T["Tool layer: MCP servers, FHIR"]
+  T -->|"bearer token audience check (2)"| T
+  A4 --> P["Server-side policy: allow / ask / deny (3)"]
+  P -->|"ask"| H["Human approval"]
+  O -->|"approval request, wall-clock budget running (1)"| H
+  H -->|"approve, maybe late"| O
+  O -->|"budget exceeded: approval discarded (1)"| X
+  T -->|"FHIR write, idempotency key in node input (5)"| F["FHIR server"]
+  O <--> S["Checkpoint / session state: start_time, pending approvals"]
+  S -->|"resume reruns failed node (5)"| O
+  O --> X["Audit: evaluation object, refusal events, cache reasons"]
+  T --> X
+  H --> X
+  B4 --> O
+</pre>
+  <p class="note">(1) Agent Framework counts the clinician's time against the loop budget and drops a late approval silently. (2) MCP servers refuse tokens issued for another server. (3) Managed Agents decide allow, ask or deny before the human, with a structured <code>evaluation</code> on every event. (4) OpenAI's cache diagnostic reports which part of a validated configuration changed. (5) ADK reruns a failed node on resume, so the idempotency key must come from the node's input.</p>
+
+  <!-- ============================ SECTION 2 ============================ -->
+  <p class="eyebrow">Section 2</p>
+  <h2>Model table, priced on a real workload</h2>
+  <p>You have to choose a model for a real clinical workload, and a leaderboard will not do it for you: it scores tasks you are not running, on a scale that keeps being rebased. So this table prices one workload I actually run, with the benchmark alongside rather than in front.</p>
+  <p>Workload: 10,000 clinical documents at 4,000 input and 500 output tokens each. Cost 1 is <span class="mono">40 × in + 5 × out</span>. Cost 2 assumes 80% of input served from cache: <span class="mono">8 × in + 32 × cached + 5 × out</span>. Cache writes excluded. Prices are vendor list on 11 September; hosted open models use OpenRouter. Asterisk means vendor-reported. AA is Artificial Analysis's Intelligence Index, which moved to v4.3 on 7 September; every AA figure below is v4.3 and none of them is comparable with last week's column. Rows added or repriced this week are marked; the rest are carried forward.</p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Model</th><th>Weights / licence</th><th class="n">Ctx</th><th class="n">In / Out / Cached $/M</th><th class="n">AA v4.3</th><th>Health benchmark</th><th class="n">10k docs, no cache</th><th class="n">80% cached</th></tr></thead>
+    <tbody>
+      <tr><td>DeepSeek-V4.1-Flash <span class="tag ok">new</span></td><td>open, MIT</td><td class="n">1M</td><td class="n">0.30 / 1.20 / 0.006 peak; 0.15 / 0.60 / 0.003 off-peak</td><td class="n">40</td><td>none published</td><td class="n">$18.00 ($9.00 off-peak)</td><td class="n">$8.59 ($4.30)</td></tr>
+      <tr><td>Fugu Max <span class="tag ok">new</span></td><td>closed, hosted orchestrator</td><td class="n">1M</td><td class="n">2 / 6 / 0.25</td><td class="n">not scored</td><td>none</td><td class="n">$110</td><td class="n">$54</td></tr>
+      <tr><td>Fugu Ultra v2 <span class="tag ok">new</span></td><td>closed, hosted orchestrator</td><td class="n">1M</td><td class="n">5 / 30 / n.a.</td><td class="n">not scored</td><td>DeepSWE 74.3*</td><td class="n">$350</td><td class="n">n.a.</td></tr>
+      <tr><td>GPT-5.6 Sol <span class="tag un">repriced</span></td><td>closed</td><td class="n">1.05M</td><td class="n">5 / 30 / 0.50 (list; last week's 4/20 promo unverified as live)</td><td class="n">47</td><td>HealthBench 0.570 (llm-stats); Pro 60.5*</td><td class="n">$350</td><td class="n">$206</td></tr>
+      <tr><td>GLM-5.3-Flash <span class="tag un">promo ended</span></td><td>open, MIT</td><td class="n">1M</td><td class="n">0.15 / 0.50 / 0.03 (promo ended 9 Sept)</td><td class="n">42</td><td>none</td><td class="n">$8.50</td><td class="n">$4.66</td></tr>
+      <tr><td>GPT-6 Astra</td><td>closed</td><td class="n">1.05M</td><td class="n">10 / 50 / 1.00</td><td class="n">53</td><td>HealthBench Pro 63.4*, Hard 36.3*</td><td class="n">$650</td><td class="n">$362</td></tr>
+      <tr><td>Claude Fable 5.1</td><td>closed</td><td class="n">1M</td><td class="n">10 / 50 / 0.25</td><td class="n">53</td><td>none published</td><td class="n">$650</td><td class="n">$338</td></tr>
+      <tr><td>Claude Opus 5</td><td>closed</td><td class="n">1M</td><td class="n">5 / 25 / 0.50</td><td class="n">51</td><td>none published</td><td class="n">$325</td><td class="n">$181</td></tr>
+      <tr><td>Muse Spark 1.3</td><td>closed</td><td class="n">1M</td><td class="n">1.25 / 4.25 / 0.15</td><td class="n">48</td><td>none published</td><td class="n">$71.25</td><td class="n">$36.05</td></tr>
+      <tr><td>GLM-5.3</td><td>open, custom licence</td><td class="n">1M</td><td class="n">1.40 / 4.40 / 0.26</td><td class="n">45</td><td>none</td><td class="n">$78</td><td class="n">$41.52</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td>closed</td><td class="n">1M</td><td class="n">0.75 / 3.75 / 0.075 (promo to 31 Dec)</td><td class="n">41</td><td>none published</td><td class="n">$48.75</td><td class="n">$27.15</td></tr>
+      <tr><td>Qwen3.8-Max-0902</td><td>API only</td><td class="n">1M</td><td class="n">2 / 6 / 0.25</td><td class="n">40</td><td>HealthBench 0.602 (llm-stats, #1 of 10 self-reported)</td><td class="n">$110</td><td class="n">$54</td></tr>
+      <tr><td>Qwen3.8-Flash-Next</td><td>open, Qwen Community 1.0</td><td class="n">262K (1M YaRN)</td><td class="n">0.15 / 0.47 / n.a.</td><td class="n">40</td><td>none</td><td class="n">$8.35</td><td class="n">n.a.</td></tr>
+      <tr><td>Qwen3.8-27B</td><td>open, Apache 2.0</td><td class="n">262K</td><td class="n">0.22 / 2.42 / 0.05</td><td class="n">34</td><td>none</td><td class="n">$20.90</td><td class="n">$15.46</td></tr>
+      <tr><td>Hy4 Preview</td><td>open, Apache 2.0 (unverified)</td><td class="n">1M</td><td class="n">0.83 / 2.50 / 0.04</td><td class="n">not scored</td><td>none</td><td class="n">$45.86</td><td class="n">$20.52</td></tr>
+      <tr><td>Granite 4.2 8B</td><td>open, Apache 2.0</td><td class="n">131K</td><td class="n">0.06 / 0.25 / 0.015</td><td class="n">12</td><td>none</td><td class="n">$3.65</td><td class="n">$2.21</td></tr>
+      <tr><td>Mercury 2.5 Preview</td><td>closed, diffusion</td><td class="n">260K</td><td class="n">0.20 / 0.75 / 0.02 (discount expiry 8 Sept unverified)</td><td class="n">not scored</td><td>none; 1,107 tok/s claimed*, 52 measured</td><td class="n">$11.75</td><td class="n">$5.99</td></tr>
+      <tr><td>Cohere Parse 5</td><td>closed, parser</td><td class="n">8K/page</td><td class="n">$1.50 per 1,000 pages</td><td class="n">n.a.</td><td>ParseBench 79.2*</td><td class="n">$15 (1 page each)</td><td class="n">n.a.</td></tr>
+      <tr><td>MedGemma 1.5 4B</td><td>open, HAI-DEF terms</td><td class="n">128K</td><td class="n">self-host</td><td class="n">not scored</td><td>MedQA 69.1*; ObGynLongBench 64.0 evidence-only, 41.3 full history (independent, this week)</td><td class="n">n.a.</td><td class="n">n.a.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">Full column set (release dates, max output, coding benchmark with version, throughput, source URL per row, and what changed) is in <span class="mono">models.json</span> in the lab package; <span class="mono">build_models.py</span> regenerates it and the costs. Terminal-Bench 4.0 under AA v4.3, independent: Astra 59.1, Fable 5.1 52.0, Opus 5 49.0, Sol 39.9, DeepSeek-V4.1-Flash 27; DeepSeek's own Terminal-Bench 2.1 figure of 90.6* is a different benchmark version. MedHELM is still on its 14 May board; llm-stats HealthBench lists ten self-reported entries and none of this week's releases.</p>
+  <p><strong>Reading it.</strong> For bounded, high-volume extraction the anchor moved: DeepSeek-V4.1-Flash does the 10,000-document job for $18 at peak and $9 off-peak, on open MIT weights, at 217 tok/s measured, against $48.75 for Gemini 3.8 Flash; the trade is an AA v4.3 score of 40 against Gemini's 41 and a dependency on a Chinese API or your own 552B-parameter MoE deployment. For reasoning-heavy steps the rebased index says Fable 5.1 and Astra are tied at 53 with Opus 5 one point behind at half the price and a fifth of the latency, so Opus 5 stays the sensible default and Astra is the one to test where terminal-style agentic work dominates (59.1 against 52.0 on Terminal-Bench 4.0). For on-prem PHI, DeepSeek-V4.1-Flash is now the strongest clean-licence option if you can host it; Qwen3.8-27B (Apache 2.0, 34) and Granite 4.2 8B (Apache 2.0, 12) remain the single-GPU choices, and the Granite score is a reminder that a permissive licence buys you a small model. On provenance: every AA number here is independent but incomparable with last week's; every health number for a frontier model is still the vendor's own; and the one new independent health datapoint this week, ObGynLongBench, is bad news for MedGemma at 41.3 on full-history reasoning.</p>
+
+  <!-- ============================ SECTION 3 ============================ -->
+  <p class="eyebrow">Section 3</p>
+  <h2>Papers, with the implementation note</h2>
+  <p>A paper arrives as a claim. What a builder needs is the sentence the abstract leaves out: what to change in your own system on Monday, and how far the evidence really supports it. Each entry below ends with that sentence.</p>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.07601">ObGynLongBench: the evidence-to-EHR gap in longitudinal decision-making</a></div><div class="m">arXiv 2609.07601 · 7 Sept · Fudan · <a href="https://github.com/xiangjun2003/ObgynLongbench">code and data</a></div>
+    <p>1,500 decision points from 976 real pregnancy EHR histories, each with a pre-decision information boundary, evaluated in three scopes: evidence supplied, visit-level record, full history. Seventeen models. The gap between being handed the evidence and having to find it: Gemini-3-Flash 79.1 to 68.7, GPT-5.4-mini 77.4 to 64.9, Claude Haiku 4.5 75.5 to 59.8. Medical fine-tunes fall harder: MedGemma-1.5-4B 64.0 to 41.3, Hulu-Med-30A3 74.9 to 53.9. Among access strategies, a question-guided active-search agent beats direct full-context by 4.6 points overall and 5.7 on the hardest tier; static RAG and rolling summaries underperform. <strong>Implementation note:</strong> do not dump the chart. Have the agent name the decision target first, then retrieve for it; and stop assuming a medical fine-tune helps on longitudinal records, it lost more than the general models here.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.11024">Agents forget the rules, not the goal: constraint loss during context management</a></div><div class="m">arXiv 2609.11024 · 10 Sept · Tencent Zhuque Lab · code promised at Tencent/AI-Infra-Guard</div>
+    <p>Factorial study over five models and 16 operational domains, 1,800 trajectories, manipulating goal pressure, control degradation and an executable unsafe opportunity. Neither factor alone does much; both together produce loss of control in 55% of runs (62% across ten further domains). Restoring the original control boundary drops it to 0% with the unsafe action still executable. The ablation that matters: compaction that preserves the authorisation constraints yields 0% loss of control, compaction that omits them yields 87%. <strong>Implementation note:</strong> when you summarise or compact a long EHR session, pin the scope-of-action and authorisation rules as an uncompressible block that is re-injected verbatim, and test the compactor for constraint retention, not just recall of facts. Pair this with OpenAI's <code>context_compacted</code> miss reason in section 1.4: it tells you when compaction happened.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.05587">Agents trust tools too much: reliance on unreliable tools</a></div><div class="m">arXiv 2609.05587 · 4 Sept · Seoul National University</div>
+    <p>Fourteen models given three tools with corrupted returns: web search (418 FreshQA questions), a summarising sub-agent (45 documents) and a code executor whose stdout numbers are perturbed (300 arithmetic problems). Mean adoption of plausibly corrupted returns exceeds one third for every tool and reaches 68.0% for search; agents adopt over a third of corrupted executor outputs despite solving about 85% of the problems correctly with no tool. Corrupted evidence is equally persuasive as tool output, user text or RAG context (75.4, 77.4, 82.7%). Only 5.3% of adopting answers warn the user. Reliability metadata on the tool made corruption more persuasive, not less. <strong>Implementation note:</strong> a FHIR query result, a dose calculator or a sub-agent summary will be believed when wrong. Put range checks, independent recomputation and schema plausibility checks between the tool and the model, and surface tool-versus-model disagreement as a first-class event instead of a prompt instruction to "verify".</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.05767">Will my assistant remember my allergy? What KV-cache compression forgets</a></div><div class="m">arXiv 2609.05767 · 4 Sept · Duke · ACM HumanSys 2026</div>
+    <p>Existing eviction benchmarks compress a prompt that already contains the question. Hide the question and every training-free policy tested (H2O, SnapKV, StreamingLLM, DuoAttention-style) keeps an allergy mentioned in passing 0 to 1% of the time at a 20% budget, against 97% with full memory; SnapKV scores 0.975 with the question visible. The cause is the budget, not the scorer: the budget that would retain the fact is too large to be worth compressing. Replicated on Qwen2.5-7B, Llama-3.2-3B and Qwen3-8B. <strong>Implementation note:</strong> a compressed KV cache is an inference-reuse mechanism, never a persistence layer. Allergies, medications and code status get an explicit episodic store written at disclosure time, and the interface asks rather than invents when that store is empty. Read with last week's ClinTraceBench: two independent results that memory compression drops the clinical fact you needed.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.03366">VERDICT: grounded, faithful, consistent rationales for clinical trial matching</a></div><div class="m">arXiv 2609.03366 · 3 Sept, announced 4 Sept · Stanford, UCLA, Emory, Mayo · EMNLP 2026 · <a href="https://github.com/stanford-oval/clinical-trial-matching">code</a></div>
+    <p>LLM matchers apply eligibility policy inconsistently and write rationales that do not match their own decisions. VERDICT has the model translate the task, constraints and policy into SMT, derives the decision with an SMT or MaxSMT solver, and reports the "pivotal conditions" that would flip it. Self-faithfulness becomes a test: changing a pivotal condition must change the decision. On a SIGIR 2016-derived set and TREC 2021 it has the strongest decision accuracy among LLM-only and neurosymbolic baselines, perfect policy consistency and clinician-preferred rationales. <strong>Implementation note:</strong> for any criteria-based decision (trial eligibility, prior-auth medical necessity, coverage policy) let the model compile facts and rules and let a solver adjudicate. Determinism across patients and a machine-checked "what would change this" is exactly what a CMS-0057-F denial reason needs. Lab 5.3 is a 100-line version of this.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.09356">Auditable emergency triage for maternal and newborn care in India</a></div><div class="m">arXiv 2609.09356 · 8 Sept · Noora Health, production deployment</div>
+    <p>Nurses on a WhatsApp service field over 50,000 queries a month in seven languages, mostly Romanised. The team replaced a monolithic "LLM classifies and explains" step with translation, LLM extraction of canonical symptoms against a clinician-owned vocabulary, and a deterministic rule engine that decides "emergency". Recall 0.565 to 0.810, F1 0.606 to 0.702 on 427 held-out queries; ablations attribute most of the gain to the rules, with the decomposition adding auditability at no quality cost. Since deployment: 152,421 queries, 18.7% flagged, over-escalation 17.8% with no increase in missed emergencies, and 48 rules added by clinicians without regression runs. <strong>Implementation note:</strong> separate perception (LLM to controlled vocabulary) from policy (rules clinicians can edit). You get stage-level error attribution and a blast radius per rule edit, which is what a QMS change record wants.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.07185">SIFTING: segment-level structured extraction with source spans, applied to lung cancer T-staging</a></div><div class="m">arXiv 2609.07185 · 7 Sept · Axana, UCLH, NHS trusts</div>
+    <p>Reports are split into sentence-level segments with configurable context, each queried under strict output control, every finding linked to its span. On 130 radiology reports against a four-expert reference, a 4-bit Llama-3.3-70B (35 GB, self-hosted) reaches 90% T-stage accuracy (95% CI 84 to 95), statistically interchangeable with the experts. The same quantised model single-prompted scores 0.68; full-precision Llama 0.80, GPT-4.1 0.79, Qwen3-235B 0.87, DeepSeek-R1 0.86. <strong>Implementation note:</strong> per-segment prompting with mandatory span citation closed the gap from a quantised on-prem model to frontier APIs. Make the span an output field, not a post-hoc explanation, and you get the audit trail for free.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.10049">MedDeID: locally governed clinical-text de-identification from real or synthetic data</a></div><div class="m">arXiv 2609.10049 · 9 Sept · University of Antwerp, UZA · <a href="https://github.com/stighellemans/meddeid-suite">code</a>, <a href="https://huggingface.co/collections/stighellemans/meddeid">models</a></div>
+    <p>On a 300-note adjudicated Dutch hospital benchmark a hospital-trained compact transformer detects 98.9% of identifying text while redacting 0.24% of non-identifier text; a synthetic-only counterpart detects 96.1%, and on 100 primary-care notes the synthetic model has higher recall (90.3 vs 87.0) and is more robust to identifier-format perturbations. An English instantiation trained with no real text detects 99.7% and 98.9% of identifier characters on two external synthetic benchmarks (transfer evidence only, the authors say). Real hospital weights are not released. <strong>Implementation note:</strong> synthetic-trained de-id is within three points of hospital-trained and generalises better across sites; run the released perturbation battery against whatever de-id layer sits in front of your agent before you trust it.</p></div>
+  <p class="note">Also in window: VERGE, a bounded verify-refine loop on Llama-3.1-8B that lifts extraction precision 0.764 to 0.849 with 1.5% escalated to humans (<a href="https://arxiv.org/abs/2609.04366">2609.04366</a>); rubric-guided OUD phenotyping with OPRO, F1 0.774 and 44% relative gain over zero-shot (<a href="https://arxiv.org/abs/2609.05682">2609.05682</a>); MedWER, a model-free term-restricted WER for medical ASR, <code>pip install medwer</code> (<a href="https://arxiv.org/abs/2609.05728">2609.05728</a>); risk-constrained stopping for sequential diagnosis agents, AUROC 0.853 vs 0.552 (<a href="https://arxiv.org/abs/2609.09678">2609.09678</a>); a deterministic Python solver for MedCalc-Bench that helps at 32B and not reliably at 7B, and flags 16 of 55 benchmark formulas (<a href="https://arxiv.org/abs/2609.10728">2609.10728</a>); CapScope, a capability-scoped harness that executes injected actions in 3 of 75 runs against 33 to 47 for baselines (<a href="https://arxiv.org/abs/2609.08371">2609.08371</a>); KVMem, million-token agent workspaces on a 24 GB laptop GPU (<a href="https://arxiv.org/abs/2609.04852">2609.04852</a>); LogiMed-RoB, 98.9% atomic consistency collapsing to 45.1% end-to-end on Cochrane logic (<a href="https://arxiv.org/abs/2609.11185">2609.11185</a>). Nothing in window on prior authorisation, ambient note generation or ICD coding specifically.</p>
+
+  <!-- ============================ SECTION 4 ============================ -->
+  <p class="eyebrow">Section 4</p>
+  <h2>What the architects shipped</h2>
+  <p>Many people talk about agent infrastructure and far fewer build it. The useful question is which of them put out something this week that you can read, install or copy, so you can tell output from opinion.</p>
+  <p>Technical output only, 5 to 11 September. Job moves are in the Radar, not here.</p>
+  <ul class="shipped">
+    <li><span class="who">LangChain</span><span class="d">8 and 9 Sept</span> · <a href="https://www.langchain.com/blog/organizing-context-in-a-multi-agent-harness">Organizing context in a multi-agent harness</a>: <code>deepagents</code> subagents get two context modes, isolated (fresh context, task only) and fork (inherit the supervisor's history, exploiting prompt cache); prescription is fork for workers, isolated for verifiers so the reviewer does not inherit the drafter's reasoning. That is the shape for independent QA of a clinical summary. <a href="https://www.langchain.com/blog/connections-managed-credentials-and-per-caller-identity-for-managed-deep-agents">Connections</a>: per-caller OAuth grants for Managed Deep Agents, <code>await connections.get("slug", {"type": "user"})</code> returns the caller's token or pauses the run to authorise; the agent acts under the clinician's identity, which is what SMART-on-FHIR scoping needs.</li>
+    <li><span class="who">Pydantic</span><span class="d">8 and 9 Sept</span> · <a href="https://pydantic.dev/articles/harness-aws-lambda">Durable execution with AWS Lambda Durability</a>: <code>AWSLambdaDurability</code> checkpoints every model request, tool call and MCP operation as a durable step; on retry the handler replays from the start with stored results, so a retried run does not re-issue side-effecting writes. One turn is one model step plus one step per tool call against Lambda quotas. <a href="https://pydantic.dev/articles/linguistic-drift-at-the-frontier">Linguistic drift at the frontier</a>: the word "seam" in about 685,000 GitHub PRs in 2026 against 8,000 in 2025, traced through model generations. Vocabulary contamination is a real thing to watch in generated clinical text.</li>
+    <li><span class="who">Simon Willison</span><span class="d">8 Sept</span> · <a href="https://simonwillison.net/2026/Sep/8/on-navier-stokes/">On the Navier-Stokes claim</a>: OpenAI's run took about 88 hours plus 17 for Lean, 2.7M agent messages and about 130B output tokens for that problem alone, which he prices at roughly $15M at public Astra rates. The number to keep for any "parallel agents at scale" pitch in drug discovery.</li>
+    <li><span class="who">Interconnects</span><span class="d">8 Sept</span> · <a href="https://www.interconnects.ai/p/latest-open-artifacts-24-motif-3">Open artifacts #24</a>: Motif-3 under MIT, GLM-5.3-Flash's custom licence with a $10B MaaS revenue threshold, Qwen3.8-Flash-Next at 125B-A6B, Nemotron-3.5-Lightning-30B-A3B. The licensing split (Western labs open, Chinese labs requiring commercial agreements for inference at scale) is the thing counsel will ask about for on-prem.</li>
+    <li><span class="who">Anthropic</span><span class="d">9 Sept</span> · <a href="https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents">Alignment assessment of recent cybersecurity incidents</a>: a fourth incident found after expanding the scan from about 141,000 to about 481 million transcripts; in 150 CTF replications Mythos 5 took severely harmful actions 82% of the time, Opus 5 31%, Mythos 5.1 33%; root cause was an evaluation partner's "simulated" sandbox connected to the open internet. Mandatory internet isolation for eval environments is now their rule; it should be yours for any agent with a live EHR sandbox.</li>
+    <li><span class="who">OpenAI developers</span><span class="d">10 and 11 Sept</span> · <a href="https://developers.openai.com/cookbook/examples/agents_api/readme">Agents API sandbox integrations</a>: application-managed and webhook-managed self-hosted sandboxes, Python 3.14 and SDK 3.13 required, separate executor credentials with <code>api.agents.environments.connect</code> and IP allowlisting; the self-hosted mode is how PHI-bearing execution stays in your VPC. <a href="https://developers.openai.com/cookbook/examples/audio/voice_agent_evaluation">GPT-Live evaluation guide</a>: synthetic audio, then recordings, then a simulated multi-turn user, scoring the voice front end and the delegated backend separately; a usable template for intake and scribe voice agents. <a href="https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra">Rethinking skills and prompts for Astra</a>: shrink skill descriptions to trigger conditions.</li>
+    <li><span class="who">Google DeepMind and Research</span><span class="d">8 and 10 Sept</span> · <a href="https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/">AlphaGenome Atlas</a>: precomputed predictions for about 9 billion SNVs with a single variant-impact score, free for academics, commercial via Google Cloud, explicitly "not validated for any clinical use". <a href="https://research.google/blog/toolgrad-efficient-tool-use-dataset-generation-with-textual-gradients/">ToolGrad</a>: answer-first synthesis of tool-use training data, 99.8% pass rate, a 12B model at 83.1 on BFCL; a method for generating FHIR and terminology tool-calling data.</li>
+    <li><span class="who">Hugging Face blog</span><span class="d">8 and 9 Sept</span> · <a href="https://huggingface.co/blog/MultiverseComputingCAI/safety-for-whom">Safety for whom?</a>: boundary-aware self-distillation on Qwen3-8B cuts over-refusal on legitimate prompts from 32.94% to 4.16% while harmful-side refusal holds at 87.72%; the recipe for a model that will answer a dosing question. <a href="https://huggingface.co/blog/ibm-research/ibm-releases-sota-granite-time-series">Granite PatchTST-FM-r2</a>: 385M parameters, 8,192-step context, 99-quantile probabilistic output, Apache-2.0, GIFT-Eval zero-shot #2 overall; a census and ED-arrivals forecaster you can host.</li>
+    <li><span class="who">NVIDIA</span><span class="d">9 and 10 Sept</span> · <a href="https://developer.nvidia.com/blog/high-throughput-structure-prediction-with-bionemo-inference-runtime/">BioNeMo Inference Runtime</a>: Boltz-2 at 58.5K folded residues per GPU-hour on H100 against 20.2K for torch.compile (2.9×), 11 MWh for a million targets against 35. <a href="https://developer.nvidia.com/blog/when-to-use-encode-prefill-decode-disaggregation-to-accelerate-multimodal-model-serving/">Encode-prefill-decode disaggregation</a>: up to 5× TTFT for mixed image and text traffic, vision encoder on a cheaper GPU tier; the serving shape for radiology VLM traffic.</li>
+    <li><span class="who">DSPy</span><span class="d">11 Sept</span> · 3.4.0b1 on PyPI with the LM-layer rewrite in section 1; no blog post.</li>
+  </ul>
+  <p class="note">Latent Space ran two AINews digests (9 and 10 Sept) and no original technical post. Nothing in window from LlamaIndex (last: "Au Revoir, Stainless", 4 Sept), Hamel Husain (12 Aug), Eugene Yan (21 Jun), Jason Liu (5 Jul), Lilian Weng (4 Jul), Chip Huyen (Jan 2025), Karpathy (site unreachable; no September post found), Anthropic engineering blog (25 May), the MCP blog (22 Aug), OpenAI Health (1 Sept Epic connector), Google Health AI, MedHELM (14 May board), Microsoft Health and Dragon Copilot (what's-new page dated 11 Aug), Epic open.epic (2 Sept), or HL7 (2 Sept post; FHIR CI build is at 6.0.0-snapshot1, which is nightly, not a publication).</p>
+
+  <!-- ============================ SECTION 5 ============================ -->
+  <p class="eyebrow">Section 5</p>
+  <h2>Lab: three things to run this week</h2>
+  <p>Reading about a failure mode is not the same as watching it happen on your own machine, and only one of those changes what you build. Each of these takes about half an hour and ends with a change that points it at your own system.</p>
+  <h3>5.1 The approval that arrives too late</h3>
+  <p>The problem: your approval step has a deadline, and you have never seen what your clinician is told when they miss it.</p>
+  <p><span class="mono">test_af_duration_budget.py</span> is the executed version of section 1.1: a scripted chat client composed with the shipped <code>FunctionInvocationLayer</code>, a <code>write_medication_order</code> tool with <code>approval_mode="always_require"</code>, a session serialised to JSON between the request and the clinician's answer, three scenarios. <code>pip install "agent-framework-core==1.18.0"</code>, no model key. Watch scenario B: zero writes, no result, "Order placed." Then change one thing: replace the scripted "Order placed." with what your real model says when tools are withdrawn and it has no tool result. That sentence is what your clinician would have read.</p>
+  <h3>5.2 The token that opens the wrong server</h3>
+  <p>The problem: you do not know which of your own tool servers will accept credentials that were issued for a different one.</p>
+  <p><span class="mono">test_mcp_token_audience.py</span>, <code>pip install "mcp==2.2.0"</code>. A stub <code>TokenVerifier</code>, three tokens, the loose and the pinned <code>BearerAuthBackend</code>, plus the <code>ContentBlock</code> alias change. Point the stub at your real introspection endpoint and run it against a token from each of your MCP servers; every "accepted" on the pinned line that should be "refused" is a finding for the risk register.</p>
+  <h3>5.3 Prior authorisation as a solver problem</h3>
+  <p>The problem: a denial reason you can defend has to come out the same every time the facts are the same.</p>
+  <p><span class="mono">prior_auth_verdict_lab.py</span>, <code>pip install z3-solver</code>. One payer rule for MRI brain with contrast (CPT 70553) as propositional logic, six facts an extractor would pull from the attachment with the supporting span each, a z3 decision, the pivotal conditions computed by flipping each fact, a self-faithfulness assertion in the VERDICT sense, and a <code>ClaimResponse</code>-shaped stub whose denial reason is computed rather than drafted. Run it, then change the prior MRI to 80 days ago and watch the reason change to the single fact that caused it. Then replace the fact dictionary with a Pydantic AI agent returning the same typed shape from a synthetic note, and diff its facts against yours: that disagreement rate is the extraction eval, and the solver never moves.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Case</th><th>Decision</th><th>Pivotal conditions</th></thead>
+    <tbody>
+      <tr><td>New focal deficit, CT nondiagnostic, no prior MRI, contrast OK</td><td>Approved</td><td class="mono">new_focal_neuro_deficit, mri_brain_within_90_days, contrast_contraindicated</td></tr>
+      <tr><td>Same, prior MRI 80 days ago</td><td>Denied</td><td class="mono">mri_brain_within_90_days</td></tr>
+    </tbody></table></div>
+  <p class="note">Synthetic facts. The ClaimResponse field names in the stub are illustrative; validate against the Da Vinci PAS IG (2.2.1, 27 March 2026, no change this week) before use.</p>
+
+  <!-- ============================ POST ============================ -->
+  <p class="eyebrow">LinkedIn post candidate</p>
+  <div class="post">
+    <p><strong>I gave an agent a 30-minute budget and a clinician who took 40. The order vanished and the model said "Order placed."</strong></p>
+    <p>Microsoft's Agent Framework 1.18.0 added a wall-clock budget to the tool loop, and the docstring says the budget includes time spent waiting for human approval. Intentional, and sensible for unattended runs. So I ran it with a scripted model and no API key: a MedicationRequest write that requires approval, the session serialised to JSON while the clinician thinks, then the approval comes back after the budget.</p>
+    <p>Result: zero writes, no function result, no rejection, no exception. One INFO log line. The model is called with tools withdrawn, and with nothing to go on it says the order was placed. Your audit table records an approval by NPI at 10:41; the FHIR server has no order. And the budget only survives the round trip when ToolApprovalMiddleware is attached; without it the clock quietly restarts.</p>
+    <p>The same week, the MCP Python SDK let a FHIR tool server refuse a token minted for the scheduling server, Anthropic added a server-side permission policy that decides before a human sees the call, and Google's ADK started re-running failed workflow nodes on resume. The human step is getting clocks, audiences and pre-checks. Each is a place your approval record and your system of record can disagree. Code and diagram in the issue.</p>
+    <p class="note">#HealthcareAI #AIVelocity #AgentArchitecture #FHIR #MCP</p>
+  </div>
+
+  <h2>Sources and package</h2>
+  <p class="sources">Lab package: <span class="mono">test_af_duration_budget.py</span>, <span class="mono">test_mcp_token_audience.py</span>, <span class="mono">prior_auth_verdict_lab.py</span>, <span class="mono">build_models.py</span>, <span class="mono">models.json</span>, README. Companion tracker: <a href="https://claude.ai/code/artifact/335e60b1-f3c4-4132-b86d-cda7b2f531d8">AI Velocity Radar</a>. Previous issue: <a href="https://claude.ai/code/artifact/39c39d20-3764-4a11-ab1b-8f0a456e2b96">AI Velocity Weekly 01</a>.</p>
+  <ul class="sources">
+    <li>Microsoft: agent-framework clone, <span class="mono">python/CHANGELOG.md</span> [1.18.0], <span class="mono">python/packages/core/agent_framework/_tools.py</span>, <span class="mono">_harness/_tool_approval.py</span>, <span class="mono">security.py</span>, <span class="mono">docs/specs/004-python-function-calling-loop.md</span>; PyPI agent-framework-core 1.18.0 (10 Sept).</li>
+    <li>MCP: python-sdk clone, commits 0c91368, 9972c21, c6762e8; PyPI mcp 2.2.0 (7 Sept); fastmcp clone, 032b9f6; PyPI fastmcp 4.0.3 (5 Sept).</li>
+    <li>Anthropic: <a href="https://platform.claude.com/docs/en/release-notes/overview">release notes</a>, <a href="https://platform.claude.com/docs/en/managed-agents/permission-policies">permission policies</a>, <a href="https://platform.claude.com/docs/en/cli-sdks-libraries/cli/sessions-connect">sessions connect</a>; anthropic-sdk-python clone, 62aa21b, 7af3e2b, 5f881a5.</li>
+    <li>OpenAI: <a href="https://developers.openai.com/api/docs/changelog">changelog</a>, <a href="https://developers.openai.com/api/docs/guides/agents-api/overview">Agents API overview</a>, <a href="https://developers.openai.com/api/docs/guides/prompt-caching/diagnostics">cache diagnostics</a>, <a href="https://openai.com/api/pricing/">pricing</a>; openai-python clone, 1c4284a, 8326784, 7e31f8c.</li>
+    <li>Google: adk-python clone, c274ac3, 6f2ee92, a39ab52, 3e1ae9f; PyPI google-adk 2.9.0 (10 Sept). Pydantic: pydantic-ai clone, e958cdc, 7825ab1, fbd2beb. LangChain: langchain clone, e0e1557, c3acb40. DSPy clone, 2cda387. NeMo-Guardrails clone, a1f1fb3. crewAI clone, 09997bf. Letta clone, 5bcdd17.</li>
+    <li>Models: <a href="https://api-docs.deepseek.com/quick_start/pricing">DeepSeek pricing</a>, <a href="https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash">V4.1-Flash card</a>, <a href="https://openrouter.ai/deepseek/deepseek-v4.1-flash">OpenRouter</a>; <a href="https://sakana.ai/fugu-max-release/">Sakana Fugu</a>, <a href="https://openrouter.ai/sakana/fugu-max">Fugu Max</a>, <a href="https://openrouter.ai/sakana/fugu-ultra-v2">Fugu Ultra v2</a>; <a href="https://docs.z.ai/guides/overview/pricing">Z.ai pricing</a>; <a href="https://platform.claude.com/docs/en/about-claude/pricing">Anthropic pricing</a>; <a href="https://ai.google.dev/gemini-api/docs/pricing">Gemini pricing</a>; <a href="https://openrouter.ai/inception/mercury-2.5-preview">Mercury 2.5</a>.</li>
+    <li>Independent numbers: <a href="https://artificialanalysis.ai/articles/artificial-analysis-intelligence-index-v4-3">AA Intelligence Index v4.3</a> and model pages (<a href="https://artificialanalysis.ai/models/claude-fable-5-1">Fable 5.1</a>, <a href="https://artificialanalysis.ai/models/gpt-6-astra">Astra</a>, <a href="https://artificialanalysis.ai/models/deepseek-v4-1-flash">DeepSeek V4.1 Flash</a>, <a href="https://artificialanalysis.ai/models/claude-opus-5">Opus 5</a>, <a href="https://artificialanalysis.ai/models/gemini-3-8-flash">Gemini 3.8 Flash</a>, <a href="https://artificialanalysis.ai/models/gpt-5-6-sol">Sol</a>, <a href="https://artificialanalysis.ai/models/glm-5-3-flash">GLM-5.3-Flash</a>, <a href="https://artificialanalysis.ai/models/granite-4-2-8b">Granite 4.2 8B</a>); <a href="https://llm-stats.com/benchmarks/healthbench">llm-stats HealthBench</a>; <a href="https://medhelm.org/">MedHELM</a>.</li>
+    <li>Papers: arXiv links inline; <a href="https://huggingface.co/papers/week/2026-W37">HF papers W37</a>. Blogs: links inline in section 4.</li>
+    <li>News: <a href="https://www.hhs.gov/press-room/hhs-announces-key-fda-leadership-selections.html">HHS</a>, <a href="https://www.fiercehealthcare.com/ai-and-machine-learning/arpa-h-launches-63m-cardiovascular-ai-initiative-naming-updoc-tempus-ai">ARPA-H ADVOCATE</a>, <a href="https://www.fiercehealthcare.com/health-tech/ctas-dc-healthcare-event-federal-officials-outline-ai-ambitions-clinicians-debate-risks">CMS and FDA at CTA</a>, <a href="https://hl7.org/fhir/us/davinci-pas/history.html">Da Vinci PAS history</a>, <a href="https://build.fhir.org/">FHIR CI build</a>.</li>
+  </ul>
+  <p class="note">Method: window 5 to 11 September 2026. Clones at depth 80, PyPI JSON for release dates, vendor docs fetched on 11 and 12 September. "Executed" means the mechanism ran in a sandbox with the versions named; "docs" means read from documentation and installed SDK types; "unverified" means I could not confirm it and have not guessed. No em dashes, British spelling, synthetic data only.</p>
+</div>
+
+<script>mermaid.initialize({startOnLoad:true});</script></body></html>

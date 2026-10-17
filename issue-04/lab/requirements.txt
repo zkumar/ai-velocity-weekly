@@ -1,0 +1,5 @@
+deepagents==0.7.16
+langgraph==1.2.12
+langchain==1.4.2
+langchain-core==1.6.5
+llama-index-core==0.14.25

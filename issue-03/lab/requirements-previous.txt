@@ -1,0 +1,4 @@
+openai-agents==0.22.2
+langchain==1.4.1
+langgraph==1.2.11
+langchain-core==1.6.3

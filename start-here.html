@@ -1,0 +1,206 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>
+<title>The Audit Gap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --ink: #1B2432; --ground: #F7F5F0; --panel: #FFFFFF; --muted: #66707F; --line: #DDD8CC;
+    --accent: #0F6E6B; --accent-soft: #E3EFEE; --amber: #B8860B; --code-bg: #F1EEE6; --code-ink: #1B2432;
+    --verified: #2E7D4F; --unverified: #A0522D;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #E6E8EC; --ground: #0F1419; --panel: #171D26; --muted: #98A2B3; --line: #2A3340;
+      --accent: #4FB3AE; --accent-soft: #15302F; --amber: #E2B341; --code-bg: #111720; --code-ink: #D7DCE3;
+      --verified: #6CC08B; --unverified: #E0946A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #E6E8EC; --ground: #0F1419; --panel: #171D26; --muted: #98A2B3; --line: #2A3340;
+    --accent: #4FB3AE; --accent-soft: #15302F; --amber: #E2B341; --code-bg: #111720; --code-ink: #D7DCE3;
+    --verified: #6CC08B; --unverified: #E0946A;
+  }
+  body { background: var(--ground); color: var(--ink); font-family: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+  .mono, code, pre, .kbd { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, Menlo, monospace; }
+  .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
+  h1 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 600; font-size: 38px; line-height: 1.15; margin: 0 0 8px; text-wrap: balance; }
+  h2 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 600; font-size: 26px; margin: 56px 0 12px; text-wrap: balance; padding-top: 18px; border-top: 1px solid var(--line); }
+  h3 { font-weight: 600; font-size: 18px; margin: 32px 0 8px; }
+  h4 { font-weight: 600; font-size: 15px; margin: 22px 0 6px; color: var(--muted); }
+  p { margin: 0 0 14px; max-width: 70ch; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+  a:hover, a:focus-visible { border-bottom-color: var(--accent); outline: none; }
+  .stamp { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+  .thesis { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; margin: 24px 0 8px; }
+  .thesis p { font-size: 17px; }
+  .sidebar { background: var(--panel); border: 1px solid var(--line); padding: 14px 18px; margin: 28px 0; }
+  .sidebar .eyebrow { color: var(--muted); }
+  .sidebar ol { margin: 0; padding-left: 20px; font-size: 14.5px; }
+  .sidebar li { margin: 4px 0; }
+  pre { background: var(--code-bg); color: var(--code-ink); border: 1px solid var(--line); padding: 14px 16px; overflow-x: auto; font-size: 12.5px; line-height: 1.5; margin: 12px 0 18px; }
+  code { font-size: .92em; background: var(--code-bg); padding: 1px 5px; border-radius: 3px; }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  pre.mermaid { background: var(--panel); text-align: center; }
+  .tag { display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid currentColor; padding: 1px 7px; border-radius: 2px; margin-left: 8px; vertical-align: middle; }
+  .tag.ok { color: var(--verified); } .tag.un { color: var(--unverified); }
+  .consequence { background: var(--accent-soft); padding: 12px 16px; margin: 14px 0 18px; }
+  .consequence p:last-child { margin-bottom: 0; }
+  .gotchas { font-size: 14.5px; color: var(--ink); }
+  .gotchas li { margin: 4px 0; }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); background: var(--panel); margin: 14px 0 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--panel); position: sticky; top: 0; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; font-family: "IBM Plex Mono", monospace; }
+  tr:nth-child(even) td { background: color-mix(in srgb, var(--panel) 92%, var(--ground)); }
+  .note { font-size: 13.5px; color: var(--muted); }
+  .paper { margin: 0 0 18px; }
+  .paper .t { font-weight: 600; }
+  .paper .m { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+  .shipped { list-style: none; padding: 0; margin: 0; }
+  .shipped li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .shipped .who { font-weight: 600; }
+  .shipped .d { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); margin-left: 6px; }
+  .post { background: var(--panel); border: 1px solid var(--line); padding: 20px 24px; margin-top: 16px; }
+  .post p { max-width: 62ch; }
+  .sources { font-size: 13px; color: var(--muted); }
+  .sources a { color: var(--accent); }
+  .sources li { margin: 3px 0; }
+  ul.tight { margin: 6px 0 14px; padding-left: 20px; }
+  ul.tight li { margin: 4px 0; }
+  @media (max-width: 640px) { h1 { font-size: 30px; } .wrap { padding: 24px 16px 60px; } }
+  @media (prefers-reduced-motion: no-preference) { a { transition: border-color .15s; } }
+
+  .gap { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--amber); padding: 16px 20px; margin: 22px 0; }
+  .gap p { margin: 0; }
+  .obl { display: grid; gap: 14px; margin: 18px 0 24px; }
+  .obl div { border-top: 1px solid var(--line); padding-top: 12px; }
+  .obl h4 { margin: 0 0 4px; color: var(--ink); font-size: 15px; }
+  .obl p { margin: 0; font-size: 15px; }
+  .what { display: grid; gap: 0; margin: 10px 0 20px; }
+  .what > div { border-bottom: 1px solid var(--line); padding: 14px 0; }
+  .what > div:last-child { border-bottom: 0; }
+  .what .lead { font-weight: 600; margin: 0 0 4px; }
+  .what p { margin: 0; font-size: 15px; }
+  .archive li { margin: 6px 0; font-size: 14.5px; }
+  .archive { list-style: none; padding: 0; }
+  .archive .n { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+  @media (min-width: 700px) { .obl { grid-template-columns: 1fr 1fr 1fr; } .obl div { padding-top: 12px; } }
+</style>
+<div class="wrap">
+  <p class="eyebrow">AI Velocity Weekly</p>
+  <h1>The audit gap</h1>
+  <div class="stamp">Start here. What this weekly is about, who it is for, and how to read it. Vijay Kumar, Wipro HCLS and ER&amp;D.</div>
+
+  <div class="thesis">
+    <p>Every week I read the source of the frameworks we build healthcare agents on, run at least one mechanism on my own machine, and report where the distance moved between what a system's audit trail says happened and what actually happened. That distance is the audit gap. It is where healthcare AI will fail, and almost nothing written about agents is looking at it.</p>
+  </div>
+
+  <h2>The problem this publication is about</h2>
+
+  <p>An assistant answers. An agent acts. That sounds like a small distinction until you put one in a clinical or payer workflow, where acting means writing a medication order, submitting a prior authorisation, updating a design history file, or filing something a regulator will later read. The moment software takes an action on a patient's record, you inherit three obligations that no chatbot ever had.</p>
+
+  <div class="obl">
+    <div>
+      <h4>Someone must approve it</h4>
+      <p>A named human, with credentials, at the right moment, before the action happens and not after. Not a checkbox in a prompt: a real gate the system cannot route around.</p>
+    </div>
+    <div>
+      <h4>You must be able to prove what happened</h4>
+      <p>Months later, to an auditor, a medical director, or opposing counsel. Which model, which version, which prompt, which approval, which write, in what order.</p>
+    </div>
+    <div>
+      <h4>You must show it is under control</h4>
+      <p>That the thing running today is the thing you validated, that you notice when it changes, and that you measure it continuously rather than once at go-live.</p>
+    </div>
+  </div>
+
+  <p>None of the frameworks we build on were designed for those three obligations. LangChain, the Microsoft Agent Framework, MCP, the model APIs themselves: they were built to make assistants that answer, and they are now retrofitting approval, durable state and audit at speed, under competitive pressure, in releases that ship weekly. That retrofitting is honest work and mostly good work. The difficulty is that it keeps moving where approval, state and audit actually live, and it moves them in changelog lines that read like housekeeping.</p>
+
+  <p>Which brings us to the failure this publication is named after.</p>
+
+  <div class="gap">
+    <p>Your audit table records that Dr Rao approved a metformin order at 10:41 and the agent wrote it. Your FHIR server has no order. Nobody lied, nothing crashed, no exception was raised. The two records simply disagree, and you find out weeks later.</p>
+  </div>
+
+  <p>That is not hypothetical and it is not rare. In the first two issues I hit it twice, by running the code rather than reading about it. In one case an approval carrying a forged identifier was correctly rejected by the framework, the write never happened, and the model, called again with its tools withdrawn and no tool result to go on, cheerfully reported "Order placed." In the other, a clinician's approval that arrived after the agent's new wall-clock budget was dropped in silence, with one log line at INFO, and the model said the same thing. Both behaviours are defensible in isolation. Both produce a system whose narrative and whose database disagree, and in both cases the seam was invisible from the documentation.</p>
+
+  <p>So the working assumption here is simple. The model's text is never your source of truth for whether something happened. The gap between the story and the record is an engineering artefact you can find, measure and close, and finding it requires reading source and running it, not reading announcements.</p>
+
+  <h2>What I do each week, and what you get</h2>
+
+  <p>Every Friday I sweep the repositories and release feeds of the agent frameworks, model APIs and healthcare interoperability standards, clone what changed, install it, and run the mechanism that matters on synthetic data. The issue that comes out has the same five parts every time, so you can skip to the one you need.</p>
+
+  <div class="what">
+    <div>
+      <p class="lead">Framework changes, read from source</p>
+      <p>What actually changed, with file paths and commit ids, not the marketing note. A short runnable snippet framed on a healthcare task. What it does to state, approval and audit in your loop. The gotchas visible in the code. At least one mechanism every week is executed end to end and tagged as such. This section has twice contradicted a vendor's own release notes.</p>
+    </div>
+    <div>
+      <p class="lead">A model table, priced on one real workload</p>
+      <p>Ten thousand clinical documents at four thousand input and five hundred output tokens, with and without caching, so the comparison is in money rather than leaderboard position. Licence and context alongside, because an open-weight model with the wrong licence is not a candidate for on-premise PHI.</p>
+    </div>
+    <div>
+      <p class="lead">Papers, with the implementation note</p>
+      <p>Five to eight from the week, each with the method and its numbers, then a line saying what a builder should do differently on Monday. If a paper does not change what you would build, it does not appear.</p>
+    </div>
+    <div>
+      <p class="lead">What the architects shipped</p>
+      <p>Technical output only, from the people building this infrastructure. Never job moves. If someone shipped nothing this week I say so, because an empty week is information too.</p>
+    </div>
+    <div>
+      <p class="lead">A lab you can run in thirty minutes</p>
+      <p>The code behind the week's findings, packaged with pinned versions and a single script that builds a clean environment and runs everything. Synthetic data only, no API key needed for most of it. Reading about a failure mode is not the same as watching it happen on your own machine.</p>
+    </div>
+  </div>
+
+  <p>There is also a five-line news sidebar, because releases and regulatory moves matter, and five lines is all they need. Anything longer belongs in one of the many good healthcare AI digests that already exist. This is not one of those.</p>
+
+  <h2>Standing positions</h2>
+
+  <p>Some conclusions do not change week to week, so I state them here once and the issues do not repeat them. Each issue reports only what moved against these positions.</p>
+
+  <p><strong>Own the gate.</strong> The place a clinician approves an agent's action must be in a layer you control, not a vendor policy, a hosted runtime or a clock. A framework may offer a gate; you still write the transcript.</p>
+
+  <p><strong>The model's text is never proof a write happened.</strong> Only the system of record can say an order, a claim or a note exists. Every executed finding in this series checks the record, not the reply.</p>
+
+  <p><strong>No frontier model has an independent medical score.</strong> Every health number a vendor publishes for its own model is the vendor's own until an outside benchmark measures it. Model slides report price on one fixed workload and say which numbers are independent.</p>
+
+  <p><strong>Verification lives outside the model.</strong> Retrieval targets, authorisation constraints and tool-output checks belong in code between the tool and the model, because the model believes what it is handed.</p>
+
+  <p><strong>Regulation is an architecture constraint, not a news item.</strong> A comment window, a named regulator or a funded reference architecture changes what a compliant deployment has to look like. Issues report the change; the obligation is standing.</p>
+
+  <h2>How to read an issue</h2>
+
+  <p>Claims carry a tag. <strong>Executed</strong> means I ran that mechanism in a sandbox and the output quoted is what came back. <strong>Docs</strong> means I read the documentation or the source but did not run it. <strong>Unverified</strong> means I could not confirm it from a primary source and am telling you rather than resolving it quietly. An asterisk on a number means the vendor reported it; unasterisked numbers come from an independent measurement, and I name which one.</p>
+
+  <p>Where I get something wrong I correct it in the next issue and say what changed. In Issue 01 a list of risk-adjustment category codes was wrong by one entry; the rerun found it and the issue text was corrected. That will keep happening, and the alternative, quiet edits, is worse.</p>
+
+  <p>Research and code execution for this are done with Claude. The judgement, the corrections and the things I am willing to put my name to are mine.</p>
+
+  <h2>Who this is for</h2>
+
+  <p>Solution architects, engineering leads and hands-on engineers putting agents into healthcare workflows: risk adjustment, prior authorisation, clinical documentation, regulatory and quality systems, evidence generation. It assumes you can read Python, that you know roughly what FHIR is, and that someone is going to ask you to sign off on a system that writes to a patient record.</p>
+
+  <p>It is not for executives who want the market view, and it is not a newsletter about what AI might do to medicine. Those exist and some are excellent. This one is about the seams.</p>
+
+  <h2>The archive</h2>
+
+  <ul class="archive">
+    <li><a href="issue-01/details.html">Issue 01</a> <span class="n">week ending 5 September 2026</span>. Four framework changes moved the human step into the tool protocol, into the model turn, onto a stable call identity, and under a lock file.</li>
+    <li><a href="issue-02/details.html">Issue 02</a> <span class="n">week ending 11 September 2026</span>. Clocks, budgets and token audiences arrive around the human step. An approval that lands after the budget is dropped without a trace.</li>
+    <li><a href="issue-03/details.html">Issue 03</a> <span class="n">week ending 18 September 2026</span>. Three frameworks changed which arguments an approval is bound to. An approval rule that read the model's JSON let an IV order through; the fix hands the same JSON to the clinician.</li>
+    <li><a href="issue-04/details.html">Issue 04</a> <span class="n">week ending 25 September 2026</span>. A reviewer approved two writes and one executed zero times; a failing write elsewhere ran twice; a vendor wrote that recovery is not exactly-once. The count of executions stopped matching the count of approvals.</li>
+    <li><a href="issue-05/details.html">Issue 05</a> <span class="n">week ending 2 October 2026</span>. Four frameworks changed what an approval is keyed to. An "always" for one agent's tool had covered another agent's order, and a request nobody issued had been approved from a replayed transcript; both are closed, and a stateless resume now does nothing and raises nothing.</li>
+    <li><a href="issue-06/details.html">Issue 06</a> <span class="n">week ending 9 October 2026</span>. Five frameworks changed what a paused run reports and does. An answered approval stayed listed as open and its gate signed on every resume, a write ran before the question sent with it was answered, and a timeout, an exception and a cache hit each described the call rather than the record.</li>
+    <li><a href="issue-07/details.html">Issue 07</a> <span class="n">week ending 16 October 2026</span>. A batch of two tool calls failed as a unit. The order written beside a failed allergy lookup vanished from the history and was written again on resume; one framework fixed it, another stopped a client from writing approvals, and a third put a model in front of the human.</li>
+    <li><a href="https://claude.ai/code/artifact/335e60b1-f3c4-4132-b86d-cda7b2f531d8">AI Velocity Radar</a> <span class="n">updated weekly</span>. The cumulative tracker: what shipped, frameworks, models, benchmarks and repositories worth cloning, each row dated and sourced.</li>
+  </ul>
+
+  <p class="note">New issues land on Friday evenings, India time. The lab package for every issue is archived alongside it so the code outlives the link.</p>
+</div>
+
+</body></html>

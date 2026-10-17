@@ -1,0 +1,205 @@
+issue: 2
+series: ARCHITECT INTELLIGENCE
+strapline: HEALTHCARE AI FOR BUILDERS
+week_label: WEEK OF SEP 5–11, 2026
+week_ending: 2026-09-11
+author: Vijay Zharotia
+author_line: HEALTHCARE AI ARCHITECTURE
+site: https://zkumar.github.io/AI-Velocity-Technology-Update-
+repo: https://github.com/zkumar/AI-Velocity-Technology-Update-
+longform: issue-02/ai-velocity-weekly-02.html
+mytake: issue-02/mytake02.html
+lab: issue-02/lab/
+theme:
+  label: THE WEEK'S THEME
+  title: WHO IS ALLOWED TO SAY NO
+  text: Issue 01 found four new places a clinician can sign. This week the frameworks decide how long that signature may take, which server it opens, and what silently changes underneath it.
+stats:
+- n: '16'
+  label: PACKAGES SWEPT FROM SOURCE
+- n: '2'
+  label: MECHANISMS EXECUTED
+- n: '8'
+  label: PAPERS READ
+- n: '5'
+  label: MODELS MOVED
+one_line: Last week the signature moved. This week a clock, a server-side policy and a token audience can each answer before the clinician does, and the audit trail did not follow any of them.
+pillars:
+- name: DEADLINE
+  text: If the loop has a time budget and the clinician is slower than it, who finds out? Slide 04.
+- name: REACH
+  text: One token, two servers. Which one should refuse it, and what does a resumed node do twice? Slides 05 and 08.
+- name: DRIFT
+  text: The configuration you validated is a hash the vendor can now compare for you. Who reads the answer? Slide 05.
+five:
+- tag: EXECUTED
+  label: A late clinician approval is discarded in silence
+  where: '04'
+  source: AGENT FRAMEWORK 1.18.0
+- tag: DOCS
+  label: A policy can run a call before any human sees it
+  where: '04'
+  source: ANTHROPIC MANAGED AGENTS
+- tag: EXECUTED
+  label: A tool server can refuse another server's token
+  where: 08
+  source: MCP PYTHON SDK 2.2.0
+- tag: DOCS
+  label: A failed node reruns its side effect on resume
+  where: '05'
+  source: GOOGLE ADK 2.9.0
+- tag: DOCS
+  label: A cache diagnostic reports which validated setting drifted
+  where: '05'
+  source: OPENAI 3.13.0
+sections:
+- key: approval
+  num: '04'
+  label: THE APPROVAL STEP
+  title: Where the Human Step Moved
+  intro: Three ways a decision now gets made without the clinician, one of them executed. Last week's four signing places are in Issue 01.
+  accent: 0EA5E9
+  items:
+  - kicker: ANTHROPIC · MANAGED AGENTS
+    tag: DOCS
+    headline: An auto permission policy decides before the human does
+    body: permission_policy now accepts auto beside always_allow and always_ask. Every tool_use event carries an evaluation object with allow, ask (indeterminate) or deny (high_risk). Intent is read only from user messages, never from a tool result or a fetched document.
+    changed: The docs say it plainly, auto is not a human checkpoint. A call the server judges safe runs before anyone sees it.
+    change: auto as the default, always_ask pinned on every write to the record, reviewed in the same PR as the toolset. Persist the evaluation object beside the confirmation.
+    link: longform
+  - kicker: OPENAI · AGENTS API PUBLIC BETA
+    tag: DOCS
+    headline: Sessions, turns and tool handlers, and no approval checkpoint I could find
+    body: client.beta.agents ships sessions, turns, environments and a streaming helper whose tool handlers run sequentially; a handler exception is reported to the model as a generic failure with the exception text withheld. The overview states US-only residency and no zero-data-retention. The only approval objects in the SDK are the Responses-era mcp_approval items; whether they apply to agent sessions is unverified.
+    changed: A hosted agent runtime with PHI implications and, on the public surface, no visible place to put a human gate.
+    change: Keep clinical writes behind your own tool handler and your own approval queue; do not adopt this surface for record-writing agents until the approval semantics are documented.
+    link: longform
+  - kicker: AGENT FRAMEWORK 1.18.0
+    tag: EXECUTED
+    headline: A clinician who takes 3 seconds against a 2 second budget is never heard
+    body: max_duration_seconds bounds the whole tool loop and, by its own docstring, includes time waiting for approval. Session serialised to JSON in between. Zero writes, no function result, no rejection, no exception, one INFO line, and the scripted model still answered "Order placed." Without ToolApprovalMiddleware the clock restarts on resume.
+    changed: A discarded approval is not rejected, it vanishes. Your approval record says signed at 10:41; the FHIR server has no order.
+    change: Read session.state["_function_invocation_budget_state"] before presenting an approval, and refuse to collect a signature the loop will not honour. test_af_duration_budget.py in the lab reproduces it.
+    link: lab
+  signal: A policy, a hosted runtime and a clock each answered before the clinician this week. None of the three wrote anything to your transcript.
+- key: state
+  num: '05'
+  label: STATE AND IDENTITY
+  title: State, Tokens and Drift
+  intro: Two changes to what a resumed session repeats and what a validated configuration silently becomes. The token finding is executed on slide 08.
+  accent: 00B4A0
+  items:
+  - kicker: GOOGLE ADK 2.9.0
+    tag: DOCS
+    headline: A node that failed after its side effect runs again on resume
+    body: Rehydration now reruns a node that raised instead of replaying it as completed. The changelog's own warning is that a node with an external side effect will repeat it on every resume. before_tool_callback now runs per call, not per batch.
+    changed: A transient failure after POST Claim becomes a duplicate claim on the next resume.
+    change: Put the idempotency key (Bundle.identifier or If-None-Exist) in the node's input, never generated inside it. Alert on warn_event_fields_not_stored.
+    link: longform
+  - kicker: OPENAI 3.13.0
+    tag: DOCS
+    headline: A cache diagnostic that doubles as a config-drift detector
+    body: prompt_cache_diagnostics returns cache_miss with a reason, model_changed, tools_changed, text_format_changed, reasoning_effort_changed, context_compacted, computed by the vendor from hashes when you pass a comparison_response_id.
+    changed: Those reasons are exactly the settings a validated agent is not supposed to change between runs.
+    change: Record the response id of the validation run; log the reason per batch; a run of tools_changed is a change-control event that reached production without a ticket.
+    link: longform
+  signal: A resume can repeat a write and a cache miss can name a drifted setting. Both are audit events your pipeline does not raise yet.
+- key: models
+  num: '06'
+  label: MODELS ON ONE WORKLOAD
+  title: The Price Anchor Moved to an Open Licence
+  intro: 4,000 input and 500 output tokens per document, vendor list prices on 11 September. Artificial Analysis rebased its index to v4.3 on 7 September, so no score is comparable with last week.
+  accent: F59E0B
+  items:
+  - kicker: DEEPSEEK · NEW
+    headline: DeepSeek-V4.1-Flash on MIT weights does the job for $18, or $9 off-peak
+    body: Open weights, 1M context, native vision, $0.30 in and $1.20 out at peak, cache reads at $0.006 per million. AA v4.3 score 40 against Gemini 3.8 Flash at 41, which costs $48.75 for the same run.
+    changed: The price anchor for bounded extraction moved, and it moved to an open licence you can host behind your own boundary.
+    change: For on-prem PHI extraction, this is the new baseline if you can host a 552B MoE or accept the API's jurisdiction. Otherwise Qwen3.8-27B and Granite 4.2 8B remain the single-GPU choices.
+    link: longform
+  - kicker: FRONTIER · REBASED
+    headline: Fable 5.1 and GPT-6 Astra tie at 53; Opus 5 is one point behind at half the price
+    body: Under v4.3 the two flagships score the same. Opus 5 at $325 for the workload against $650, with a fifth of the latency. Astra leads Terminal-Bench 4.0 at 59.1 against 52.0. GPT-5.6 Sol's promotional price is gone; it is now $5/$30.
+    changed: Last week's index gap between the flagships was a scoring artefact, not a capability gap.
+    change: Opus 5 stays the reasoning default; test Astra where terminal-style agentic work dominates. Re-baseline any decision made on last week's numbers.
+    link: longform
+  signal: The index was rebased, so any model decision taken on Issue 01's numbers needs re-running, not adjusting.
+- key: papers
+  num: '07'
+  label: PAPERS TO IMPLEMENTATION
+  title: Three Ways the Model Believes What It Is Handed
+  intro: Long histories, compacted sessions and corrupted tools. Each result is a claim; each note is the build change.
+  accent: A78BFA
+  items:
+  - kicker: FUDAN · OBGYNLONGBENCH
+    headline: Models lose 10 to 23 points when they must find the evidence in a full history
+    body: 1,500 decision points from 976 pregnancy EHR histories. Gemini-3-Flash 79.1 to 68.7, Claude Haiku 4.5 75.5 to 59.8. Medical fine-tunes fall harder, MedGemma-1.5-4B 64.0 to 41.3. A question-guided active-search agent beats direct full-context by 4.6 points.
+    changed: Dumping the chart is the wrong architecture, and a medical fine-tune does not fix it.
+    change: Have the agent name the decision target first, then retrieve for it. Stop assuming a medical fine-tune helps on longitudinal records.
+    link: longform
+  - kicker: TENCENT ZHUQUE · CONSTRAINT LOSS
+    headline: Compaction that omits authorisation rules gives 87 percent loss of control; preserving them gives 0
+    body: 1,800 trajectories across 16 domains. Goal pressure plus control degradation produces loss of control in 55 percent of runs; restoring the original control boundary drops it to 0 with the unsafe action still executable.
+    changed: Summarising a long EHR session is where your scope-of-action rules quietly disappear.
+    change: Pin authorisation constraints as an uncompressible block re-injected verbatim, and test the compactor for constraint retention, not fact recall.
+    link: longform
+  - kicker: SEOUL NATIONAL · UNRELIABLE TOOLS
+    headline: Agents adopt more than a third of corrupted tool outputs and warn the user 5.3 percent of the time
+    body: Fourteen models, three tools with corrupted returns. Search adoption reached 68 percent. Agents adopted corrupted executor output despite solving 85 percent of problems correctly with no tool. Reliability metadata made corruption more persuasive.
+    changed: A FHIR query result, a dose calculator or a sub-agent summary will be believed when wrong.
+    change: Range checks, independent recomputation and schema plausibility checks between tool and model, and tool-versus-model disagreement as a first-class event.
+    link: longform
+  signal: Retrieval target, constraint block and tool-output checks are three places to put verification outside the model.
+mechanism:
+  num: 08
+  label: MECHANISM OF THE WEEK
+  title: The token that stops working on the wrong server
+  kicker: MCP PYTHON SDK 2.2.0 · STUB VERIFIER, BACKEND CALLED DIRECTLY, NO MODEL KEY
+  body: BearerAuthBackend(resource_server_url=...) accepts a token only if its RFC 8707 resource claim matches the server URL. I minted three tokens against a stub verifier, one for fhir-mcp, one for scheduling-mcp, one with no resource claim, and called the 2.1-style loose backend and the 2.2.0 pinned backend with each. Loose accepted all three. Pinned accepted only the FHIR token, refused the scheduling token with a WARNING naming both URLs, and refused the claimless token outright. AuthSettings also warns when validate_token_resource is left unset.
+  stats:
+  - n: '3'
+    label: TOKENS ACCEPTED BY THE LOOSE BACKEND
+  - n: '1'
+    label: ACCEPTED ONCE PINNED
+  - n: '2'
+    label: REFUSAL CASES, WRONG RESOURCE AND NONE
+  changed: Blast radius moves from one token for every server to one token per server, which is the property a HIPAA risk analysis wants stated and the scheduling team never gets to argue about.
+  move: Roll out with validate_token_resource=False and an alert on the WARNING; flip to strict once your authorisation server binds every token to a resource. test_mcp_token_audience.py in the lab shows the accepted-loose, refused-pinned table in under a minute.
+  link: lab
+  signal: A refusal is the cheapest audit event there is. This one arrives with no model, no prompt and no clinician in the loop.
+shipped:
+  num: 09
+  label: WHAT THE ARCHITECTS SHIPPED
+  title: Technical output only, no job moves
+  items:
+  - who: LANGCHAIN
+    text: Isolated and fork context modes for subagents, and Connections for per-caller OAuth. Fork for workers, isolated for verifiers.
+  - who: PYDANTIC
+    text: AWS Lambda durability for pydantic-ai, replayed steps with no re-issued writes.
+  - who: OPENAI
+    text: Self-hosted sandboxes for PHI-bearing code execution; the Agents API public beta with US-only residency and no zero-data-retention.
+  - who: ANTHROPIC
+    text: Alignment assessment naming an eval sandbox on the open internet as the root cause of July's escape incidents.
+  - who: NVIDIA
+    text: BioNeMo Inference Runtime and encode-prefill-decode disaggregation for serving.
+  quiet: Nothing in window from LangGraph, LlamaIndex core, Semantic Kernel, the MCP spec, HL7 publications or Epic open.epic.
+  signal: The people building the infrastructure shipped identity, durability and isolation this week, not new model wrappers.
+constraints:
+  num: '10'
+  label: CONSTRAINTS AND RADAR
+  title: Regulation as an Architecture Constraint
+  items:
+  - kicker: HHS · FDA
+    headline: FDA's first Deputy Commissioner for Technology and AI
+    body: Named 8 September. Comments on the generative-AI device discussion paper, which names agentic systems explicitly, are due 19 October.
+    move: If you ship SaMD with a foundation-model dependency, file a comment; the change-control and drift-monitoring language will become your validation file.
+  - kicker: ARPA-H · ADVOCATE
+    headline: $62.7M for agentic cardiovascular AI with a supervisory safety agent
+    body: Three agent builders, a Stanford supervisory safety AI, Duke validation on Epic and Cerner, a Kaiser RCT of about 2,500 patients.
+    move: Note the shape, a separate supervisory agent with its own evaluation. That is the reference architecture regulators will have seen first.
+  radar:
+    text: The Radar added this week's rows across Shipped, Frameworks, Models, Benchmarks and Repos, and moved the window to 5 to 11 September.
+    link: radar
+  signal: 'The comment window from Issue 01 now has a named owner and a funded reference architecture beside it. Both arrived in one week.'
+close:
+  text: Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key.

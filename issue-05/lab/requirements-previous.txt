@@ -1,0 +1,5 @@
+openai-agents==0.22.3
+agent-framework-core==1.19.0
+pydantic-ai-slim==2.52.0
+google-adk==2.10.0
+mcp==2.2.0

@@ -1,0 +1,236 @@
+{
+ "issue": 6,
+ "week_ending": "2026-10-09",
+ "prices_read": "2026-10-09",
+ "workload": "10,000 docs x (4,000 in + 500 out) tokens",
+ "aa_index": "v4.3.2 (changelog 19 Sept 2026), read 9 Oct 2026; healthcare index page did not load, no medical column this week",
+ "models": [
+  {
+   "model": "Claude Haiku 5.5",
+   "id": "claude-haiku-5-5",
+   "licence": "closed",
+   "price": {
+    "in": 0.1,
+    "out": 0.5,
+    "cached": 0.01
+   },
+   "aa": 43,
+   "verified": true,
+   "note": "NEW 7 Oct; prompts over 100,000 tokens pay 0.50/2.50/0.05; AA 29 at low effort",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 6.5,
+   "cost_10k_docs_80pct_cached": 3.62
+  },
+  {
+   "model": "GPT-6 Luna",
+   "id": "gpt-6-luna",
+   "licence": "closed",
+   "price": {
+    "in": 0.1,
+    "out": 0.5,
+    "cached": 0.01
+   },
+   "aa": 38,
+   "verified": true,
+   "note": "unchanged; AA 18 non-reasoning",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 6.5,
+   "cost_10k_docs_80pct_cached": 3.62
+  },
+  {
+   "model": "gpt-oss-120b on Nebius",
+   "id": "gpt-oss-120b",
+   "licence": "open, Apache 2.0",
+   "price": {
+    "in": 0.15,
+    "out": 0.6,
+    "cached": null
+   },
+   "aa": 12,
+   "verified": false,
+   "note": "read on nebius.com/prices-ai-studio, which still lists a model Nebius deprecated on 31 Aug; the current Token Factory price page could not be read",
+   "src": "https://nebius.com/prices-ai-studio",
+   "cost_10k_docs_no_cache": 9.0,
+   "cost_10k_docs_80pct_cached": null
+  },
+  {
+   "model": "DeepSeek V4.1 Flash",
+   "id": "deepseek-flash",
+   "licence": "open, MIT",
+   "price": {
+    "in": 0.3,
+    "out": 1.2,
+    "cached": 0.006
+   },
+   "aa": 39,
+   "verified": true,
+   "cached_carried": true,
+   "note": "peak rate; off-peak is half (0.15/0.60, $9.00)",
+   "src": "https://api-docs.deepseek.com/quick_start/pricing",
+   "cost_10k_docs_no_cache": 18.0,
+   "cost_10k_docs_80pct_cached": 8.59
+  },
+  {
+   "model": "Gemini 3.8 Flash",
+   "id": "gemini-3.8-flash",
+   "licence": "closed",
+   "price": {
+    "in": 0.75,
+    "out": 3.75,
+    "cached": 0.075
+   },
+   "aa": 41,
+   "verified": true,
+   "cached_carried": true,
+   "note": "promotional to 31 Dec; 1.50/7.50 from 1 Jan 2027",
+   "src": "https://ai.google.dev/gemini-api/docs/pricing",
+   "cost_10k_docs_no_cache": 48.75,
+   "cost_10k_docs_80pct_cached": 27.15
+  },
+  {
+   "model": "Mistral Large 4 (preview)",
+   "id": "mistral-large-4",
+   "licence": "open weights announced, licence not named",
+   "price": {
+    "in": 1.36,
+    "out": 4.18,
+    "cached": 0.14
+   },
+   "aa": 38,
+   "verified": true,
+   "note": "NEW 6 Oct, public preview, 1M context; launch sale 0.68/2.09/0.07 makes the workload $37.65 and $18.13 cached",
+   "src": "https://docs.mistral.ai/models/model-cards/mistral-large-4-0",
+   "cost_10k_docs_no_cache": 75.3,
+   "cost_10k_docs_80pct_cached": 36.26
+  },
+  {
+   "model": "Grok 4.7",
+   "id": "grok-4.7",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 6,
+    "cached": 0.5
+   },
+   "aa": 46,
+   "verified": true,
+   "cached_carried": true,
+   "note": "unchanged; above 200k prompt tokens 4/12",
+   "src": "https://docs.x.ai/developers/models",
+   "cost_10k_docs_no_cache": 110,
+   "cost_10k_docs_80pct_cached": 62.0
+  },
+  {
+   "model": "Claude Sonnet 5.5",
+   "id": "claude-sonnet-5-5",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 10,
+    "cached": 0.1
+   },
+   "aa": 56,
+   "verified": true,
+   "note": "released 28 Sept; cache read cut from 0.20 to 0.10 on 7 Oct (release notes)",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 130,
+   "cost_10k_docs_80pct_cached": 69.2
+  },
+  {
+   "model": "GPT-6.1 Sol",
+   "id": "gpt-6.1-sol",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 10,
+    "cached": 0.1
+   },
+   "aa": 52,
+   "verified": true,
+   "note": "released 29 Sept; gpt-6-sol is no longer on the price page; long-context tier 4/15/0.20; Ultrafast service tier added 8 Oct",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 130,
+   "cost_10k_docs_80pct_cached": 69.2
+  },
+  {
+   "model": "Gemini 4 Argon",
+   "id": "gemini-4-argon",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 10,
+    "cached": null
+   },
+   "aa": 53,
+   "verified": false,
+   "note": "UNVERIFIED price: not on the Gemini API price, models or changelog pages on 9 Oct; 2/10 is a third-party report of an introductory price",
+   "src": "https://ai.google.dev/gemini-api/docs/pricing",
+   "cost_10k_docs_no_cache": 130,
+   "cost_10k_docs_80pct_cached": null
+  },
+  {
+   "model": "Kimi K3",
+   "id": "kimi-k3",
+   "licence": "API only",
+   "price": {
+    "in": 3,
+    "out": 15,
+    "cached": 0.3
+   },
+   "aa": 44,
+   "verified": true,
+   "note": "not in the Issue 04 table; 1,048,576-token context; no price change in window",
+   "src": "https://platform.kimi.ai/docs/pricing/chat",
+   "cost_10k_docs_no_cache": 195,
+   "cost_10k_docs_80pct_cached": 108.6
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "id": "claude-opus-5-5",
+   "licence": "closed",
+   "price": {
+    "in": 4,
+    "out": 20,
+    "cached": 0.2
+   },
+   "aa": 58,
+   "verified": true,
+   "note": "unchanged; first on the index",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 260,
+   "cost_10k_docs_80pct_cached": 138.4
+  },
+  {
+   "model": "GPT-6 Astra",
+   "id": "gpt-6-astra",
+   "licence": "closed",
+   "price": {
+    "in": 10,
+    "out": 50,
+    "cached": 1.0
+   },
+   "aa": 53,
+   "verified": true,
+   "note": "unchanged; long-context tier 20/75/2.00",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 650,
+   "cost_10k_docs_80pct_cached": 362.0
+  },
+  {
+   "model": "Claude Fable 5.1",
+   "id": "claude-fable-5-1",
+   "licence": "closed",
+   "price": {
+    "in": 10,
+    "out": 50,
+    "cached": 0.25
+   },
+   "aa": 53,
+   "verified": true,
+   "note": "unchanged",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 650,
+   "cost_10k_docs_80pct_cached": 338.0
+  }
+ ]
+}

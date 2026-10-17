@@ -1,0 +1,351 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script src="../assets/mermaid.min.js"></script></head><body>
+<title>AI Velocity Weekly 03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1B2432; --ground: #F7F5F0; --panel: #FFFFFF; --muted: #66707F; --line: #DDD8CC;
+    --accent: #0F6E6B; --accent-soft: #E3EFEE; --amber: #B8860B; --code-bg: #F1EEE6; --code-ink: #1B2432;
+    --verified: #2E7D4F; --unverified: #A0522D;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #E6E8EC; --ground: #0F1419; --panel: #171D26; --muted: #98A2B3; --line: #2A3340;
+      --accent: #4FB3AE; --accent-soft: #15302F; --amber: #E2B341; --code-bg: #111720; --code-ink: #D7DCE3;
+      --verified: #6CC08B; --unverified: #E0946A;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #E6E8EC; --ground: #0F1419; --panel: #171D26; --muted: #98A2B3; --line: #2A3340;
+    --accent: #4FB3AE; --accent-soft: #15302F; --amber: #E2B341; --code-bg: #111720; --code-ink: #D7DCE3;
+    --verified: #6CC08B; --unverified: #E0946A;
+  }
+  body { background: var(--ground); color: var(--ink); font-family: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.55; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+  .mono, code, pre, .kbd { font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, Menlo, monospace; }
+  .eyebrow { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
+  h1 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 600; font-size: 38px; line-height: 1.15; margin: 0 0 8px; text-wrap: balance; }
+  h2 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 600; font-size: 26px; margin: 56px 0 12px; text-wrap: balance; padding-top: 18px; border-top: 1px solid var(--line); }
+  h3 { font-weight: 600; font-size: 18px; margin: 32px 0 8px; }
+  h4 { font-weight: 600; font-size: 15px; margin: 22px 0 6px; color: var(--muted); }
+  p { margin: 0 0 14px; max-width: 70ch; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+  a:hover, a:focus-visible { border-bottom-color: var(--accent); outline: none; }
+  .stamp { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+  .thesis { border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; margin: 24px 0 8px; }
+  .thesis p { font-size: 17px; }
+  .sidebar { background: var(--panel); border: 1px solid var(--line); padding: 14px 18px; margin: 28px 0; }
+  .sidebar .eyebrow { color: var(--muted); }
+  .sidebar ol { margin: 0; padding-left: 20px; font-size: 14.5px; }
+  .sidebar li { margin: 4px 0; }
+  pre { background: var(--code-bg); color: var(--code-ink); border: 1px solid var(--line); padding: 14px 16px; overflow-x: auto; font-size: 12.5px; line-height: 1.5; margin: 12px 0 18px; }
+  code { font-size: .92em; background: var(--code-bg); padding: 1px 5px; border-radius: 3px; }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  pre.mermaid { background: var(--panel); text-align: center; }
+  .tag { display: inline-block; font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid currentColor; padding: 1px 7px; border-radius: 2px; margin-left: 8px; vertical-align: middle; }
+  .tag.ok { color: var(--verified); } .tag.un { color: var(--unverified); }
+  .consequence { background: var(--accent-soft); padding: 12px 16px; margin: 14px 0 18px; }
+  .consequence p:last-child { margin-bottom: 0; }
+  .gotchas { font-size: 14.5px; color: var(--ink); }
+  .gotchas li { margin: 4px 0; }
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); background: var(--panel); margin: 14px 0 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: var(--panel); position: sticky; top: 0; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; font-family: "IBM Plex Mono", monospace; }
+  tr:nth-child(even) td { background: color-mix(in srgb, var(--panel) 92%, var(--ground)); }
+  .note { font-size: 13.5px; color: var(--muted); }
+  .paper { margin: 0 0 18px; }
+  .paper .t { font-weight: 600; }
+  .paper .m { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); }
+  .shipped { list-style: none; padding: 0; margin: 0; }
+  .shipped li { padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 14.5px; }
+  .shipped .who { font-weight: 600; }
+  .shipped .d { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--muted); margin-left: 6px; }
+  .post { background: var(--panel); border: 1px solid var(--line); padding: 20px 24px; margin-top: 16px; }
+  .post p { max-width: 62ch; }
+  .sources { font-size: 13px; color: var(--muted); }
+  .sources a { color: var(--accent); }
+  .sources li { margin: 3px 0; }
+  ul.tight { margin: 6px 0 14px; padding-left: 20px; }
+  ul.tight li { margin: 4px 0; }
+  @media (max-width: 640px) { h1 { font-size: 30px; } .wrap { padding: 24px 16px 60px; } }
+  @media (prefers-reduced-motion: no-preference) { a { transition: border-color .15s; } }
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">AI Velocity Weekly</p>
+  <h1>The approval policy was reading arguments the tool never ran, and this week's fix hands the same arguments to the clinician</h1>
+  <div class="stamp">Issue 03 · week ending 18 September 2026 · for architects and engineers building healthcare AI agents that take real actions · Vijay Kumar</div>
+
+  <div class="thesis">
+    <p>You have an agent that writes medication orders, and a rule that some of them need a clinician: anything IV, anything above a dose threshold. The rule is code, it runs before the write, and it passes review. Here is the question nobody asks at review: the rule inspects the tool call, but which tool call? The one the model wrote, or the one the tool will run after validation fills in defaults and normalises units?</p>
+  </div>
+
+  <p>Those are different objects. A model that omits <code>route</code> produces a call with no route; the tool's signature says <code>route: str = "IV"</code>, so the order that reaches the FHIR server is IV. A model that sends <code>1.5 g</code> produces a call your threshold reads as 1.5; the tool's validator turns it into 1,500 mg. If the approval rule reads the first object and the write uses the second, your audit table says "no clinician needed" for an IV order and a dose three times over the limit, and both statements are true of the call it looked at.</p>
+
+  <p>Issue 01 asked where a clinician's signature lives. Issue 02 asked who can answer before the clinician does: a clock, a server-side policy, a token audience. This week the frameworks worked on a narrower and harder question: what exactly a yes is attached to. OpenAI's Agents SDK stopped letting a conditional policy approve arguments that validation will change. LangChain stopped rewriting the model's tool call when a reviewer edits it, so the transcript and the execution now live in different places. Microsoft's Agent Framework made any post-approval change to an argument void the approval. The MCP specification wrote the same rule for remembered approvals of skills. Four answers, one week.</p>
+
+  <p>Three checks against your own system this week. For each write tool with a conditional approval rule, send a call that omits a defaulted argument and see what the rule was given. For each place a human can edit a proposed call, find which record your audit exporter reads. And for every redaction or strictness setting you rely on, write a test that tries to break it, because two of them were silently not enforced this month.</p>
+
+  <p>If this is your first issue, read the <a href="../start-here.html">Start here</a> page first; it sets out the obligations and the vocabulary used below.</p>
+
+  <div class="thesis">
+    <p>The week in one paragraph. OpenAI Agents SDK 0.22.3 skips a conditional approval policy whenever validation would change the call, and sends it to a human instead (executed; the human is shown the unvalidated JSON). LangChain 1.4.2 keeps the model's proposal in the transcript and the reviewer's edited call in a private checkpoint key (executed). Agent Framework 1.19.0 binds approval to normalised arguments, voids it on repair, and in .NET refuses any approval it did not record itself. The MCP skills extension went Final with content-bound approvals. pydantic-ai closed an <code>include_content=False</code> bypass, and FastMCP restored strict validation it had been overriding since its SDK v2 migration. GPT-5.6 Sol's price in Issue 02 was wrong.</p>
+  </div>
+
+  <p>Same shape every week: framework changes read from source with runnable code; a model table priced on one real workload; papers with the implementation note; what the people worth following shipped; a lab you can run in thirty minutes. News gets five lines.</p>
+
+  <p>How to read this. Tagged <span class="tag ok">executed</span> means I installed the stated version and ran the mechanism in a clean sandbox with no API key, and the output quoted is what came back. Tagged <span class="tag un">docs</span> means I read the documentation or source but did not run it. Tagged <span class="tag un">unverified</span> means I could not confirm it from a primary source. An asterisk on a number means the vendor reported it about its own model; unasterisked numbers name their independent source.</p>
+
+  <div class="sidebar">
+    <p class="eyebrow">Five lines of news, then back to the code</p>
+    <ol>
+      <li>CMS announced (15 Sept) that its <a href="https://www.cms.gov/newsroom/press-releases/cms-adds-medicare-options-help-people-manage-substance-use-disorder-heart-failure-other-common">ACCESS model</a> adds heart failure, COPD, substance use disorder and tobacco cessation from spring 2027, paid on outcomes, with "AI-enabled technologies" named in the release. Section 4.</li>
+      <li>Anthropic's Messages API gained on-demand <a href="https://platform.claude.com/docs/en/release-notes/overview">compaction</a> (14 Sept): a signed <code>compaction</code> block replaces the summarised messages, and images, documents and fetched URLs inside them are gone once it does.</li>
+      <li>Epic ran its second <a href="https://www.epic.com/epic/post/at-agent-factory-build-a-thon-health-systems-create-their-own-ai-agents/">Agent Factory build-a-thon</a> (15 Sept): 25 health systems built agents for refill review, critical-care time and medication reconciliation.</li>
+      <li>OpenAI published a <a href="https://openai.com/index/model-misalignment-reporting-framework/">framework for reporting model misalignment</a> (16 Sept), naming acting without authorisation and concealing information as reportable.</li>
+      <li>Correction: GPT-5.6 Sol lists at $4 in and $20 out, promotional to at least 21 November, not $5 and $30 as Issue 02 said. Section 2.</li>
+    </ol>
+  </div>
+
+  <!-- ============================ SECTION 1 ============================ -->
+  <p class="eyebrow">Section 1</p>
+  <h2>Framework changes, read from source</h2>
+  <p>You want a clinician, or a rule standing in for one, to approve a write before it happens. Everything below is what the frameworks did this week to the relationship between the call that was approved and the call that ran.</p>
+  <p>Window 12 to 18 September. Twenty-two repositories cloned at depth 300, PyPI JSON for release dates, <code>git merge-base --is-ancestor</code> against tags or the installed wheel to confirm what shipped. Versions installed and executed: <span class="mono">openai-agents 0.22.2 and 0.22.3, langchain 1.4.1 and 1.4.2 (langchain-core 1.6.3, langgraph 1.2.11)</span>. Read from source, not run: <span class="mono">agent-framework-core 1.19.0, pydantic-ai 2.44.0 to 2.46.0, fastmcp 4.0.4 and 4.0.5, google-adk 2.9.1, 2.9.2 and main, llama-index-workflows 2.24.0, crewai 1.15.22, anthropic 1.6.0 and 1.7.0, openai 3.14.0 to 3.16.2, huggingface_hub 1.32.0, nemoguardrails 0.24.1</span>. No release in window from LangGraph (1.2.11, 11 Aug), Semantic Kernel (1.44.1, 6 Aug), llama-index-core (0.14.24), the MCP Python SDK (2.2.0), langchain-mcp-adapters (now unmaintained, moved into <code>langchain.mcp</code>), smolagents or the NeMo Agent Toolkit.</p>
+
+  <h3>1.1 OpenAI Agents SDK 0.22.3: a conditional approval policy no longer sees arguments the tool will not run <span class="tag ok">executed</span></h3>
+  <p>The problem: your approval rule inspects the model's JSON; your tool runs on the validated, defaulted object. They can differ, and the rule approves the one that does not execute.</p>
+  <p>Commit <span class="mono">1d17ca4</span> (17 Sept, #5066, "align conditional approvals with validated tool arguments") adds <span class="mono">src/agents/_function_tool_arguments.py</span> and rewrites the <code>needs_approval</code> contract in <span class="mono">src/agents/tool.py</span>. The new docstring: "callable policies receive raw parsed arguments only when validation preserves their values, types, and dictionary order. Defaults, transformations, or arguments that cannot be inspected require manual approval. Application models, custom validators, and custom default factories require manual approval before validation runs." The check is <code>can_prepare_without_user_code()</code>, which inspects the Pydantic core schema and, per its own comment, will "never execute validation to discover whether it has effects"; even a <code>str</code> with a <code>pattern</code> is excluded because "Pattern constraints can invoke Python's backtracking regex engine". Then <code>arguments_unchanged()</code> compares the validated object with the raw JSON, floats by <code>hex()</code>. Anything that fails either test skips your policy and goes to a human.</p>
+<pre><code class="language-python">async def needs_clinician(_ctx, params, _call_id) -&gt; bool:       # the rule a CPOE team writes
+    mg = params.get("dose_mg", params.get("dose", {}).get("amount", 0))   # doses are stored in mg
+    return params.get("route") == "IV" or mg &gt; 1000
+
+@function_tool(needs_approval=needs_clinician, strict_mode=False)
+def write_order(patient_id: str, rxnorm: str, dose_mg: int, route: str = "IV") -&gt; str: ...
+
+class Dose(BaseModel):
+    amount: float; unit: str = "mg"
+    @model_validator(mode="after")
+    def to_mg(self):                                   # 1.5 g becomes 1500 mg
+        if self.unit == "g": self.amount, self.unit = self.amount * 1000, "mg"
+        return self
+
+@function_tool(needs_approval=needs_clinician, strict_mode=False)
+def write_order_v(patient_id: str, rxnorm: str, dose: Dose, route: str = "PO") -&gt; str: ...
+# agents.testing.ScriptedModel emits one call per case; state.approve() plays the clinician.</code></pre>
+  <p class="note">Observed, four scripted calls per version, no model key. <strong>0.22.2:</strong> case B (route omitted) the policy received <code>{'patient_id': 'pt-123', 'rxnorm': '860975', 'dose_mg': 500}</code>, did not pause, and the FHIR stub recorded <code>route: 'IV'</code>; case D (1.5 g) the policy received <code>{'amount': 1.5, 'unit': 'g'}</code>, did not pause, and the stub recorded <code>dose_mg: 1500.0</code>. Summary line: "policy-required approvals missed=2 of 2 | approvals added on safe calls=0 of 2 | unapproved writes=2". <strong>0.22.3:</strong> case A ran without a pause after the policy saw the explicit call; cases B, C and D printed "policy not called" and paused; after approval B was written IV and D 1,500 mg. Summary: "missed=0 of 2 | approvals added on safe calls=1 of 2 | unapproved writes=0". The scripted model said "Order placed." in all eight runs. Script <span class="mono">test_oa_approval_arguments.py</span>.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> The fix is right and it is fail-closed: a rule can no longer approve a call it did not see. But look at what the clinician is handed. The interruption's <code>raw_item.arguments</code> is the model's JSON: in case B, <code>{"patient_id": "pt-123", "rxnorm": "860975", "dose_mg": 500}</code>, no route at all; in case D, <code>{"amount": 1.5, "unit": "g"}</code>. The clinician signs, and the order is written IV, or at 1,500 mg. The gap has moved from the policy to the screen. Build the approval view from the validated arguments with defaults filled in, and store that rendered view with the signature. Second cost: every tool with an application-model argument (case C) now pauses on every call, so your conditional rule for it is dead code. Flatten the arguments of tools that need a conditional rule, or budget for approval fatigue, which is its own safety problem.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li><code>FunctionToolApproval.check_invocation</code> raises "Function tool invocation changed during approval evaluation." if the tool, its invoker or the argument string changed between policy and execution. Log it; it means something mutated the call mid-decision.</li>
+    <li>Invalid arguments now go to a human too, and "validation errors follow the tool's failure policy only after approval, without invoking its body". A clinician can be asked to approve a call that will then fail validation.</li>
+    <li>Same release: <span class="mono">d59fdb8</span> (#5017) fixes a tracing exporter that cached a missing <code>OPENAI_API_KEY</code> as <code>None</code> and then logged "skipping trace export" on every export. If your traces went quiet, check the key was present when the process started.</li>
+    <li><span class="mono">9f6f6b1</span> (#5064) docs: <code>UnixLocalSandboxClient</code> "On Linux, this backend adds no OS-level confinement".</li>
+  </ul>
+
+  <h3>1.2 LangChain 1.4.2: when a pharmacist edits a call, the transcript keeps the model's version <span class="tag ok">executed</span></h3>
+  <p>The problem: a reviewer changes a proposed order before approving it, and later someone needs to know both what the model asked for and what actually ran.</p>
+  <p>Commit <span class="mono">5bf6a15</span> (18 Sept, #40463), shipped in langchain 1.4.2 (confirmed in the wheel). In <span class="mono">libs/langchain_v1/langchain/agents/middleware/human_in_the_loop.py</span> an <code>edit</code> decision no longer returns a new <code>ToolCall</code>; <code>_process_decision</code> now says "Keep the model's own call in the message; <code>wrap_tool_call</code> substitutes the reviewer's at execution time." The reviewer's call is stored under <code>hitl_edited_tool_calls</code>, annotated <code>PrivateStateAttr</code>, which is omitted from the agent's input and output schemas but persisted in the checkpoint. A default <code>_EDIT_NOTICE</code> is prepended to the ToolMessage and an <code>edit_notice</code> constructor argument can switch it off. An edit may also redirect to a different tool; the ToolMessage <code>name</code> then differs from the AIMessage's.</p>
+<pre><code class="language-python">hitl = HumanInTheLoopMiddleware(interrupt_on={"write_medication_request": {"allowed_decisions": ["approve", "edit", "reject"]}})
+agent = create_agent(model=scripted, tools=[write_medication_request], middleware=[hitl], checkpointer=InMemorySaver())
+agent.invoke({"messages": [("user", "Start metformin for pt-123")]}, cfg)            # model proposes 1000 mg
+out = agent.invoke(Command(resume={"decisions": [{"type": "edit", "edited_action":
+        {"name": "write_medication_request", "args": {"patient_id": "pt-123", "rxnorm": "860975", "dose_mg": 500}}}]}), cfg)
+ai = next(m for m in out["messages"] if isinstance(m, AIMessage) and m.tool_calls)
+print(ai.tool_calls[0]["args"], RECEIVED, agent.get_state(cfg).values.get("hitl_edited_tool_calls"))</code></pre>
+  <p class="note">Observed. <strong>1.4.1:</strong> transcript tool call <code>dose_mg: 500</code>, tool received 500, checkpoint key absent, "transcript args == executed args : True". <strong>1.4.2:</strong> transcript tool call <code>dose_mg: 1000</code>, tool received 500, ToolMessage begins "Note: a human reviewer replaced this tool call before it ran. The call recorded in your message is the one you produced, not the one that executed." and ends "Executed instead: write_medication_request with arguments {... "dose_mg": 500}", checkpoint <code>{'call_1': {'name': 'write_medication_request', 'args': {... 'dose_mg': 500}}}</code>, <code>invoke()</code> output keys <code>['messages']</code>, "transcript args == executed args : False". With <code>edit_notice=None</code> the ToolMessage is just "MedicationRequest written: 500 mg" and the checkpoint key is the only place 500 appears. Script <span class="mono">test_lc_hitl_edit.py</span>.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> Preserving the model's proposal is the right call for review: under 1.4.1 the edit erased what the model had asked for, so you could never measure how often a pharmacist corrected it. The cost is that the executed arguments are now outside the message history. An exporter that reads <code>AIMessage.tool_calls</code> as "what ran" was correct last week and is wrong this week, with no error. Write the audit row from the checkpoint key (via <code>get_state</code>, since it is not in the output) and the ToolMessage <code>name</code>, keep the notice on, and store the proposal and the execution as two columns. That pair is the correction-rate metric a medication-safety committee will ask for.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li>The source resets the key between turns "so an earlier turn's edits cannot survive into this one", and a new test, <code>test_reused_tool_call_id_does_not_replay_a_previous_turns_edit</code>, checks that a reused call id cannot replay an old edit. In my run the key still held the edit after the final text turn, so read it right after the tool step if you export per turn.</li>
+    <li>A reviewer redirect to a tool that is not available raises <code>ValueError</code> inside the tool node. Log it as a rejected decision, not a crash.</li>
+    <li>1.4.1 (<span class="mono">c01de7f</span>, #40414): MCP tool arguments typed as an open object are kept open during provider conversion. A free-form gateway argument defeats any approval rule written against argument fields; force such tools into <code>interrupt_on</code>.</li>
+    <li>New experimental package <span class="mono">langchain-typesafe</span> 0.0.1a2 (17 Sept): <code>AutoModeMiddleware</code>, whose docstring says "This middleware blocks risky calls; it does not request human approval", at a fixed 0.5 threshold, with classifier inputs omitted from traces by default. Put it behind human approval, not in place of it.</li>
+    <li>Unreleased on LangGraph main (<span class="mono">448a763</span>, #8886): <code>interrupt(value, response_schema=...)</code> validates a resume value against a Pydantic model "before it is committed". When it ships, define the approval as a typed <code>Decision</code> with approver id and reason.</li>
+  </ul>
+
+  <h3>1.3 Agent Framework 1.19.0: an argument repaired after approval voids the approval <span class="tag un">docs, source read, not executed</span></h3>
+  <p>The problem: middleware that fixes a malformed argument after the clinician has approved the call has changed what was approved.</p>
+  <p>Released 18 Sept. <span class="mono">216e761</span> (14 Sept, #8288) lets function middleware repair arguments, and <span class="mono">docs/specs/004-python-function-calling-loop.md</span> sets the rules: "Argument-repair middleware must precede security or policy middleware so enforcement observes the effective, normalized invocation", and changing arguments after security middleware has processed them "fails closed with <code>MiddlewareFailure</code>". An approval binds to "the normalized middleware-entry representation" compared float-bit-exact; "a changed approval-bound call executes zero times" and yields a replacement request with the same occurrence identity and a fresh generation, which "requires a second approval". <span class="mono">381e8e4</span> (#8449): "An unrelated user turn delimits standalone batches", so a stateless approval from one turn cannot be combined with a result from a later one. <span class="mono">d5749bc</span> (#8453) adds <code>allow_concurrent_invocation</code> (default <code>True</code>); a code comment warns a synchronous tool already running in a worker thread "cannot be interrupted and may complete its side effects" while its result is discarded with the batch.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> This is the strictest answer of the week: the approved arguments and the executed arguments must be the same value, and any change produces a second signature event. Note the contrast with 1.1: Agent Framework lets ordinary Pydantic coercion complete in one approval round because it binds after normalisation; the OpenAI SDK refuses to run a policy at all when validation changes anything. Order your middleware as the spec says, record replacement requests as their own rows, and set <code>allow_concurrent_invocation=False</code> for any agent whose tools write to a record.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li>.NET went further (<span class="mono">024eb65</span>, #8375, breaking): an <code>AgentSessionStore</code> is "required for approvals", and approval requests replayed in the inbound message history "are deliberately not trusted as the pairing authority". Python still offers a stateless mode. Same repository, two answers to where approval authority lives.</li>
+    <li><span class="mono">4d5c63a</span> (#8235): a tool's exception is replaced by the marker "FunctionInvocationError" in every serialised surface. Good for PHI; it also means stored history no longer holds the root cause. Capture <code>context.result.exception</code> in middleware.</li>
+    <li><span class="mono">cd9f4cc</span> (#8358): an OpenAI background-mode continuation token was not cleared after a resumed stream, so "every iteration retrieved the same response again and ran its tools again until max_iterations". If you use background mode, check for duplicate writes from before this release.</li>
+    <li><span class="mono">5d5fa52</span> (#8371, breaking): framework-created MCP, A2A and AG-UI HTTP clients no longer persist response cookies; "AG-UI thread IDs are correlation identifiers, not authentication boundaries."</li>
+  </ul>
+
+  <h3>1.4 MCP: the skills extension binds a remembered approval to a digest; FastMCP restores strict types <span class="tag un">docs, not executed</span></h3>
+  <p>The problem: a host remembers "the user approved this", and the thing approved changes underneath the memory.</p>
+  <p>SEP-2640, the Skills extension, merged as Final on 13 Sept (<span class="mono">1eb5bbe8</span>; <span class="mono">seps/2640-skills-extension.md</span>). Its security section: "Skill content is untrusted input"; hosts "MUST apply the same approval gate to code-execution tool calls issued while the model is acting on an MCP-served skill"; the <code>allowed-tools</code> field "MUST be ignored for MCP-origin skills unless the user has explicitly approved that grant"; and "Content-bound approval. When a host persists any per-skill user approval, it MUST be bound to the entry's <code>resources</code> set (every <code>uri</code> and <code>digest</code>) observed at the moment of approval", with a changed set treated as revoked and re-prompted. It also says "Digests are not a security boundary."</p>
+  <p>FastMCP 4.0.5 (17 Sept, <span class="mono">053f128</span>, #5141): "Tool parameters declared strict with <code>Field(strict=True)</code>, <code>StrictInt</code>, or a strict model config are honored again ... Since the SDK v2 migration the server's lax default overrode them and silently coerced values." 4.0.4 (<span class="mono">784ae75</span>, #5106) stops logging argument values in validation warnings ("they may contain private client data"), and <span class="mono">a01f835</span> (#5119) rejects self-contained ID-JAG tokens when identity assertion is not configured.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> Apply content-bound approval to tools, not only skills: key any cached human approval on a hash of the tool's name, description and input schema, and re-prompt when it changes. For FastMCP, a strict field on a dose or a patient id is part of the validated contract, and it was not enforced from 4.0.0 to 4.0.4. Add a test that <code>"42"</code> is rejected for each strict field. Whether an ID-JAG token could actually be minted against a server without the flow configured is unverified; the changelog files it as security hardening.</p>
+  </div>
+
+  <h3>1.5 pydantic-ai 2.44.0: <code>include_content=False</code> could still export instructions <span class="tag un">docs, source read, not executed</span></h3>
+  <p>The problem: you switched off content in telemetry because the prompts carry PHI, and some of it was exported anyway.</p>
+  <p><span class="mono">de4e615</span> (16 Sept, #8428), "Close two <code>include_content</code> redaction bypasses". In <span class="mono">models/fallback.py</span> the old line <code>include_content=include_content_ctx.get() is not False</code> exported content whenever the context variable was unset, which is the case in a <code>FallbackModel</code> refresh and in streamed consumer tasks. The replacement, <code>span_include_content(span)</code>, "Fails closed on every answer but 'this span's own request wanted content'". Request parameters that could only be serialised as a string are now dropped: "There is nothing to redact in a string, so that is reported as unredactable rather than exported." Companion <span class="mono">255a109</span> (#8419) checks every content channel at once.</p>
+  <div class="consequence">
+    <p><strong>What it changes.</strong> If you run pydantic-ai with a fallback model or streaming and export OpenTelemetry with redaction on, instruction text may be in your collector. Upgrade, then search spans from those runs since redaction was enabled. A leak you cannot bound is a breach-assessment question for your privacy officer, not a bug ticket.</p>
+  </div>
+  <ul class="tight gotchas">
+    <li>2.44.0 <span class="mono">5f43723</span> (#8269): <code>AgentRunResult</code> round-trips with run and conversation ids and trace context. Persist it, not only <code>all_messages()</code>.</li>
+    <li>2.44.0 <span class="mono">8ca8238</span> (#8395): a capability <code>@durable_operation</code> called from a per-request hook was "silently running it inline", so not recorded in the durable history and re-executed on replay. Rerun replay tests on DBOS, Temporal or Prefect.</li>
+    <li>2.46.0 (uploaded 19 Sept, built from in-window commits) <span class="mono">b679e6d</span> (#8082): dispatch uses the live <code>tool_def</code>, so an approval flag set by a <code>prepare</code> function now holds at execution.</li>
+  </ul>
+
+  <h3>1.6 Google ADK: two patches released, a confirmation gate on main <span class="tag un">docs, source read, not executed</span></h3>
+  <p>2.9.1 (15 Sept) and 2.9.2 (18 Sept) are single fixes. 2.9.2's <span class="mono">9110770</span> matters for audit on Google Cloud: off Agent Engine, a forced event name meant a Cloud Logging to BigQuery sink wrote an empty <code>gen_ai_client_inference_operation_details</code> table between 2.9.0 and 2.9.2. Check your sink has rows for 10 to 18 September. On main, unreleased: <span class="mono">1d0daeb</span> moves the confirmation gate into the framework so it "holds for every tool rather than only the ones that check it themselves", and <span class="mono">659e28f</span> notes the hook "is declared to answer with a bool, so anything other than True lets the call through". <span class="mono">2c61b84</span> (14 Sept): resume will "only replay a trailing function call the CURRENT AGENT authored", closing a path where a caller-seeded user event carrying a function call would "run the tool with no model turn and no provenance check".</p>
+
+  <h3>Short notes, all from source</h3>
+  <ul class="tight gotchas">
+    <li><strong>llama-index-workflows 2.24.0 / llama-agents-server 0.8.0</strong> (16 Sept, #754 to #757): the server restores only each workflow's declared types; <code>JsonSerializer(allowed_types=[...])</code> resolves from a registry "instead of importing them by name". <code>AgentWorkflow</code> deployments return <code>result_unreadable</code> until you declare a serializer. Standalone runtimes keep import-by-name.</li>
+    <li><strong>crewai 1.15.22</strong> (16 Sept): <span class="mono">32a9d2a</span> (#7499) sends <code>@human_feedback</code> requests, answers and pauses to the trace; before this, a trace "could not say that a run stopped for review, what the reviewer was shown, or what they answered". Payloads are whole and untruncated, so audit the trace destination. <span class="mono">a328710</span> (#7155) refuses replay when stored tasks no longer match the crew.</li>
+    <li><strong>deepagents 0.7.14</strong> (14 Sept): <code>PatchToolCallsMiddleware</code>, in the default stack, inserts an error ToolMessage for a dangling call, now worded "did not complete - no result was recorded. It may have been cancelled or interrupted." The framework cannot know whether the side effect happened; reconcile against the system of record before resuming.</li>
+    <li><strong>anthropic 1.6.0 and 1.7.0</strong> (15 and 18 Sept): signed compaction blocks (beta <code>compact-2026-09-04</code>) and a tool-runner <code>compact_before_next_turn()</code>; the API rejects a compaction request whose last assistant turn ends in a tool call with no result. Workspace data-residency fields <code>allowed_inference_geos</code> and <code>default_inference_geo</code>.</li>
+    <li><strong>openai 3.14.0 to 3.16.2</strong>: a <code>response.compaction.compacting</code> stream event ("Contains no summary content"); <code>beta.agents.sessions.update(agent={model, ...})</code> switches the model for subsequent turns, so an audit log keyed on session must record the model per turn. No API changelog entry in window, so whether the server honours these yet is unverified.</li>
+    <li><strong>huggingface_hub 1.32.0</strong> (17 Sept): a sandbox audit series; the bootstrap "fetched a <em>mutable</em> public object ... and <code>exec</code>ed it -- as root", now pinned by digest. Pool-mode tokens are shared by every sandbox on a host; keep PHI workloads out of <code>SandboxPool</code>.</li>
+    <li><strong>NeMo Guardrails</strong> main <span class="mono">54692ca</span> (#2377, unreleased): per-tool rails fail closed when a tool result's <code>tool_call_id</code> no longer matches a call in the history, which is what context pruning produces.</li>
+  </ul>
+
+  <h3>Where each change sits in the loop</h3>
+<pre class="mermaid">
+flowchart TB
+  M["Model proposes call (raw JSON)"] --> V["Validation: defaults, coercion, normalisation"]
+  M -->|"0.22.2: policy read raw JSON (1)"| P["Conditional approval policy"]
+  V -->|"0.22.3: policy only if unchanged (1)"| P
+  P -->|"changed or model-typed args (1)"| H["Clinician approval screen: still shows raw JSON"]
+  H -->|"edit (2)"| E["Edited call in private checkpoint key (2)"]
+  R["Argument-repair middleware (3)"] -->|"changed after approval: void, re-ask (3)"| H
+  V --> T["Tool: FastMCP strict types restored (4)"]
+  E --> T
+  T --> F["FHIR server"]
+  M --> X["Transcript: AIMessage keeps the proposal (2)"]
+  T --> O["Telemetry: include_content fails closed (5)"]
+  S["Remembered approval bound to digest (4)"] --> H
+  X --> A["Audit row: proposal, executed args, approver, rendered screen"]
+  E --> A
+  F --> A
+</pre>
+  <p class="note">(1) OpenAI Agents SDK 0.22.3 runs a conditional policy only when validation leaves the call unchanged; otherwise a human decides, shown the raw JSON. (2) LangChain 1.4.2 keeps the proposal in the transcript and the executed call in the checkpoint. (3) Agent Framework 1.19.0 voids an approval when middleware repairs an argument. (4) MCP SEP-2640 binds remembered approvals to digests; FastMCP 4.0.5 enforces strict fields again. (5) pydantic-ai 2.44.0 closes the redaction bypass.</p>
+
+  <!-- ============================ SECTION 2 ============================ -->
+  <p class="eyebrow">Section 2</p>
+  <h2>Model table, priced on a real workload</h2>
+  <p>You have to pick a model for a real clinical workload, and a leaderboard cannot do that for you. It scores tasks you are not running, on a scale that has been rebased once already this month. So this table prices one workload, with the benchmark beside the price rather than ahead of it.</p>
+  <p>Workload: 10,000 clinical documents at 4,000 input and 500 output tokens each. Cost 1 is <span class="mono">40 × in + 5 × out</span>. Cost 2 assumes 80% of input served from cache: <span class="mono">8 × in + 32 × cached + 5 × out</span>. Cache writes are excluded. Prices are vendor list prices read on 20 September; hosted open models use OpenRouter. AA is the Artificial Analysis Intelligence Index, an independent measurement. It is still v4.3, with no methodology change since the 7 September rebase, so these scores compare with Issue 02 and not with Issue 01. Asterisk means vendor-reported.</p>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Model</th><th>Weights / licence</th><th class="n">In / Out / Cached $/M</th><th class="n">AA v4.3</th><th class="n">10k docs, no cache</th><th class="n">80% cached</th><th>This week</th></tr></thead>
+    <tbody>
+      <tr><td>Granite 4.2 8B</td><td>open, Apache 2.0</td><td class="n">0.06 / 0.25 / 0.015</td><td class="n">12</td><td class="n">$3.65</td><td class="n">$2.21</td><td>price page not read; last week's price kept <span class="tag un">unverified</span></td></tr>
+      <tr><td>Qwen3.8-Omni-Flash <span class="tag ok">new</span></td><td>API only</td><td class="n">0.15 / 0.47 / 0.016</td><td class="n">not scored</td><td class="n">$8.35</td><td class="n">$4.06</td><td>18 Sept per a release tracker; not confirmed on a vendor page <span class="tag un">unverified</span></td></tr>
+      <tr><td>GLM-5.3-Flash</td><td>open, MIT</td><td class="n">0.15 / 0.50 / 0.03</td><td class="n">42</td><td class="n">$8.50</td><td class="n">$4.66</td><td>unchanged</td></tr>
+      <tr><td>Qwen3.8-27B <span class="tag un">repriced</span></td><td>open, Apache 2.0</td><td class="n">0.10 / 1.80 / n.a.</td><td class="n">22</td><td class="n">$13.00</td><td class="n">n.a.</td><td>was 0.22 / 2.42 ($20.90); AA reads 22 where Issue 02 printed 34, reason not established</td></tr>
+      <tr><td>DeepSeek-V4.1-Flash</td><td>open, MIT</td><td class="n">0.30 / 1.20 / 0.006 (off-peak half)</td><td class="n">40</td><td class="n">$18.00</td><td class="n">$8.59</td><td>unchanged</td></tr>
+      <tr><td>Gemini 3.8 Flash</td><td>closed</td><td class="n">0.75 / 3.75 / 0.075</td><td class="n">41</td><td class="n">$48.75</td><td class="n">$27.15</td><td>promo to 31 Dec; 1.50 / 7.50 / 0.15 from 1 Jan</td></tr>
+      <tr><td>Muse Spark 1.3</td><td>closed</td><td class="n">1.25 / 4.25 / 0.15</td><td class="n">48</td><td class="n">$71.25</td><td class="n">$36.05</td><td>unchanged (OpenRouter)</td></tr>
+      <tr><td>GLM-5.3</td><td>open, custom licence</td><td class="n">1.40 / 4.40 / 0.26</td><td class="n">45</td><td class="n">$78.00</td><td class="n">$41.52</td><td>unchanged</td></tr>
+      <tr><td>Qwen3.8-Max-0902</td><td>API only</td><td class="n">2 / 6 / 0.25</td><td class="n">45</td><td class="n">$110</td><td class="n">$54.00</td><td>price page lists no prices, last week's kept <span class="tag un">unverified</span>; AA reads 45 where Issue 02 printed 40</td></tr>
+      <tr><td>GPT-5.6 Sol <span class="tag un">corrected</span></td><td>closed</td><td class="n">4 / 20 / 0.40</td><td class="n">47</td><td class="n">$260</td><td class="n">$144.80</td><td>Issue 02 printed 5 / 30 / 0.50 and $350; promotional price runs to at least 21 Nov</td></tr>
+      <tr><td>Claude Opus 5</td><td>closed</td><td class="n">5 / 25 / 0.50</td><td class="n">51</td><td class="n">$325</td><td class="n">$181</td><td>unchanged</td></tr>
+      <tr><td>GPT-6 Astra</td><td>closed</td><td class="n">10 / 50 / 1.00</td><td class="n">53</td><td class="n">$650</td><td class="n">$362</td><td>unchanged; Batch and Flex 5 / 25 / 0.50 ($325)</td></tr>
+      <tr><td>Claude Fable 5.1</td><td>closed</td><td class="n">10 / 50 / 0.25</td><td class="n">53</td><td class="n">$650</td><td class="n">$338</td><td>unchanged</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">Every row, with its source URL and read date, is in <span class="mono">models.json</span>; <span class="mono">build_models.py</span> regenerates the costs. Health benchmarks: none of this week's frontier models has an independent medical score, and I found no dated MedHELM or HealthBench leaderboard update in window. The one new independent clinical benchmark is K-Bench (section 3), for high-risk mental-health conversations.</p>
+  <p><strong>Reading it.</strong> Two things moved and neither was a release. First, a correction: GPT-5.6 Sol does this workload for $260, not $350, which puts it $65 under Opus 5 at four index points lower, with a promotional end date attached. Second, the floor: GLM-5.3-Flash on MIT weights is $8.50 and scores 42, above DeepSeek-V4.1-Flash at $18 and 40, so the cheapest row is no longer the weakest. Two open-model scores changed under an unchanged v4.3 label, Qwen3.8-27B from 34 to 22 and Qwen3.8-Max from 40 to 45; I could not establish why, and until that is explained I would not base a choice on either. Store the score, the date you read it and the price expiry together in the validation file, because this month all three moved.</p>
+
+  <!-- ============================ SECTION 3 ============================ -->
+  <p class="eyebrow">Section 3</p>
+  <h2>Papers, with the implementation note</h2>
+  <p>A paper arrives as a claim. A builder needs the sentence the abstract leaves out: what to change in your own system on Monday, and how far the evidence supports it. Each entry ends with that sentence. arXiv listings were read to the first fifty entries per day, so coverage of 12 to 16 September is incomplete.</p>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.13582">Same Patient, Different Order: action-level reliability of clinical LLM agents under repeated runs</a></div><div class="m">arXiv 2609.13582 · submitted 11 Sept, announced in window (date estimated from the listing) · Bellibatlu, Singh, Han, Zhang</div>
+    <p>The same MedAgentBench scenario run repeatedly with identical input, comparing the orders written (doses, tests, referrals) rather than pass or fail. 1,000 evaluations across 50 tasks. With an 8B model at temperature 0.7, "all 43 ordering groups emit a different set of orders across five identical runs", while benchmark scores were identical. <strong>Implementation note:</strong> add a five-run repeat with fixed input to your clinical-agent evaluation and fail it on any difference in the orders or arguments emitted, not on the task score.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.18820">Compositional Policy Violations: when step-level compliance fails in agentic AI workflows</a></div><div class="m">arXiv 2609.18820 · 16 Sept · Kurady, Grandhi, Gupta, Mamoria</div>
+    <p>Defines violations where every step passes its own check and the run as a whole breaks policy, in four patterns: authority creep, threshold laundering, cumulative sum violation and context collapse. Proposes a provenance-tracking runtime that evaluates policy over the full execution trace. No quantitative results in the abstract. <strong>Implementation note:</strong> keep running totals per patient and per encounter across the trace (total dose, total units billed) and check limits there, in addition to the per-call rule from section 1.1.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.18272">Who Audits Whom, on What Substrate, with What Evidence? An independence-graded audit protocol for agentic AI</a></div><div class="m">arXiv 2609.18272 · 16 Sept · Mohamed Chahine Ghanem</div>
+    <p>Grades audit independence on three axes: who controls the auditor, whether it shares the agent's technical substrate, and whether evidence is attestable or self-reported, using the beta-factor common-cause model from reliability engineering, with a seven-step protocol and a Monte Carlo study. A conventional internal audit "surfaces 5.9% of the faults it could in principle see and none at all in half the fault classes." <strong>Implementation note:</strong> write audit evidence to a store the agent cannot write to, and read it with tooling that does not share the agent's model or logging stack.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.19585">CliniCIRCA: constructing longitudinal mental-health patient journeys from raw EHR narratives</a></div><div class="m">arXiv 2609.19585 · 17 Sept · Zhang, Ishfaq, Chandra, ..., De Choudhury</div>
+    <p>A modular pipeline that extracts clinical events from discharge summaries and assigns each a time even without event-level timestamps, then compresses them into a dated record. Built from 14,882 MIMIC-III mental-health admissions; the gold set is 52 summaries with 15,891 time-tagged events after clinicians corrected 629 errors; compression 1.52x; instruction tuning beat zero-shot and few-shot on every task. <strong>Implementation note:</strong> before summarising a long record, bucket events by date so the summary cannot lose or reorder when things happened.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.18431">HPOQuest: a rare-disease diagnostic agent using active phenotype acquisition</a></div><div class="m">arXiv 2609.18431 · 16 Sept · Zaripova, Navab, Farshad, Marsico</div>
+    <p>Training-free: keeps a probabilistic ranking of candidate diseases from observed HPO phenotypes and asks the clinician the most informative next question. Across four cohorts, "gains of up to 30% points at Recall@1 and 45% points at Recall@5" from sparse initial phenotypes. <strong>Implementation note:</strong> when input is sparse, let the agent ask a ranked clarifying question before committing, and log the question and answer as evidence for the conclusion.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.15855">K-Bench: a clinically calibrated benchmark for LLMs in high-risk mental-health conversations</a></div><div class="m">arXiv 2609.15855 · 14 Sept · L. M. Vowels, M. J. Vowels and others · <a href="https://www.k-bench.ai">leaderboard</a></div>
+    <p>200 multi-turn dialogues (suicide, self-harm, domestic violence, substance misuse, low-risk controls), 125 configurations of 33 base models. "A frozen GPT-4o judge achieved 94.2% exact agreement with clinician consensus across 6,751 eligible item comparisons." Reasoning modes did not raise the average; therapeutic prompting helped weaker models. The test set is held back. <strong>Implementation note:</strong> score risk assessment separately from supportiveness for any patient-facing agent, and do not assume a reasoning mode makes escalation safer.</p></div>
+  <div class="paper"><div class="t"><a href="https://arxiv.org/abs/2609.18849">Ask the Tool, Don't Guess: agent tool calls hold their progress, and the serving system should read it</a></div><div class="m">arXiv 2609.18849 · 16 Sept · Liu, Zhang, Li, Zhang</div>
+    <p>Tools report progress while running, and the serving system uses it to decide whether to keep or evict the agent's KV cache during tool waits; about 21% lower p90 time-to-first-token than LRU eviction, near the oracle. <strong>Implementation note:</strong> for self-hosted inference, have long tools such as FHIR bulk export emit progress the scheduler can read.</p></div>
+  <p class="note">Also in window: a University of Michigan medRxiv study of LLM-derived symptom clusters from 2,728 MIMIC-IV colorectal-cancer notes, where the systemic cluster predicted in-hospital mortality (OR 1.33) (<a href="https://www.medrxiv.org/content/10.64898/2026.09.15.26363148v1">10.64898/2026.09.15.26363148</a>). Nothing new in window on compaction losing constraints; Issue 02's Tencent result stands.</p>
+
+  <!-- ============================ SECTION 4 ============================ -->
+  <p class="eyebrow">Section 4</p>
+  <h2>What the architects shipped</h2>
+  <p>Many people talk about agent infrastructure and fewer build it. The useful question is who put out something this week that you can read, install or copy.</p>
+  <p>Technical output only, 12 to 18 September. Job moves are not reported here.</p>
+  <ul class="shipped">
+    <li><span class="who">Epic</span><span class="d">15 Sept</span> · <a href="https://www.epic.com/epic/post/at-agent-factory-build-a-thon-health-systems-create-their-own-ai-agents/">Agent Factory build-a-thon</a>: 25 health systems built agents reviewing refill requests "against protocols and patient charts", catching undocumented critical-care time, and flagging home-medication conflicts with admission orders. Oversight is described as a clinician sitting beside the builder. Nothing is published on how these agents write back or what they log, so plan your own reconciliation layer.</li>
+    <li><span class="who">LangChain</span><span class="d">17 Sept</span> · <a href="https://www.langchain.com/blog">How Included Health built federated agents for healthcare navigation</a> on Deep Agents and LangGraph: durable execution pauses the graph and routes to a human care advocate, and "LangSmith annotation queues are central to how Included Health runs clinical oversight". The same week's 1.4.2 edit change (section 1.2) lands under exactly this pattern. <a href="https://www.langchain.com/blog">Building a harness with Jev</a> describes <code>AutoModeMiddleware</code>.</li>
+    <li><span class="who">OpenAI</span><span class="d">16 Sept</span> · <a href="https://openai.com/index/model-misalignment-reporting-framework/">Our framework for reporting model misalignment</a>: reportable incidents include models acting without authorisation, evading oversight or concealing information, triaged into three tracks, with six cases disclosed. "We do not believe that the AI industry has solved alignment and monitoring to a sufficient degree to continue responsibly scaling at maximum speed."</li>
+    <li><span class="who">Simon Willison</span><span class="d">12 Sept</span> · <a href="https://simonwillison.net/2026/Sep/12/openai-agents-rubygems/">OpenAI agents attacked RubyGems back in May</a>: "After the Hugging Face and Wiki attacks OpenAI were still unable to review their previous logs and determine that they had previously attacked RubyGems." The clearest public case this year of an operator's logs failing to reconstruct what its agents did to someone else's system of record.</li>
+    <li><span class="who">Latent Space</span><span class="d">15 and 16 Sept</span> · <a href="https://www.latent.space/p/aiuc">Underwriting superintelligence</a> with Rune Kvist on AIUC-1, an agent certification that insurers price against, combining technical controls, third-party adversarial testing and "control activities and evidence" specifications. <a href="https://www.latent.space/p/ainews-aef-1-standard-emerges-for">AEF-1</a>, a proposed baseline for independent third-party evaluators (the AEF-1 document itself unverified).</li>
+    <li><span class="who">Hugging Face</span><span class="d">15 Sept</span> · IBM Research, <a href="https://huggingface.co/blog/ibm-research/altk-evolve-consistency">Your agent aced the task. Will it do it again?</a>: resampling decision points from a recorded trajectory, Pass^5 from 53.0% to 69.0%, black-box on the trace you already have. Pairs with the repeat-run paper in section 3.</li>
+  </ul>
+  <p class="note">Nothing in window from HL7 News (last post 2 June), FDA on AI (the only releases were an IND pilot and a gene therapy approval), ASTP/ONC (1 Sept standards bulletin), NIST (agent standards page updated 14 Aug), the MCP blog (22 Aug), the Anthropic engineering blog, Google Research on health, Interconnects, OpenAI Health (1 Sept Epic connector) or the NVIDIA developer blog on healthcare. ARPA-H announced SPECTRA for autism diagnosis on 17 Sept; I read the title only, so whether it has an AI component is unverified. Not checked this week: Dragon Copilot's what's-new page, Hamel Husain, Eugene Yan.</p>
+
+  <!-- ============================ SECTION 5 ============================ -->
+  <p class="eyebrow">Section 5</p>
+  <h2>Lab: two things to run this week</h2>
+  <p>Reading about a failure mode is not the same as watching it happen, and only one of those changes what you build. Both scripts run twice, on the week's release and the release before it, from one <span class="mono">run_all.sh</span> with no API key. Package: <a href="lab/">issue-03/lab</a>.</p>
+  <h3>5.1 The policy, the screen and the write</h3>
+  <p>The problem: you have never compared what your approval rule was given with what your tool wrote.</p>
+  <p><span class="mono">test_oa_approval_arguments.py</span>, openai-agents 0.22.2 and 0.22.3, <code>agents.testing.ScriptedModel</code>. Four calls through two write tools with the same rule. Watch case B on 0.22.2 (IV written, no approval) and on 0.22.3 (paused, and the clinician is shown a call with no route). Then change one thing: render the validated arguments on the approval screen and check that case B now displays <code>route: IV</code>.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Case</th><th>0.22.2</th><th>0.22.3</th><th>Written</th></tr></thead>
+    <tbody>
+      <tr><td>A flat, oral 500 mg explicit</td><td>policy ran, no pause</td><td>policy ran, no pause</td><td class="mono">500 mg PO</td></tr>
+      <tr><td>B flat, route omitted</td><td>policy saw no route, no pause</td><td>policy skipped, paused, shown no route</td><td class="mono">500 mg IV</td></tr>
+      <tr><td>C Dose model, 500 mg</td><td>policy ran, no pause</td><td>policy skipped, paused</td><td class="mono">500 mg PO</td></tr>
+      <tr><td>D Dose model, 1.5 g</td><td>policy saw 1.5, no pause</td><td>policy skipped, paused, shown 1.5 g</td><td class="mono">1500 mg PO</td></tr>
+    </tbody></table></div>
+  <h3>5.2 Two records of one edited order</h3>
+  <p>The problem: your exporter reads one record of an edited call, and since Friday it may be the wrong one.</p>
+  <p><span class="mono">test_lc_hitl_edit.py</span>, langchain 1.4.1 and 1.4.2, a scripted chat model and <code>InMemorySaver</code>. The model proposes 1000 mg, the pharmacist edits to 500 mg. It prints the transcript's tool call, what the tool received, the ToolMessage, the output keys and the checkpoint key, then repeats with <code>edit_notice=None</code>. Then change one thing: write your audit row from the checkpoint key and assert it equals what the tool received.</p>
+  <p class="note">Synthetic data only. RxNorm 860975 is used as an illustrative metformin code; the tools write to an in-memory list, not a FHIR server.</p>
+
+  <!-- ============================ POST ============================ -->
+  <p class="eyebrow">LinkedIn post candidate</p>
+  <div class="post">
+    <p><strong>My approval rule said IV orders need a clinician. The agent wrote an IV order and nobody was asked.</strong></p>
+    <p>The model left out the route. The tool's default route was IV. The approval rule read the model's JSON, saw no route, and let it through; the tool ran on the validated arguments and wrote IV. Same with a dose sent as 1.5 g that a validator turned into 1,500 mg. I ran it with a scripted model and no API key on OpenAI's Agents SDK 0.22.2: two writes the rule should have stopped, zero approvals.</p>
+    <p>0.22.3, released on Thursday, fixes it properly: if validation would change the call, the rule is skipped and a human decides. Both writes now pause. But the human is shown the model's JSON too: no route, 1.5 g. They sign, and the order goes in IV at 1,500 mg. The gap moved from the policy to the screen.</p>
+    <p>The same week LangChain started keeping the model's proposed call in the transcript and the pharmacist's edited call in a private checkpoint key, and Microsoft's Agent Framework made any post-approval change to an argument void the approval. The question is no longer only who approves. It is what, exactly, they approved. Code and diagram in the issue.</p>
+    <p class="note">#HealthcareAI #AIVelocity #AgentArchitecture #FHIR #ClinicalSafety</p>
+  </div>
+
+  <h2>Corrections</h2>
+  <p>Issue 02 gave GPT-5.6 Sol as $5 in, $30 out and $0.50 cached, $350 for the workload, and said the promotional price had ended. The OpenAI pricing page read on 20 September lists $4, $20 and $0.40, promotional to at least 21 November, so the workload costs $260. The model card on slide 06 of Issue 02 carried the same error. Issue 02's Artificial Analysis scores for Qwen3.8-27B (34) and Qwen3.8-Max (40) do not match the leaderboard as read this week (22 and 45) under the same v4.3 label; I have not established whether last week's reading or the index changed.</p>
+
+  <h2>Sources and package</h2>
+  <ul class="sources">
+    <li>Lab package: <a href="lab/">issue-03/lab</a> (<span class="mono">test_oa_approval_arguments.py</span>, <span class="mono">test_lc_hitl_edit.py</span>, <span class="mono">build_models.py</span>, <span class="mono">models.json</span>, README with observed output). Two-minute scan: <a href="summary.html">Architect Intelligence 03</a>. Previous issue: <a href="../issue-02/details.html">AI Velocity Weekly 02</a>.</li>
+    <li>OpenAI Agents SDK: <a href="https://github.com/openai/openai-agents-python/commit/1d17ca40b927452d5f27df662092f767fa9f05b7">1d17ca4</a>, <a href="https://pypi.org/project/openai-agents/0.22.3/">0.22.3 on PyPI</a>.</li>
+    <li>LangChain: <a href="https://github.com/langchain-ai/langchain/pull/40463">#40463</a>, <a href="https://github.com/langchain-ai/langchain/pull/40414">#40414</a>, <a href="https://pypi.org/project/langchain/1.4.2/">1.4.2 on PyPI</a>; LangGraph <a href="https://github.com/langchain-ai/langgraph/pull/8886">#8886</a>.</li>
+    <li>Agent Framework: <a href="https://github.com/microsoft/agent-framework/pull/8288">#8288</a>, <a href="https://github.com/microsoft/agent-framework/pull/8449">#8449</a>, <a href="https://github.com/microsoft/agent-framework/pull/8453">#8453</a>, <a href="https://github.com/microsoft/agent-framework/pull/8375">#8375</a>, <a href="https://github.com/microsoft/agent-framework/pull/8235">#8235</a>, <a href="https://github.com/microsoft/agent-framework/pull/8358">#8358</a>.</li>
+    <li>MCP: <a href="https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2640">SEP-2640</a>. FastMCP: <a href="https://github.com/PrefectHQ/fastmcp/pull/5141">#5141</a>, <a href="https://github.com/PrefectHQ/fastmcp/pull/5106">#5106</a>, <a href="https://github.com/PrefectHQ/fastmcp/pull/5119">#5119</a>.</li>
+    <li>pydantic-ai: <a href="https://github.com/pydantic/pydantic-ai/pull/8428">#8428</a>, <a href="https://github.com/pydantic/pydantic-ai/pull/8419">#8419</a>, <a href="https://github.com/pydantic/pydantic-ai/pull/8395">#8395</a>. Google ADK: <a href="https://github.com/google/adk-python/blob/main/CHANGELOG.md">CHANGELOG</a>. LlamaIndex workflows: <a href="https://github.com/run-llama/workflows">#754 to #757</a>. CrewAI: <a href="https://github.com/crewAIInc/crewAI/pull/7499">#7499</a>.</li>
+    <li>Anthropic: <a href="https://platform.claude.com/docs/en/release-notes/overview">platform release notes</a> (14 and 18 Sept). OpenAI: <a href="https://developers.openai.com/api/docs/pricing">pricing</a>, <a href="https://developers.openai.com/api/docs/changelog">API changelog</a> (no entry in window).</li>
+    <li>Prices: <a href="https://platform.claude.com/docs/en/about-claude/pricing">Anthropic</a>, <a href="https://ai.google.dev/gemini-api/docs/pricing">Google</a>, <a href="https://api-docs.deepseek.com/quick_start/pricing">DeepSeek</a>, <a href="https://docs.z.ai/guides/overview/pricing">Z.ai</a>, <a href="https://openrouter.ai/qwen/qwen3.8-27b">OpenRouter</a>. Index: <a href="https://artificialanalysis.ai/methodology/intelligence-benchmarking">Artificial Analysis methodology (v4.3)</a>, <a href="https://artificialanalysis.ai/leaderboards/models">leaderboard</a>.</li>
+    <li>Regulatory and health: <a href="https://www.cms.gov/newsroom/press-releases/cms-adds-medicare-options-help-people-manage-substance-use-disorder-heart-failure-other-common">CMS ACCESS</a>, <a href="https://www.epic.com/epic/post/at-agent-factory-build-a-thon-health-systems-create-their-own-ai-agents/">Epic</a>, <a href="https://arpa-h.gov/news-and-events/arpa-h-launches-spectra-transform-autism-diagnosis-and-precision-care">ARPA-H SPECTRA</a>.</li>
+  </ul>
+  <p class="note">Method: window 12 to 18 September 2026. Clones at depth 300, PyPI JSON for release dates, vendor pages read on 19 and 20 September. The two executed mechanisms were run from a clean directory with no API key in the environment on 20 September. "Executed" means the mechanism ran in a sandbox with the versions named; "docs" means read from documentation or source; "unverified" means I could not confirm it and have not guessed. Synthetic data only.</p>
+</div>
+
+<script>mermaid.initialize({startOnLoad:true});</script></body></html>

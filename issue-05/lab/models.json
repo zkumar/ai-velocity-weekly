@@ -1,0 +1,298 @@
+{
+ "issue": 5,
+ "week_ending": "2026-10-02",
+ "prices_read": "2026-10-02",
+ "workload": "10,000 docs x (4,000 in + 500 out) tokens",
+ "aa_index": "v4.3.2, read 2 Oct 2026; healthcare index top three rows only",
+ "models": [
+  {
+   "model": "GPT-6 Astra",
+   "licence": "closed",
+   "price": {
+    "in": 10,
+    "out": 50,
+    "cached": 1.0
+   },
+   "aa": 53,
+   "med": null,
+   "med_25sep": 51.7,
+   "verified": true,
+   "note": "unchanged",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 650,
+   "cost_10k_docs_80pct_cached": 362.0
+  },
+  {
+   "model": "Claude Fable 5.1",
+   "licence": "closed",
+   "price": {
+    "in": 10,
+    "out": 50,
+    "cached": 0.25
+   },
+   "aa": 53,
+   "med": 58,
+   "med_25sep": 58.0,
+   "verified": true,
+   "note": "unchanged",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 650,
+   "cost_10k_docs_80pct_cached": 338.0
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "licence": "closed",
+   "price": {
+    "in": 4,
+    "out": 20,
+    "cached": 0.2
+   },
+   "aa": 58,
+   "med": 61,
+   "med_25sep": 60.5,
+   "verified": true,
+   "note": "unchanged; medical index read as 61 this week, 60.5 last week",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 260,
+   "cost_10k_docs_80pct_cached": 138.4
+  },
+  {
+   "model": "Claude Sonnet 5.5",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 10,
+    "cached": 0.2
+   },
+   "aa": 56,
+   "med": 58,
+   "med_25sep": null,
+   "verified": true,
+   "note": "NEW 28 Sept; same price as Sonnet 5; forced tool_choice returns 400",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 130,
+   "cost_10k_docs_80pct_cached": 72.4
+  },
+  {
+   "model": "GPT-6.1 Sol",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 10,
+    "cached": 0.1
+   },
+   "aa": 52,
+   "med": null,
+   "med_25sep": null,
+   "verified": true,
+   "note": "NEW 29 Sept, replaces GPT-6 Sol after seven days; cached input 0.20 to 0.10; AA 48 to 52",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 130,
+   "cost_10k_docs_80pct_cached": 69.2
+  },
+  {
+   "model": "Gemini 4 Argon",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 10,
+    "cached": 0.1
+   },
+   "aa": 53,
+   "med": null,
+   "med_25sep": null,
+   "verified": false,
+   "note": "announced 30 Sept, limited access; introductory price from the Google blog (4/20 regular), cached taken as 95% off input; not on the Gemini API price page",
+   "src": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+   "cost_10k_docs_no_cache": 130,
+   "cost_10k_docs_80pct_cached": 69.2
+  },
+  {
+   "model": "Kimi K3",
+   "licence": "API",
+   "price": {
+    "in": 3.0,
+    "out": 15.0,
+    "cached": 0.3
+   },
+   "aa": 44,
+   "med": null,
+   "med_25sep": null,
+   "verified": true,
+   "note": "first week in the table",
+   "src": "https://platform.kimi.ai/docs/pricing/chat",
+   "cost_10k_docs_no_cache": 195.0,
+   "cost_10k_docs_80pct_cached": 108.6
+  },
+  {
+   "model": "Grok 4.7",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 6,
+    "cached": 0.5
+   },
+   "aa": 46,
+   "med": null,
+   "med_25sep": 47.2,
+   "verified": true,
+   "note": "unchanged",
+   "src": "https://docs.x.ai/developers/pricing",
+   "cost_10k_docs_no_cache": 110,
+   "cost_10k_docs_80pct_cached": 62.0
+  },
+  {
+   "model": "Mistral Medium 3.5",
+   "licence": "open, modified MIT",
+   "price": {
+    "in": 1.5,
+    "out": 7.5,
+    "cached": null
+   },
+   "aa": null,
+   "med": null,
+   "med_25sep": null,
+   "verified": true,
+   "note": "first week in the table; cache discount listed only as -90%; AA score not read",
+   "src": "https://mistral.ai/pricing/api",
+   "cost_10k_docs_no_cache": 97.5,
+   "cost_10k_docs_80pct_cached": null
+  },
+  {
+   "model": "GLM-5.3",
+   "licence": "open, custom licence",
+   "price": {
+    "in": 1.4,
+    "out": 4.4,
+    "cached": 0.26
+   },
+   "aa": 45,
+   "med": null,
+   "med_25sep": 46.7,
+   "verified": false,
+   "note": "Together AI host price, equal to last week's vendor price; GA on Mistral's platform 28 Sept at the same rate",
+   "src": "https://www.together.ai/pricing",
+   "cost_10k_docs_no_cache": 78.0,
+   "cost_10k_docs_80pct_cached": 41.52
+  },
+  {
+   "model": "DeepSeek-V4-Pro",
+   "licence": "API",
+   "price": {
+    "in": 1.32,
+    "out": 3.96,
+    "cached": 0.044
+   },
+   "aa": 36,
+   "med": null,
+   "med_25sep": null,
+   "verified": true,
+   "note": "first week in the table; peak rate, off-peak is half",
+   "src": "https://api-docs.deepseek.com/quick_start/pricing",
+   "cost_10k_docs_no_cache": 72.6,
+   "cost_10k_docs_80pct_cached": 31.77
+  },
+  {
+   "model": "Claude Haiku 4.5",
+   "licence": "closed",
+   "price": {
+    "in": 1,
+    "out": 5,
+    "cached": 0.1
+   },
+   "aa": 17,
+   "med": null,
+   "med_25sep": null,
+   "verified": true,
+   "note": "first week in the table",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 65,
+   "cost_10k_docs_80pct_cached": 36.2
+  },
+  {
+   "model": "Kimi K2.6",
+   "licence": "API",
+   "price": {
+    "in": 0.95,
+    "out": 4.0,
+    "cached": 0.16
+   },
+   "aa": null,
+   "med": null,
+   "med_25sep": null,
+   "verified": true,
+   "note": "first week in the table; AA score not read",
+   "src": "https://platform.kimi.ai/docs/pricing/chat",
+   "cost_10k_docs_no_cache": 58.0,
+   "cost_10k_docs_80pct_cached": 32.72
+  },
+  {
+   "model": "Gemini 3.8 Flash",
+   "licence": "closed",
+   "price": {
+    "in": 0.75,
+    "out": 3.75,
+    "cached": 0.075
+   },
+   "aa": 41,
+   "med": null,
+   "med_25sep": 41.8,
+   "verified": true,
+   "note": "unchanged; promo to 31 Dec, 1.50 input from 1 Jan 2027",
+   "src": "https://ai.google.dev/gemini-api/docs/pricing",
+   "cost_10k_docs_no_cache": 48.75,
+   "cost_10k_docs_80pct_cached": 27.15
+  },
+  {
+   "model": "DeepSeek-V4.1-Flash",
+   "licence": "open, MIT",
+   "price": {
+    "in": 0.3,
+    "out": 1.2,
+    "cached": 0.006
+   },
+   "aa": 39,
+   "med": null,
+   "med_25sep": 40.6,
+   "verified": true,
+   "note": "unchanged; peak rate, off-peak is half",
+   "src": "https://api-docs.deepseek.com/quick_start/pricing",
+   "cost_10k_docs_no_cache": 18.0,
+   "cost_10k_docs_80pct_cached": 8.59
+  },
+  {
+   "model": "gpt-oss-120B",
+   "licence": "open weights",
+   "price": {
+    "in": 0.15,
+    "out": 0.6,
+    "cached": null
+   },
+   "aa": 12,
+   "med": null,
+   "med_25sep": null,
+   "verified": false,
+   "note": "Together AI host price; no cached rate listed",
+   "src": "https://www.together.ai/pricing",
+   "cost_10k_docs_no_cache": 9.0,
+   "cost_10k_docs_80pct_cached": null
+  },
+  {
+   "model": "GPT-6 Luna",
+   "licence": "closed",
+   "price": {
+    "in": 0.1,
+    "out": 0.5,
+    "cached": 0.01
+   },
+   "aa": 38,
+   "med": null,
+   "med_25sep": 36.7,
+   "verified": true,
+   "note": "unchanged price; AA 37 to 38",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 6.5,
+   "cost_10k_docs_80pct_cached": 3.62
+  }
+ ]
+}

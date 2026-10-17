@@ -1,0 +1,8 @@
+langchain[mcp]==1.4.0
+langchain-core==1.6.3
+langgraph==1.2.11
+fastmcp==4.0.3
+mcp==2.2.0
+agent-framework-core==1.18.0
+hccinfhir==0.3.3
+pydantic-ai-slim==2.43.0
