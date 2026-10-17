@@ -32,7 +32,7 @@ Below 0.14.25 call_tool() ran a one-parameter FunctionTool positionally, caught 
 
 **What to change.** Give every write an idempotency key the tool checks before it commits, and count duplicate rows created within seconds of a tool error on any llama-index deployment below 0.14.25.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-04/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-04/lab)
 
 ### interrupt(response_schema=Decision) refuses "aprove" and stays paused
 
@@ -44,7 +44,7 @@ A Pydantic schema validates the resume value before the node sees it; a typo rai
 
 **What to change.** Use a Pydantic model, never a dict. Catch ValidationError in the approval service and re-prompt. Store the validated decision from inside the node; the checkpoint holds the unvalidated one.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-04/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-04/lab)
 
 ### Unresolved child approvals fail closed, and a matched result is terminal
 
@@ -56,7 +56,7 @@ On main since 1.19.0. An agent used as a tool that returns only an approval requ
 
 **What to change.** Migrate any session store holding [APPROVAL_PENDING] before upgrading, give parent and child middleware distinct source_id values, and make the idempotency key cover the retry.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-04/ai-velocity-weekly-04.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-04/details.html)
 
 > **Architect signal.** An approval with no matching success result is a claim about the record, not a fact about it. Join approvals to tool results by call id before anything is reported as done.
 
@@ -74,7 +74,7 @@ With instrument_all(include_content=True) and an agent-level Instrumentation(inc
 
 **What to change.** Upgrade, then search custom spans from tools since you set a per-agent redaction. Add a test that a tool span carries no PHI attribute when the agent's setting is off.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-04/ai-velocity-weekly-04.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-04/details.html)
 
 ### A client secret in the session table, a user token in the compaction prompt
 
@@ -86,7 +86,7 @@ Unreleased since 2.9.2. One commit keeps the client secret out of session state,
 
 **What to change.** Rotate the client secret for every durable session backend now, search summarised sessions for credential events, and give every sub-agent a unique name before you rely on the confirmation fix.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-04/ai-velocity-weekly-04.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-04/details.html)
 
 > **Architect signal.** A redaction setting governs the spans the framework writes. Everything your own code writes, and everything the framework persisted before the fix, is a separate audit.
 
@@ -104,7 +104,7 @@ $4 in, $20 out, $0.20 cached, against Opus 5 at 5/25/0.50. That is $65 under Opu
 
 **What to change.** Re-tokenise a sample of your own documents before you budget on the table, and price the cached run, because the cache rate is where this release moved most.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-04/ai-velocity-weekly-04.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-04/details.html)
 
 ### Sol at $130 is half its predecessor and two points lower on the medical index
 
@@ -116,7 +116,7 @@ Sol is 2/10/0.20, Luna 0.10/0.50/0.01, with Batch and Flex at half. Sol reads 48
 
 **What to change.** Record both index scores, the date read and the deprecation flag in the validation file. A deprecated model is a migration deadline you do not control.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-04/ai-velocity-weekly-04.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-04/details.html)
 
 > **Architect signal.** Two new cache rates and a new tokenizer moved the cached column more than the sticker did. Price the run you will actually make, with your own documents.
 
@@ -134,7 +134,7 @@ Substitution after approval, by misrepresentation or by mutating workflow state,
 
 **What to change.** Hash the full action payload at approval and compare it at execution; write linked orders and notifications into the approval row, not only the top-level call.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-04/ai-velocity-weekly-04.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-04/details.html)
 
 ### 1,268 synthetic patients behind a function-calling EHR, and the best model misses half the findings
 
@@ -146,7 +146,7 @@ A PHI-free longitudinal record, every finding coded and traceable, served throug
 
 **What to change.** Put it in the pipeline and gate chart summarisation on recall of findings, not on fluency or a task score.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-04/ai-velocity-weekly-04.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-04/details.html)
 
 ### 91 tool calls that looked like successes and returned incomplete data
 
@@ -158,7 +158,7 @@ An audit of 15 biomedical tools for calls that return missing fields, unapplied 
 
 **What to change.** Validate every tool response for expected fields, plausible counts and applied filters before the model sees it, and record a failed check as provenance on the answer.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-04/ai-velocity-weekly-04.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-04/details.html)
 
 > **Architect signal.** Substitution after the yes, effects beyond the call, successes the tool never earned. Each is a row the audit table needs and the framework does not write.
 
@@ -174,7 +174,7 @@ A care plan behind human-in-the-loop on write_file. The scripted model proposes 
 
 **Move.** After every resume, join each approved action request to a success ToolMessage by call id and treat a miss as an incident, not a retry. Re-run any evaluation that scored a final plan, because first-wins is a different system from last-wins. test_da_parallel_writes.py runs both versions in under two minutes.
 
-[Open the lab package](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-04/lab/)
+[Open the lab package](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-04/lab)
 
 > **Architect signal.** The fix is defensible and the reviewer is not told. Whether an approval became a write is a join you have to run yourself, every time.
 
@@ -208,10 +208,10 @@ Performers selected 22 September, Stanford, Vermont, Novelna, Verily, Sage Bione
 
 **Move.** If you are on a performer team, propose the evidence record now, before the platform is built around a log that cannot answer an auditor.
 
-Every dated source for this week is in the long-form edition. The cumulative Radar was not refreshed this week. [Open the Radar](https://zkumar.github.io/AI-Velocity-Technology-Update-/index.html)
+Every dated source for this week is in the long-form edition. The cumulative Radar was not refreshed this week. [Open the Radar](https://zkumar.github.io/ai-velocity-weekly/index.html)
 
 > **Architect signal.** One regulator opened a vocabulary for autonomy and one funder opened a budget for it. Neither said what the record of a decision must contain; that is still yours to write.
 
 ---
 
-Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/AI-Velocity-Technology-Update- .
+Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/ai-velocity-weekly .

@@ -32,7 +32,7 @@ PR #8750 moves approval authority into the AgentSession. On 1.19.0 a caller-supp
 
 **What to change.** Persist the AgentSession and pass the same one to the resuming run, alert on the warning text, and leave disable_approval_response_binding unset: with it the forged request ran again.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-05/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-05/lab)
 
 ### One tool_call_id on two calls: the chart read never ran and the submission ran twice
 
@@ -44,7 +44,7 @@ A response carrying read_chart and submit_prior_auth under the same id. On 2.52.
 
 **What to change.** Catch UnexpectedModelBehavior, log the raw response and do not retry blindly. Below 2.53.0 behind any gateway that rewrites ids, count submissions against requests.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-05/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-05/lab)
 
 ### require_confirmation on a workflow tool node pauses, where 2.10.0 returned an error string
 
@@ -56,7 +56,7 @@ A two-node workflow with no model. On 2.10.0 the gated node's output was "This t
 
 **What to change.** Store the request id beside the approver's identity yourself, and search 2.10.0 workflow outputs for the confirmation error: each one is a submission that never happened.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-05/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-05/lab)
 
 > **Architect signal.** None of the three needs a code change on your side to take effect. One turns a working resume into a silent no-op and one adds an exception, so a warning text and an exception class belong in monitoring before the pin moves.
 
@@ -74,7 +74,7 @@ A tool registered with the header annotation "Member Id", invalid because of the
 
 **What to change.** On 2.2.0 servers, compare the tools registered on the server with what a client lists, then upgrade so a bad annotation fails at start-up.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-05/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-05/lab)
 
 ### Forced tool choice returns 400, and so does a thinking block replayed after the prompt changed
 
@@ -86,7 +86,7 @@ tool_choice of any or tool "returns a 400 invalid_request_error" on this model. 
 
 **What to change.** Keep the deployment version with every paused state and resume against it. Move forced-tool extraction to auto with strict schemas, and test that the tool is still called.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-05/ai-velocity-weekly-05.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-05/details.html)
 
 > **Architect signal.** An inventory read from the client and a transcript kept for replay both went stale with no error at write time. Reconcile each against its source on a schedule, not at the audit.
 
@@ -104,7 +104,7 @@ $2 in, $10 out, $0.20 cached, the same list price as Sonnet 5. It reads 56 on th
 
 **What to change.** Run your own evaluation set on both before paying double. Record both index scores with the date read, and treat the Argon price as provisional.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-05/ai-velocity-weekly-05.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-05/details.html)
 
 ### GPT-6 Sol was replaced seven days after launch, at the same price and half the cache rate
 
@@ -116,7 +116,7 @@ GPT-6.1 Sol is $2 in and $10 out with cached input at $0.10, down from $0.20, so
 
 **What to change.** Decide now what evidence a point release needs before it replaces a validated model, and give the validation file's owner both deprecation pages to watch.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-05/ai-velocity-weekly-05.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-05/details.html)
 
 > **Architect signal.** A validation record that names a model without naming its retirement path may describe something already gone. Put the deprecation page beside the price in the file.
 
@@ -134,7 +134,7 @@ Three results on success claimed after a failed tool, correct work undone on an 
 
 **What to change.** Require every completion claim to carry the tool call id and the returned status, and have the harness reject a "done" without them.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-05/ai-velocity-weekly-05.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-05/details.html)
 
 ### Told falsely that finished work was wrong, agents damaged it in up to 60% of runs
 
@@ -146,7 +146,7 @@ Three results on success claimed after a failed tool, correct work undone on an 
 
 **What to change.** Put the amend tool behind its own gate, and route an unsupported complaint about a completed write to a person with the evidence attached.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-05/ai-velocity-weekly-05.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-05/details.html)
 
 ### 90.7% diagnostic accuracy, and fewer than 30% of encounters completed correctly
 
@@ -158,7 +158,7 @@ Three results on success claimed after a failed tool, correct work undone on an 
 
 **What to change.** Gate releases on every step passing, constraints included, and report the diagnosis score beside the whole-encounter score, never alone.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-05/ai-velocity-weekly-05.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-05/details.html)
 
 > **Architect signal.** A claim, a complaint and a score each looked like evidence and was not. Whatever reaches the record should cite the result it rests on, and the citation is what the harness checks.
 
@@ -174,7 +174,7 @@ Two agents, intake and anticoagulation, each own a tool named place_order behind
 
 **Move.** List every tool gated with always_approve and remove it wherever the argument carries clinical meaning. Search order history for writes by one agent under a sticky approval granted to another. A paused run saved after a sticky yes on 0.22.3 came back on 0.23.1 asking for the approved call again, so drain paused runs before rollout.
 
-[Open the lab package](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-05/lab/)
+[Open the lab package](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-05/lab)
 
 > **Architect signal.** How wide an always may be is a decision to make per tool and to write down, because the framework's key will never be narrower than the tool name.
 
@@ -208,10 +208,10 @@ Launched 30 September. The layer is to automate trial startup, onboarding of new
 
 **Move.** An agent that cleans trial data writes to a record a regulator reads. If you bid, bring the provenance record with the proposal, before the platform defines a log without one.
 
-Every dated source for this week is in the long-form edition. The cumulative Radar was not refreshed this week. [Open the Radar](https://zkumar.github.io/AI-Velocity-Technology-Update-/index.html)
+Every dated source for this week is in the long-form edition. The cumulative Radar was not refreshed this week. [Open the Radar](https://zkumar.github.io/ai-velocity-weekly/index.html)
 
 > **Architect signal.** A regulator scheduled the guidance on change and a funder scheduled the agents. Framework releases are the changes that guidance will expect you to have planned for.
 
 ---
 
-Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/AI-Velocity-Technology-Update- .
+Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/ai-velocity-weekly .

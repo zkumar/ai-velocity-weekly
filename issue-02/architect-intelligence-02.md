@@ -32,7 +32,7 @@ permission_policy now accepts auto beside always_allow and always_ask. Every too
 
 **What to change.** auto as the default, always_ask pinned on every write to the record, reviewed in the same PR as the toolset. Persist the evaluation object beside the confirmation.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-02/ai-velocity-weekly-02.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-02/details.html)
 
 ### Sessions, turns and tool handlers, and no approval checkpoint I could find
 
@@ -44,7 +44,7 @@ client.beta.agents ships sessions, turns, environments and a streaming helper wh
 
 **What to change.** Keep clinical writes behind your own tool handler and your own approval queue; do not adopt this surface for record-writing agents until the approval semantics are documented.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-02/ai-velocity-weekly-02.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-02/details.html)
 
 ### A clinician who takes 3 seconds against a 2 second budget is never heard
 
@@ -56,7 +56,7 @@ max_duration_seconds bounds the whole tool loop and, by its own docstring, inclu
 
 **What to change.** Read session.state["_function_invocation_budget_state"] before presenting an approval, and refuse to collect a signature the loop will not honour. test_af_duration_budget.py in the lab reproduces it.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-02/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-02/lab)
 
 > **Architect signal.** A policy, a hosted runtime and a clock each answered before the clinician this week. None of the three wrote anything to your transcript.
 
@@ -74,7 +74,7 @@ Rehydration now reruns a node that raised instead of replaying it as completed. 
 
 **What to change.** Put the idempotency key (Bundle.identifier or If-None-Exist) in the node's input, never generated inside it. Alert on warn_event_fields_not_stored.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-02/ai-velocity-weekly-02.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-02/details.html)
 
 ### A cache diagnostic that doubles as a config-drift detector
 
@@ -86,7 +86,7 @@ prompt_cache_diagnostics returns cache_miss with a reason, model_changed, tools_
 
 **What to change.** Record the response id of the validation run; log the reason per batch; a run of tools_changed is a change-control event that reached production without a ticket.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-02/ai-velocity-weekly-02.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-02/details.html)
 
 > **Architect signal.** A resume can repeat a write and a cache miss can name a drifted setting. Both are audit events your pipeline does not raise yet.
 
@@ -104,7 +104,7 @@ Open weights, 1M context, native vision, $0.30 in and $1.20 out at peak, cache r
 
 **What to change.** For on-prem PHI extraction, this is the new baseline if you can host a 552B MoE or accept the API's jurisdiction. Otherwise Qwen3.8-27B and Granite 4.2 8B remain the single-GPU choices.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-02/ai-velocity-weekly-02.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-02/details.html)
 
 ### Fable 5.1 and GPT-6 Astra tie at 53; Opus 5 is one point behind at half the price
 
@@ -116,7 +116,7 @@ Under v4.3 the two flagships score the same. Opus 5 at $325 for the workload aga
 
 **What to change.** Opus 5 stays the reasoning default; test Astra where terminal-style agentic work dominates. Re-baseline any decision made on last week's numbers.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-02/ai-velocity-weekly-02.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-02/details.html)
 
 > **Architect signal.** The index was rebased, so any model decision taken on Issue 01's numbers needs re-running, not adjusting.
 
@@ -134,7 +134,7 @@ Long histories, compacted sessions and corrupted tools. Each result is a claim; 
 
 **What to change.** Have the agent name the decision target first, then retrieve for it. Stop assuming a medical fine-tune helps on longitudinal records.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-02/ai-velocity-weekly-02.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-02/details.html)
 
 ### Compaction that omits authorisation rules gives 87 percent loss of control; preserving them gives 0
 
@@ -146,7 +146,7 @@ Long histories, compacted sessions and corrupted tools. Each result is a claim; 
 
 **What to change.** Pin authorisation constraints as an uncompressible block re-injected verbatim, and test the compactor for constraint retention, not fact recall.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-02/ai-velocity-weekly-02.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-02/details.html)
 
 ### Agents adopt more than a third of corrupted tool outputs and warn the user 5.3 percent of the time
 
@@ -158,7 +158,7 @@ Fourteen models, three tools with corrupted returns. Search adoption reached 68 
 
 **What to change.** Range checks, independent recomputation and schema plausibility checks between tool and model, and tool-versus-model disagreement as a first-class event.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-02/ai-velocity-weekly-02.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-02/details.html)
 
 > **Architect signal.** Retrieval target, constraint block and tool-output checks are three places to put verification outside the model.
 
@@ -174,7 +174,7 @@ BearerAuthBackend(resource_server_url=...) accepts a token only if its RFC 8707 
 
 **Move.** Roll out with validate_token_resource=False and an alert on the WARNING; flip to strict once your authorisation server binds every token to a resource. test_mcp_token_audience.py in the lab shows the accepted-loose, refused-pinned table in under a minute.
 
-[Open the lab package](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-02/lab/)
+[Open the lab package](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-02/lab)
 
 > **Architect signal.** A refusal is the cheapest audit event there is. This one arrives with no model, no prompt and no clinician in the loop.
 
@@ -208,10 +208,10 @@ Three agent builders, a Stanford supervisory safety AI, Duke validation on Epic 
 
 **Move.** Note the shape, a separate supervisory agent with its own evaluation. That is the reference architecture regulators will have seen first.
 
-The Radar added this week's rows across Shipped, Frameworks, Models, Benchmarks and Repos, and moved the window to 5 to 11 September. [Open the Radar](https://zkumar.github.io/AI-Velocity-Technology-Update-/index.html)
+The Radar added this week's rows across Shipped, Frameworks, Models, Benchmarks and Repos, and moved the window to 5 to 11 September. [Open the Radar](https://zkumar.github.io/ai-velocity-weekly/index.html)
 
 > **Architect signal.** The comment window from Issue 01 now has a named owner and a funded reference architecture beside it. Both arrived in one week.
 
 ---
 
-Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/AI-Velocity-Technology-Update- .
+Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/ai-velocity-weekly .

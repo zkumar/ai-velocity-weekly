@@ -1,7 +1,7 @@
 # AI Velocity Weekly 03, lab package
 
 Week ending 18 September 2026. Synthetic data only; no model key is needed for any script.
-Issue: [ai-velocity-weekly-03.html](../ai-velocity-weekly-03.html).
+Issue: [details.html](../details.html).
 
 This week's question is what the approval covered. Both scripts put a scripted model in front of
 a MedicationRequest tool that needs a clinician, and compare what the approval step saw with what

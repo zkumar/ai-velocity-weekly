@@ -1,7 +1,7 @@
 # AI Velocity Weekly 05, lab package
 
 Week ending 2 October 2026. Synthetic data only; no model key is needed for any script.
-Issue: [ai-velocity-weekly-05.html](../ai-velocity-weekly-05.html).
+Issue: [details.html](../details.html).
 
 This week's question is how far a yes reaches: which agent it belongs to, where the pending
 request is kept, and which call it is matched to. Each script runs twice, on the week's release

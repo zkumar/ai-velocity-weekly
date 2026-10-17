@@ -32,7 +32,7 @@ Edits no longer rewrite the AIMessage. The executed call lives in a private chec
 
 **What to change.** Write the audit row from the checkpoint key and the ToolMessage name, never the AIMessage. Keep the notice on. test_lc_hitl_edit.py runs both versions.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-03/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-03/lab)
 
 ### A middleware that repairs an approved argument voids the approval
 
@@ -44,7 +44,7 @@ Approval binds to the normalised arguments with a float-bit-exact comparison. A 
 
 **What to change.** Put argument-repair middleware before policy middleware, as the spec requires, and treat a replacement request as a second signature event in the transcript.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-03/ai-velocity-weekly-03.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-03/details.html)
 
 ### An approval is revoked when the approved content's digest changes
 
@@ -56,7 +56,7 @@ The skills extension says a persisted approval MUST be bound to the resource set
 
 **What to change.** Key cached tool approvals on a hash of name, description and input schema. Re-prompt on any change.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-03/ai-velocity-weekly-03.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-03/details.html)
 
 > **Architect signal.** Three vendors answered the binding question three ways in one week. Pick the strictest one for your write tools and make it the tested contract.
 
@@ -74,7 +74,7 @@ A FallbackModel refresh treated an unset policy as permission to export, and str
 
 **What to change.** Upgrade, then search spans from FallbackModel and streamed runs since you enabled redaction. A leak you cannot bound is a breach assessment, not a bug ticket.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-03/ai-velocity-weekly-03.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-03/details.html)
 
 ### A StrictInt dose field accepted the string "5" since the SDK v2 migration
 
@@ -86,7 +86,7 @@ The server's lax default overrode Field(strict=True), StrictInt and strict model
 
 **What to change.** Add a test that "42" is rejected for every strict field on every write tool, and alert on the new ID-JAG rejection warning.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-03/ai-velocity-weekly-03.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-03/details.html)
 
 > **Architect signal.** A control that is configured but not enforced produces a clean audit trail. Only a test that tries to break it tells you which you have.
 
@@ -104,7 +104,7 @@ The pricing page lists $4 in, $20 out, $0.40 cached, promotional until at least 
 
 **What to change.** If you moved a workload off Sol on last week's number, reverse it only with the November expiry written into the budget.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-03/ai-velocity-weekly-03.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-03/details.html)
 
 ### GLM-5.3-Flash at $8.50 scores 42, above DeepSeek-V4.1-Flash at $18
 
@@ -116,7 +116,7 @@ Unchanged prices; the ordering is what moved. Qwen3.8-27B was repriced on OpenRo
 
 **What to change.** Re-read the scores the day you decide, and store the read date beside the model choice in your validation file.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-03/ai-velocity-weekly-03.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-03/details.html)
 
 > **Architect signal.** An index can shift under a fixed version label. A model decision needs the score, the date read and the price expiry as one record.
 
@@ -134,7 +134,7 @@ Three results on repeatability, trace-level policy and audit independence. Each 
 
 **What to change.** Add a five-run repeat to your eval and fail it on any difference in emitted orders or arguments, not on the score.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-03/ai-velocity-weekly-03.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-03/details.html)
 
 ### Every step passes its check and the run still breaks the policy
 
@@ -146,7 +146,7 @@ Four named patterns, authority creep, threshold laundering, cumulative sum viola
 
 **What to change.** Keep running totals per patient and per encounter across the trace and check the limit there, not only at the tool.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-03/ai-velocity-weekly-03.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-03/details.html)
 
 ### An internal audit surfaces 5.9 percent of the faults it could see
 
@@ -158,7 +158,7 @@ Grades audit independence on control, shared technical substrate and attestable 
 
 **What to change.** Write audit evidence to a store the agent cannot write to, read by a stack it does not share.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-03/ai-velocity-weekly-03.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-03/details.html)
 
 > **Architect signal.** Same input, different orders. Legal steps, illegal sum. A shared stack auditing itself. Each needs a test the agent's own logs cannot pass by construction.
 
@@ -174,7 +174,7 @@ A write tool with a conditional policy, IV or above 1,000 mg needs a clinician. 
 
 **Move.** Render the validated arguments, defaults filled in, on the approval screen, and flatten the arguments of tools that need a conditional policy. test_oa_approval_arguments.py runs both versions in under two minutes.
 
-[Open the lab package](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-03/lab/)
+[Open the lab package](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-03/lab)
 
 > **Architect signal.** The fix is fail-closed and correct. What the approver reads is still yours to build, and it is the line an auditor will ask about.
 
@@ -208,10 +208,10 @@ Compliance transcripts carry tool_use and tool_result with a truncated flag and 
 
 **Move.** Keep your own full-fidelity tool log for PHI workflows; a vendor transcript truncated at 10 KB is not the record of a FHIR bundle.
 
-Every dated source for this week is in the long-form edition. The cumulative Radar was not refreshed this week. [Open the Radar](https://zkumar.github.io/AI-Velocity-Technology-Update-/index.html)
+Every dated source for this week is in the long-form edition. The cumulative Radar was not refreshed this week. [Open the Radar](https://zkumar.github.io/ai-velocity-weekly/index.html)
 
 > **Architect signal.** A payer rule and a vendor contract each fix what evidence must exist. You decide where it lives.
 
 ---
 
-Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/AI-Velocity-Technology-Update- .
+Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/ai-velocity-weekly .

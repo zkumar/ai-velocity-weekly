@@ -89,7 +89,7 @@
 
   <p>Three checks against your own system this week. Find every timeout between your agent and your humans, and ask what the audit trail records when the human answers after it has expired. Present a token from one tool server to a different one and see whether it is refused. Then, for anything that resumes after a failure, prove that a replay cannot write twice.</p>
 
-  <p>If this is your first issue, read the <a href="https://claude.ai/code/artifact/b0c4dd42-5843-474f-9993-5339c0281bf1">Start here</a> page first; it sets out those obligations and the vocabulary I use below.</p>
+  <p>If this is your first issue, read the <a href="../start-here.html">Start here</a> page first; it sets out those obligations and the vocabulary I use below.</p>
 
   <div class="thesis">
     <p>The week in one paragraph. Microsoft's Agent Framework bounds the whole tool loop by wall time and counts the clinician's thinking time against it; the MCP Python SDK lets a FHIR tool server refuse a token minted for another server; Anthropic's Managed Agents added a server-side <code>auto</code> policy that decides before a human sees the call; OpenAI opened an Agents API with no visible approval checkpoint; Google's ADK changed what a resumed workflow does with a node that failed after its side effect. I cloned each repo, ran two of the mechanisms in a sandbox with no model key, and found one behaviour that belongs in a design review before anyone ships it. Tags say what was executed and what was only read.</p>
@@ -397,7 +397,7 @@ flowchart TB
   </div>
 
   <h2>Sources and package</h2>
-  <p class="sources">Lab package: <span class="mono">test_af_duration_budget.py</span>, <span class="mono">test_mcp_token_audience.py</span>, <span class="mono">prior_auth_verdict_lab.py</span>, <span class="mono">build_models.py</span>, <span class="mono">models.json</span>, README. Companion tracker: <a href="https://claude.ai/code/artifact/335e60b1-f3c4-4132-b86d-cda7b2f531d8">AI Velocity Radar</a>. Previous issue: <a href="https://claude.ai/code/artifact/39c39d20-3764-4a11-ab1b-8f0a456e2b96">AI Velocity Weekly 01</a>.</p>
+  <p class="sources">Lab package: <span class="mono">test_af_duration_budget.py</span>, <span class="mono">test_mcp_token_audience.py</span>, <span class="mono">prior_auth_verdict_lab.py</span>, <span class="mono">build_models.py</span>, <span class="mono">models.json</span>, README. Previous issue: <a href="../issue-01/details.html">AI Velocity Weekly 01</a>.</p>
   <ul class="sources">
     <li>Microsoft: agent-framework clone, <span class="mono">python/CHANGELOG.md</span> [1.18.0], <span class="mono">python/packages/core/agent_framework/_tools.py</span>, <span class="mono">_harness/_tool_approval.py</span>, <span class="mono">security.py</span>, <span class="mono">docs/specs/004-python-function-calling-loop.md</span>; PyPI agent-framework-core 1.18.0 (10 Sept).</li>
     <li>MCP: python-sdk clone, commits 0c91368, 9972c21, c6762e8; PyPI mcp 2.2.0 (7 Sept); fastmcp clone, 032b9f6; PyPI fastmcp 4.0.3 (5 Sept).</li>

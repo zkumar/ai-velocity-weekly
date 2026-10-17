@@ -3,7 +3,7 @@
 Week ending 5 September 2026. The original package was delivered in the
 5 Sept session and lost; these scripts were rebuilt from the Issue 01 text
 and re-run on 12 Sept. Synthetic data only. Issue:
-https://claude.ai/code/artifact/39c39d20-3764-4a11-ab1b-8f0a456e2b96
+https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html
 
 | File | What it does | Install |
 |---|---|---|

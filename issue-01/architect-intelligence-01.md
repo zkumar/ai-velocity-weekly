@@ -32,7 +32,7 @@ The spec says a provider call_id "is not globally unique forever", so each actio
 
 **What to change.** Store both ids, occurrence for the decision and provider for tracing. Keep an idempotency key at the FHIR layer, because the spec explicitly does not promise exactly-once across crashes. Never read success from the model's text.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-01/ai-velocity-weekly-01.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html)
 
 ### Async tool calls and mid-turn steering, GPT-6 Astra only
 
@@ -44,7 +44,7 @@ Mark a tool async and the model may emit the call and keep generating; you retur
 
 **What to change.** Keep a table of in-flight call ids and the latest response id. Treat an async eligibility result like a lab result, the draft is provisional until the continuation lands. Ask about zero-data-retention before any BAA deployment.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-01/ai-velocity-weekly-01.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html)
 
 > **Architect signal.** Every new place a signature can live is a new place your audit transcript has to be written. Pick one and make the others defer to it.
 
@@ -62,7 +62,7 @@ ant apply reconciles Markdown and YAML files against the platform and writes cla
 
 **What to change.** Commit the lock file, and gate CI on the plan text, because dry-run exits 0 even when blocked. A skill pinned to a GitHub commit moves only on upgrade, which is its own change-control event.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-01/ai-velocity-weekly-01.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html)
 
 ### A refusal survives replay as a refusal, not as text
 
@@ -74,7 +74,7 @@ Provider refusals are kept as marked text, model_output_kind set to refusal, acr
 
 **What to change.** Handle the empty structured result explicitly as "the model declined", and do not migrate old stored refusals expecting the marker, it is not applied retroactively.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-01/ai-velocity-weekly-01.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html)
 
 ### Activity logs in your storage, under your keys, with no vendor human review
 
@@ -86,7 +86,7 @@ Logs are written only to customer-controlled S3, Blob or GCS under customer-mana
 
 **What to change.** Put it on the vendor-assessment checklist beside zero-data-retention and customer-key logging, and ask the same question of every other model vendor.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-01/ai-velocity-weekly-01.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html)
 
 > **Architect signal.** Change control, replay and custody are now features you can buy. Validation is still the thing you have to do.
 
@@ -104,7 +104,7 @@ $0.75 in, $3.75 out, $0.075 cached, introductory to 31 December then doubling. I
 
 **What to change.** Budget bounded extraction on this price with the January doubling written in. Keep Opus 5 at $325 as the reasoning default; Fable 5.1's cache read at $0.25 wins only once the same context is reused heavily.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-01/ai-velocity-weekly-01.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html)
 
 ### Two clean-licence models fit one GPU; the stronger ones do not have the licence
 
@@ -116,7 +116,7 @@ IBM Granite 4.2 8B, Apache 2.0, 131K context, disclosed training data, $3.65 for
 
 **What to change.** Start an on-premise FHIR extraction pilot on Granite or Qwen3.8-27B. Send GLM-5.3 and Flash-Next to counsel before anyone benchmarks them.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-01/ai-velocity-weekly-01.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html)
 
 > **Architect signal.** No frontier model released this week has an independent medical score. Every health number is still the vendor's own.
 
@@ -134,7 +134,7 @@ Each arrived as a claim. The note after each says what a builder does differentl
 
 **What to change.** For longitudinal reasoning use full context or a verified timeline, and run this benchmark before believing any memory vendor.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-01/ai-velocity-weekly-01.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html)
 
 ### Judges catch additions at 0.79 to 0.94 and omissions at 0.50 to 0.63
 
@@ -146,7 +146,7 @@ Each arrived as a claim. The note after each says what a builder does differentl
 
 **What to change.** Build the fact-enumerating pipeline. This is the audit line every ambient deployment now needs.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-01/ai-velocity-weekly-01.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html)
 
 ### Two agents 0.3 points apart in accuracy need 39 and 30 percent human review
 
@@ -158,7 +158,7 @@ A qualification framework that picks the cheapest oversight policy meeting a rel
 
 **What to change.** Report oversight burden at target reliability instead of accuracy.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-01/ai-velocity-weekly-01.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html)
 
 > **Architect signal.** Three results, one design decision, the boundary between what the model perceives and what something else verifies.
 
@@ -174,7 +174,7 @@ A FastMCP FHIR tool returns InputRequiredResult with a form asking for a signatu
 
 **Move.** Run test_lc_elicitation.py, then move the write above the guard and watch the resume double-write. That is the idempotency argument you will have to make in a design review.
 
-[Open the lab package](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-01/lab/)
+[Open the lab package](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-01/lab)
 
 > **Architect signal.** A gate the tool server owns is the first one you can enforce for every client at once. Reproduce it in under thirty minutes.
 
@@ -209,10 +209,10 @@ NVIDIA confirmed the acquisition on 3 September at $12.9 billion. MedGemma, the 
 
 **Move.** Mirror the weights you depend on now, and watch Hub licence terms and hosting neutrality over the next quarter.
 
-The Radar was seeded this week, 26 people by what they shipped, 32 companies, 21 frameworks, 14 benchmarks and 19 repositories worth cloning, each row dated and sourced. [Open the Radar](https://zkumar.github.io/AI-Velocity-Technology-Update-/index.html)
+The Radar was seeded this week, 26 people by what they shipped, 32 companies, 21 frameworks, 14 benchmarks and 19 repositories worth cloning, each row dated and sourced. [Open the Radar](https://zkumar.github.io/ai-velocity-weekly/index.html)
 
 > **Architect signal.** A comment window and a change of ownership, both closing within a quarter, both deciding what you can build on next year.
 
 ---
 
-Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/AI-Velocity-Technology-Update- .
+Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/ai-velocity-weekly .

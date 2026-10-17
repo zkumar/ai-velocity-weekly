@@ -1,7 +1,7 @@
 # AI Velocity Weekly 02, lab package
 
 Week ending 11 September 2026. Synthetic data only; no model key needed
-for any script. Issue: https://claude.ai/code/artifact/35160807-b786-4045-ad18-0655d3b6356c
+for any script. Issue: https://zkumar.github.io/ai-velocity-weekly/issue-02/details.html
 
 ## Files
 

@@ -1,7 +1,7 @@
 # AI Velocity Weekly 04, lab package
 
 Week ending 25 September 2026. Synthetic data only; no model key is needed for any script.
-Issue: [ai-velocity-weekly-04.html](../ai-velocity-weekly-04.html).
+Issue: [details.html](../details.html).
 
 This week's question is what happens after the yes: how many times an approved write actually
 runs, and what the record holds afterwards. Each script runs twice, on the week's release and

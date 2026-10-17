@@ -32,7 +32,7 @@ PR #5332, closing issue #5327, keeps accepted call and output pairs through sess
 
 **What to change.** Drain paused runs before the upgrade, since 1.21 snapshots are one-way, then handle tool_error_formatter calls with kind="tool_exception" and reconcile every failed turn against the record, not the history.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/ai-velocity-weekly-07.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html)
 
 ### One validated interrupt per gated call, where the batched default matched answers by position
 
@@ -44,7 +44,7 @@ PR #41062, read from the installed wheel. Each gated call pauses with its own to
 
 **What to change.** Switch any agent whose gated tools write to per_call, make everything ahead of the HITL middleware side-effect free, and send answers one at a time.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/ai-velocity-weekly-07.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html)
 
 ### ToolNode treated an invalid human answer as bad model arguments and the interrupt was gone
 
@@ -56,7 +56,7 @@ PR #9232. interrupt(response_schema=...) raises a pydantic ValidationError on a 
 
 **What to change.** On 1.2.14 and earlier, search model turns for a validation-error message that follows an interrupt; each is a gate that closed without a decision.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/ai-velocity-weekly-07.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html)
 
 > **Architect signal.** Three fixes, three places a true fact left the history before the next turn was built from it. Build the next turn from a history you have reconciled, and log what the reconciliation changed.
 
@@ -74,7 +74,7 @@ PR #9368, breaking. AG-UI merged client Shared State into AgentSession.state min
 
 **What to change.** Grep client state for the three list names before upgrading, alert on the new warning text, and do not run mixed workers against one session store.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/ai-velocity-weekly-07.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html)
 
 ### ApprovalReviewer puts a model in front of the human for calls it judges low-risk
 
@@ -86,7 +86,7 @@ PR #10143, released 16 October: "Adds a Harness ApprovalReviewer that lets a mod
 
 **What to change.** Keep the tiering in your code, record every model-granted approval with the reviewer model id and version, and keep any write to a patient record out of the tier it may see.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/ai-velocity-weekly-07.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html)
 
 ### A delivery id on every trigger, a callback on every tool result, and siblings cancelled together
 
@@ -98,7 +98,7 @@ Triggers expose a delivery id "so tools can detect redeliveries" (#7322); after_
 
 **What to change.** Store the delivery id with every write it causes, put the request-versus-response check in after_tool_callback, and re-run your resume tests on 2.12.0.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/ai-velocity-weekly-07.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html)
 
 > **Architect signal.** Each release names one more party that can touch an approval before the person does. The field that says which party did is still one you have to add.
 
@@ -116,7 +116,7 @@ $2 in, $10 out, $0.10 implicit cache read, listed as valid through 30 November 2
 
 **What to change.** Write 1 December into the validation file now, and decide before then whether the workload moves to Sonnet 5.5 at 56 or stays at Argon at 53 for double the cost.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/ai-velocity-weekly-07.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html)
 
 ### Opus 5.5 reads 61, and Sonnet 5.5 at $130 shares 58 with Fable 5.1 at $650
 
@@ -128,7 +128,7 @@ The index weights medical knowledge 30%, agentic knowledge work 25%, long-contex
 
 **What to change.** Record the three scores with the date read, leave the other eleven rows blank rather than carried, and run your own evaluation set before paying five times the price for the same medical score.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/ai-velocity-weekly-07.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html)
 
 > **Architect signal.** Three rows in this table carry a price with an end date printed beside it. A cost model that reads the list price today is wrong for the first quarter.
 
@@ -146,7 +146,7 @@ Judges accept a correct argument value less often when the input does not state 
 
 **What to change.** Give any model reviewer the full derivation context or an independently derived reference, and never only the call.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/ai-velocity-weekly-07.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html)
 
 ### 83% of failed runs traced to an action taken on a summary entry with no environment output behind it
 
@@ -158,7 +158,7 @@ In a widely used structured compressor, most failures followed a summary claim n
 
 **What to change.** Check every compaction entry against a tool output before it is kept, and put the check in the summarizer hook LangChain 1.4.5 added.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/ai-velocity-weekly-07.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html)
 
 ### Clean accuracy 0.97, and 32% to 97% of required escalations missed when gated on stated confidence
 
@@ -170,7 +170,7 @@ In a widely used structured compressor, most failures followed a summary claim n
 
 **What to change.** Make escalation an explicit workflow state in the harness, and paraphrase-test the detector before it guards a record.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/ai-velocity-weekly-07.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html)
 
 > **Architect signal.** A judge, a summary and a confidence score each stood in for evidence this week. The record is the evidence; everything else is a claim about it.
 
@@ -186,7 +186,7 @@ One scripted response carries lookup_allergies, which raises after 300 ms, and p
 
 **Move.** Search records for duplicate writes with an "interrupted" return in the transcript on 2.54.0 and earlier under ordered events. On every version, treat that sentence as outcome unknown and look the write up by its idempotency key before a resumed run may act, then put the real result into the history yourself. Pin 2.55.0 or later explicitly, because Python 3.10 resolves to 2.54.0.
 
-[Open the lab package](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-07/lab/)
+[Open the lab package](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-07/lab)
 
 > **Architect signal.** The exception was correct and the history was wrong, and nothing connected the two. A failed run needs a reconciliation step whose input is the record, not the transcript.
 
@@ -220,10 +220,10 @@ gpt-4o-2024-08-06, gpt-4o-2024-11-20, gpt-4o-mini-2024-07-18, gpt-4.1-2025-04-14
 
 **Move.** A validation record naming any of those ids now has an expiry. Replacing a model is a change under a change-control plan: write the re-validation protocol for the GPT-4 family before the January date, and run the 23 October list against production configs this week.
 
-Every dated source for this week is in the long-form edition. The cumulative Radar was not refreshed this week. [Open the Radar](https://zkumar.github.io/AI-Velocity-Technology-Update-/index.html)
+Every dated source for this week is in the long-form edition. The cumulative Radar was not refreshed this week. [Open the Radar](https://zkumar.github.io/ai-velocity-weekly/index.html)
 
 > **Architect signal.** One regulator is collecting positions on who may authorise an agent's action, and one vendor has dated the removal of models those positions were validated on. Both are inputs to the same change-control file.
 
 ---
 
-Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/AI-Velocity-Technology-Update- .
+Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/ai-velocity-weekly .

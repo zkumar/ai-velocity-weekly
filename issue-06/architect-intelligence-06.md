@@ -32,7 +32,7 @@ PR #9050. A model response carrying a host-answered tool and a local write used 
 
 **What to change.** Pass a session on every path, and never let a write that depends on a clinician's reply share a response with the question. Put it in a later turn behind its own approval.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-06/lab)
 
 ### Approved, executed once, then MaxTurnsExceededError with no hint that a write happened
 
@@ -44,7 +44,7 @@ PR #9050. A model response carrying a host-answered tool and a local write used 
 
 **What to change.** Catch the turn-budget exception on resume and reconcile against the record before reporting failure. Count the paused runs you hold before upgrading past 0.19.0.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-06/lab)
 
 ### An HMAC stamp on every function call, verified before the tool runs, except for workflow nodes
 
@@ -56,7 +56,7 @@ ToolCallIntegrityPlugin(secret_key, allow_unstamped_calls=False) stamps each cal
 
 **What to change.** Turn it on, keep the key out of session state, store the stamp in the approval row, and cover workflow-node tools yourself.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/ai-velocity-weekly-06.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-06/details.html)
 
 > **Architect signal.** Ordering is not consent. A framework can promise that the write runs after the answer; whether the answer permits it is still a decision only your gate records.
 
@@ -74,7 +74,7 @@ PR #5379. A synchronous tool with timeout=0.2 took one second and wrote an order
 
 **What to change.** Treat a timeout on a write tool as outcome unknown and look the write up by idempotency key before any retry. Set the idle timeout above your longest human approval.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-06/lab)
 
 ### before and after hooks moved inside the wrapper, and a cache hit ran neither
 
@@ -86,7 +86,7 @@ PR #7053. An audit capability counted requests in before_model_request and after
 
 **What to change.** Put mandatory checks in the outermost wrapper or outside the agent, and add a test that a short-circuited request still writes the audit row.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/lab/)
+[Read the mechanism](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-06/lab)
 
 ### The summariser overflows, retries once with the middle omitted, and logs it at DEBUG
 
@@ -98,7 +98,7 @@ PR #41159, read from the wheel. SummarizationMiddleware used to re-send the same
 
 **What to change.** Raise that logger for clinical agents, or wrap the middleware and record when the fallback fired beside the summary it produced.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/ai-velocity-weekly-06.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-06/details.html)
 
 > **Architect signal.** Error, timeout and exception are statements about the call. None is a statement about the record, and a retry policy that reads them as one writes the second row.
 
@@ -116,7 +116,7 @@ $0.10 in, $0.50 out, $0.01 cached: the same as GPT-6 Luna to the cent, and five 
 
 **What to change.** Measure your prompt-length distribution before you budget, and route requests over the threshold deliberately.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/ai-velocity-weekly-06.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-06/details.html)
 
 ### Sonnet 5.5's cache read halved to $0.10, so the two $130 rows match in both columns
 
@@ -128,7 +128,7 @@ Sonnet 5.5, released 28 September, had its cache read cut from $0.20 to $0.10 on
 
 **What to change.** Record the model id, the date read and the cache rate in the validation file, and re-run validation when you move tiers.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/ai-velocity-weekly-06.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-06/details.html)
 
 > **Architect signal.** A price that depends on prompt length makes context size a cost decision per request. The router that decides it needs the same audit as the model it routes to.
 
@@ -146,7 +146,7 @@ Three results on the distance between the call the model wrote and the call that
 
 **What to change.** Log the call as received at every hop, model, harness, wrapper and tool, and diff the hops.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/ai-velocity-weekly-06.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-06/details.html)
 
 ### Policy compiled into gates cut violations from 66.3% to 2.6%, and one development gate refused 95.9% of valid calls
 
@@ -158,7 +158,7 @@ Natural-language policy compiled into deterministic tool-call gates on two agent
 
 **What to change.** Replay every new gate over recorded traffic before it ships, and report false refusals beside violations.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/ai-velocity-weekly-06.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-06/details.html)
 
 ### 87 MCP tools, 20 simulated healthcare apps, and the best configuration resolves 28% of prior-auth and UM tasks
 
@@ -170,7 +170,7 @@ Prior authorisation, utilisation management and care management with a 1,290-doc
 
 **What to change.** One case per session, gate on pass-every-repeat, and re-validate when the harness changes, not only when the model does.
 
-[Read the mechanism](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/ai-velocity-weekly-06.html)
+[Read the mechanism](https://zkumar.github.io/ai-velocity-weekly/issue-06/details.html)
 
 > **Architect signal.** Five harness releases in one week each changed what a paused run does. A validation result belongs to a model and a harness version together, and this week the harness half expired.
 
@@ -186,7 +186,7 @@ Two parallel approval gates, pharmacy and physician; each calls interrupt(), sig
 
 **Move.** Build the inbox from your own table of asked and answered interrupt ids and refuse a second answer yourself. Give every gate an idempotency key before upgrading, and drain paused threads first. Search the record for duplicate writes from any node that follows an interrupt and returns nothing. test_lg_pending_interrupts.py runs all of it in seconds.
 
-[Open the lab package](https://zkumar.github.io/AI-Velocity-Technology-Update-/issue-06/lab/)
+[Open the lab package](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-06/lab)
 
 > **Architect signal.** A fix that changes how a checkpoint is read does not rewrite the checkpoints already stored. Every approval in flight on upgrade day runs on the old rules.
 
@@ -220,10 +220,10 @@ The CMS-0057-F page, modified 8 October, still says API requirements are due "pr
 
 **Move.** Freeze the agent framework versions behind your prior authorisation API before January, with this week's upgrade notes read. If you propose to ARPA-H, specify the evidence the operations layer leaves.
 
-Every dated source for this week is in the long-form edition. The cumulative Radar was not refreshed this week. [Open the Radar](https://zkumar.github.io/AI-Velocity-Technology-Update-/index.html)
+Every dated source for this week is in the long-form edition. The cumulative Radar was not refreshed this week. [Open the Radar](https://zkumar.github.io/ai-velocity-weekly/index.html)
 
 > **Architect signal.** A compliance date twelve weeks out turns every framework upgrade between now and then into a change to a regulated interface. Schedule them, or stop taking them.
 
 ---
 
-Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/AI-Velocity-Technology-Update- .
+Full mechanism, code and sources for every card are in the long-form edition. The architect's position on this week's decision is in My Take. The code runs from a clean virtual environment with no API key. Everything is at https://github.com/zkumar/ai-velocity-weekly .

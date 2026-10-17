@@ -303,7 +303,7 @@ flowchart TB
   <!-- ============================ SECTION 5 ============================ -->
   <p class="eyebrow">Section 5</p>
   <h2>Lab: two things to run this week</h2>
-  <p>Reading about a failure mode is not the same as watching it happen, and only one of those changes what you build. Both scripts run twice, on the week's release and the release before it, from one <span class="mono">run_all.sh</span> with no API key. Package: <a href="lab/">issue-03/lab</a>.</p>
+  <p>Reading about a failure mode is not the same as watching it happen, and only one of those changes what you build. Both scripts run twice, on the week's release and the release before it, from one <span class="mono">run_all.sh</span> with no API key. Package: <a href="https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-03/lab">issue-03/lab</a>.</p>
   <h3>5.1 The policy, the screen and the write</h3>
   <p>The problem: you have never compared what your approval rule was given with what your tool wrote.</p>
   <p><span class="mono">test_oa_approval_arguments.py</span>, openai-agents 0.22.2 and 0.22.3, <code>agents.testing.ScriptedModel</code>. Four calls through two write tools with the same rule. Watch case B on 0.22.2 (IV written, no approval) and on 0.22.3 (paused, and the clinician is shown a call with no route). Then change one thing: render the validated arguments on the approval screen and check that case B now displays <code>route: IV</code>.</p>
@@ -335,7 +335,7 @@ flowchart TB
 
   <h2>Sources and package</h2>
   <ul class="sources">
-    <li>Lab package: <a href="lab/">issue-03/lab</a> (<span class="mono">test_oa_approval_arguments.py</span>, <span class="mono">test_lc_hitl_edit.py</span>, <span class="mono">build_models.py</span>, <span class="mono">models.json</span>, README with observed output). Two-minute scan: <a href="summary.html">Architect Intelligence 03</a>. Previous issue: <a href="../issue-02/details.html">AI Velocity Weekly 02</a>.</li>
+    <li>Lab package: <a href="https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-03/lab">issue-03/lab</a> (<span class="mono">test_oa_approval_arguments.py</span>, <span class="mono">test_lc_hitl_edit.py</span>, <span class="mono">build_models.py</span>, <span class="mono">models.json</span>, README with observed output). Two-minute scan: <a href="summary.html">Architect Intelligence 03</a>. Previous issue: <a href="../issue-02/details.html">AI Velocity Weekly 02</a>.</li>
     <li>OpenAI Agents SDK: <a href="https://github.com/openai/openai-agents-python/commit/1d17ca40b927452d5f27df662092f767fa9f05b7">1d17ca4</a>, <a href="https://pypi.org/project/openai-agents/0.22.3/">0.22.3 on PyPI</a>.</li>
     <li>LangChain: <a href="https://github.com/langchain-ai/langchain/pull/40463">#40463</a>, <a href="https://github.com/langchain-ai/langchain/pull/40414">#40414</a>, <a href="https://pypi.org/project/langchain/1.4.2/">1.4.2 on PyPI</a>; LangGraph <a href="https://github.com/langchain-ai/langgraph/pull/8886">#8886</a>.</li>
     <li>Agent Framework: <a href="https://github.com/microsoft/agent-framework/pull/8288">#8288</a>, <a href="https://github.com/microsoft/agent-framework/pull/8449">#8449</a>, <a href="https://github.com/microsoft/agent-framework/pull/8453">#8453</a>, <a href="https://github.com/microsoft/agent-framework/pull/8375">#8375</a>, <a href="https://github.com/microsoft/agent-framework/pull/8235">#8235</a>, <a href="https://github.com/microsoft/agent-framework/pull/8358">#8358</a>.</li>

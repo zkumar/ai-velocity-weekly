@@ -17,6 +17,10 @@ import argparse, os, re, shutil, subprocess, sys, tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+REPO = "https://github.com/zkumar/ai-velocity-weekly"
+SITE = "https://zkumar.github.io/ai-velocity-weekly"
+OLD_REPO = "https://github.com/zkumar/AI-Velocity-Technology-Update-"
+OLD_SITE = "https://zkumar.github.io/AI-Velocity-Technology-Update-"
 IGNORE = shutil.ignore_patterns(".venv", "__pycache__", "*.pyc", ".DS_Store", "node_modules", "~$*", ".git")
 TOP_FILES = ["README.md", "LICENSE", "LICENSE-CONTENT", ".nojekyll", ".gitignore", "index.html", "start-here.html"]
 TOP_DIRS = ["assets", "tools"]
@@ -33,8 +37,31 @@ def latest_pptx(folder: Path):
     files = [p for p in folder.glob("*.pptx") if not p.name.startswith("~$")]
     return max(files, key=lambda p: p.stat().st_mtime) if files else None
 
+def patch_pptx(src: Path, dst: Path):
+    """Copy the deck, replacing the old repo URL in slide text and hyperlinks."""
+    try:
+        from pptx import Presentation
+    except ImportError:
+        print("WARN python-pptx not installed (pip3 install python-pptx); PDF keeps the old repo URL")
+        shutil.copyfile(src, dst); return
+    prs = Presentation(str(src))
+    old_short, new_short = OLD_REPO.split("//")[1], REPO.split("//")[1]
+    for slide in prs.slides:
+        for sh in slide.shapes:
+            if not sh.has_text_frame: continue
+            for para in sh.text_frame.paragraphs:
+                for r in para.runs:
+                    if old_short in r.text:
+                        r.text = r.text.replace(old_short, new_short)
+                    if r.hyperlink.address and old_short in r.hyperlink.address:
+                        r.hyperlink.address = r.hyperlink.address.replace(old_short, new_short)
+    prs.save(str(dst))
+
 def to_pdf(soffice, pptx: Path, dest: Path):
     with tempfile.TemporaryDirectory() as tmp:
+        patched = Path(tmp) / pptx.name
+        patch_pptx(pptx, patched)
+        pptx = patched
         profile = Path(tmp) / "profile"
         cmd = [soffice, f"-env:UserInstallation=file://{profile}", "--headless",
                "--convert-to", "pdf", "--outdir", tmp, str(pptx)]
@@ -62,15 +89,35 @@ MYTAKE = [  # the hand-built mytakeNN.html pages are not published; remove every
     (re.compile(r"\*\*`architect-intelligence-NN\.html`\*\* and \*\*`\.pdf`\*\*"), "**`summary.html`** and **`architect-intelligence-NN.pdf`**"),
     (re.compile(r"\*\*`ai-velocity-weekly-NN\.html`\*\*"), "**`details.html`**"),
 ]
-def rewrite(text):
-    for rx, rep in REWRITES + MYTAKE:
+CLAUDE = [  # no claude.ai links in the public repo
+    (re.compile(r' ?Companion tracker: <a href="https://claude\.ai/[^"]*">AI Velocity Radar</a>\.'), ""),
+    (re.compile(r'\s*<li><a href="https://claude\.ai/[^"]*">AI Velocity Radar</a>.*?</li>', re.S), ""),
+    (re.compile(r'<a href="https://claude\.ai/code/artifact/39c39d20-3764-4a11-ab1b-8f0a456e2b96">'), '<a href="../issue-01/details.html">'),
+    (re.compile(r'<a href="https://claude\.ai/code/artifact/b0c4dd42-5843-474f-9993-5339c0281bf1">'), '<a href="../start-here.html">'),
+    (re.compile(r'https://claude\.ai/code/artifact/39c39d20-3764-4a11-ab1b-8f0a456e2b96'), SITE + "/issue-01/details.html"),
+    (re.compile(r'https://claude\.ai/code/artifact/35160807-b786-4045-ad18-0655d3b6356c'), SITE + "/issue-02/details.html"),
+    (re.compile(r'<a href="https://claude\.ai/[^"]*">(.*?)</a>', re.S), r"\1"),  # any other: keep text, drop link
+]
+REPO_LINKS = [
+    (re.compile(re.escape(OLD_SITE)), SITE),
+    (re.compile(re.escape(OLD_REPO)), REPO),
+    (re.compile(re.escape(SITE) + r"/(issue-\d\d)/lab/?"), REPO + r"/tree/main/\1/lab"),
+    (re.compile(r"AI-Velocity-Technology-Update-"), "ai-velocity-weekly"),  # link text, clone dir names
+]
+def rewrite(text, issue=None):
+    for rx, rep in REWRITES + MYTAKE + CLAUDE + REPO_LINKS:
         text = rx.sub(rep, text)
+    # relative links to a lab/ folder: Pages has no index there, so point at the GitHub folder view
+    def lab(m):
+        n = m.group(2) or issue
+        return f'href="{REPO}/tree/main/issue-{n}/lab"' if n else m.group(0)
+    text = re.sub(r'href="((?:\.\./)?(?:issue-(\d\d)/)?)lab/?"', lab, text)
     return text
 
-def copy_text(src: Path, dst: Path, do_rewrite=True):
+def copy_text(src: Path, dst: Path, do_rewrite=True, issue=None):
     dst.parent.mkdir(parents=True, exist_ok=True)
     if do_rewrite:
-        dst.write_text(rewrite(src.read_text(encoding="utf-8")), encoding="utf-8")
+        dst.write_text(rewrite(src.read_text(encoding="utf-8"), issue), encoding="utf-8")
     else:
         shutil.copyfile(src, dst)
 
@@ -82,8 +129,14 @@ def check_links(out: Path):
             if re.match(r"^(https?:|mailto:|data:|//|javascript:)", ref):
                 continue
             target = (html.parent / ref).resolve()
-            if not (target.exists() or (target.is_dir() and (target / "index.html").exists())):
+            if not target.exists() or (target.is_dir() and not (target / "index.html").exists()):
                 bad.append((html.relative_to(out), ref))
+    for f in out.rglob("*"):
+        if f.suffix in (".html", ".md") and "tools" not in f.relative_to(out).parts[:1]:
+            t = f.read_text(encoding="utf-8", errors="ignore")
+            for needle in ("claude.ai/", OLD_REPO.split("//")[1], OLD_SITE.split("//")[1]):
+                if needle in t:
+                    bad.append((f.relative_to(out), needle))
     return bad
 
 def main():
@@ -92,11 +145,13 @@ def main():
     ap.add_argument("--skip-pdf", action="store_true")
     a = ap.parse_args()
     out = (ROOT / a.out).resolve()
-    if out.exists():
-        try:
-            shutil.rmtree(out)
-        except OSError as e:
-            print(f"WARN could not clear {out}: {e}; overwriting in place")
+    if out.exists():  # clear the previous build but keep publish/.git
+        for child in out.iterdir():
+            if child.name == ".git": continue
+            try:
+                shutil.rmtree(child) if child.is_dir() and not child.is_symlink() else child.unlink()
+            except OSError as e:
+                print(f"WARN could not remove {child}: {e}")
     out.mkdir(parents=True, exist_ok=True)
 
     soffice = None if a.skip_pdf else find_soffice()
@@ -119,15 +174,17 @@ def main():
                                    (f"ai-velocity-weekly-{n}.html", "details.html")):
             s = folder / src_name
             if s.exists():
-                copy_text(s, dst / dst_name)
+                copy_text(s, dst / dst_name, issue=n)
             else:
                 print(f"WARN {folder.name}: {src_name} missing")
         # Markdown as is
         for md in folder.glob("*.md"):
-            shutil.copyfile(md, dst / md.name)
+            copy_text(md, dst / md.name, issue=n)
         # Lab as is
         if (folder / "lab").is_dir():
             shutil.copytree(folder / "lab", dst / "lab", ignore=IGNORE, dirs_exist_ok=True)
+            for md in (dst / "lab").rglob("*.md"):  # fix links only; code untouched
+                md.write_text(rewrite(md.read_text(encoding="utf-8"), n), encoding="utf-8")
         # PDF from newest pptx
         p = latest_pptx(folder)
         if p is None:

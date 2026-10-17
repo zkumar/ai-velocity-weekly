@@ -34,6 +34,11 @@ numbers come from a named independent measurement.
 |---|---|---|
 | [01](issue-01/summary.html) | 5 September 2026 | The clinician's signature belongs in the tool protocol, not the prompt |
 | [02](issue-02/summary.html) | 11 September 2026 | Prior authorisation: let the model read the chart, let a solver decide |
+| [03](issue-03/summary.html) | 18 September 2026 | What the clinician's yes covers: the arguments that were approved, or the ones that ran |
+| [04](issue-04/summary.html) | 25 September 2026 | After the yes: how many times an approved write runs, and who is told when it is zero |
+| [05](issue-05/summary.html) | 2 October 2026 | The reach of a yes: which agent an approval belongs to, and where the pending request is kept |
+| [06](issue-06/summary.html) | 9 October 2026 | While it waits: what a paused run reports as still open, and what it has already done |
+| [07](issue-07/summary.html) | 16 October 2026 | The sibling that failed: what the history keeps about a write when the call beside it fails |
 
 ## Running a lab
 
