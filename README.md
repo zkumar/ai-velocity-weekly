@@ -32,15 +32,15 @@ numbers come from a named independent measurement.
 
 ## Issues
 
-| Issue | Week ending | Subject |
-|---|---|---|
-| [01](https://zkumar.github.io/ai-velocity-weekly/issue-01/summary.html) | 5 September 2026 | The clinician's signature belongs in the tool protocol, not the prompt |
-| [02](https://zkumar.github.io/ai-velocity-weekly/issue-02/summary.html) | 11 September 2026 | Prior authorisation: let the model read the chart, let a solver decide |
-| [03](https://zkumar.github.io/ai-velocity-weekly/issue-03/summary.html) | 18 September 2026 | What the clinician's yes covers: the arguments that were approved, or the ones that ran |
-| [04](https://zkumar.github.io/ai-velocity-weekly/issue-04/summary.html) | 25 September 2026 | After the yes: how many times an approved write runs, and who is told when it is zero |
-| [05](https://zkumar.github.io/ai-velocity-weekly/issue-05/summary.html) | 2 October 2026 | The reach of a yes: which agent an approval belongs to, and where the pending request is kept |
-| [06](https://zkumar.github.io/ai-velocity-weekly/issue-06/summary.html) | 9 October 2026 | While it waits: what a paused run reports as still open, and what it has already done |
-| [07](https://zkumar.github.io/ai-velocity-weekly/issue-07/summary.html) | 16 October 2026 | The sibling that failed: what the history keeps about a write when the call beside it fails |
+| Issue | Week ending | Subject | Read |
+|---|---|---|---|
+| 01 | 5 September 2026 | The clinician's signature belongs in the tool protocol, not the prompt | [Summary](https://zkumar.github.io/ai-velocity-weekly/issue-01/summary.html) · [Details](https://zkumar.github.io/ai-velocity-weekly/issue-01/details.html) · [PDF](https://zkumar.github.io/ai-velocity-weekly/issue-01/architect-intelligence-01.pdf) · [Lab](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-01/lab) |
+| 02 | 11 September 2026 | Prior authorisation: let the model read the chart, let a solver decide | [Summary](https://zkumar.github.io/ai-velocity-weekly/issue-02/summary.html) · [Details](https://zkumar.github.io/ai-velocity-weekly/issue-02/details.html) · [PDF](https://zkumar.github.io/ai-velocity-weekly/issue-02/architect-intelligence-02.pdf) · [Lab](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-02/lab) |
+| 03 | 18 September 2026 | What the clinician's yes covers: the arguments that were approved, or the ones that ran | [Summary](https://zkumar.github.io/ai-velocity-weekly/issue-03/summary.html) · [Details](https://zkumar.github.io/ai-velocity-weekly/issue-03/details.html) · [PDF](https://zkumar.github.io/ai-velocity-weekly/issue-03/architect-intelligence-03.pdf) · [Lab](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-03/lab) |
+| 04 | 25 September 2026 | After the yes: how many times an approved write runs, and who is told when it is zero | [Summary](https://zkumar.github.io/ai-velocity-weekly/issue-04/summary.html) · [Details](https://zkumar.github.io/ai-velocity-weekly/issue-04/details.html) · [PDF](https://zkumar.github.io/ai-velocity-weekly/issue-04/architect-intelligence-04.pdf) · [Lab](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-04/lab) |
+| 05 | 2 October 2026 | The reach of a yes: which agent an approval belongs to, and where the pending request is kept | [Summary](https://zkumar.github.io/ai-velocity-weekly/issue-05/summary.html) · [Details](https://zkumar.github.io/ai-velocity-weekly/issue-05/details.html) · [PDF](https://zkumar.github.io/ai-velocity-weekly/issue-05/architect-intelligence-05.pdf) · [Lab](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-05/lab) |
+| 06 | 9 October 2026 | While it waits: what a paused run reports as still open, and what it has already done | [Summary](https://zkumar.github.io/ai-velocity-weekly/issue-06/summary.html) · [Details](https://zkumar.github.io/ai-velocity-weekly/issue-06/details.html) · [PDF](https://zkumar.github.io/ai-velocity-weekly/issue-06/architect-intelligence-06.pdf) · [Lab](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-06/lab) |
+| 07 | 16 October 2026 | The sibling that failed: what the history keeps about a write when the call beside it fails | [Summary](https://zkumar.github.io/ai-velocity-weekly/issue-07/summary.html) · [Details](https://zkumar.github.io/ai-velocity-weekly/issue-07/details.html) · [PDF](https://zkumar.github.io/ai-velocity-weekly/issue-07/architect-intelligence-07.pdf) · [Lab](https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-07/lab) |
 
 ## Running a lab
 
