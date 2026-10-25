@@ -111,6 +111,13 @@
   <h2>Issues</h2>
 
   <div class="issue">
+    <h3><a href="issue-08/summary.html">The gate inside the tool: what a parent agent is handed when its child stops for a person</a></h3>
+    <div class="m">Issue 08 &middot; week ending 25 October 2026</div>
+    <p>A clinician-assistant agent delegated an apixaban order to a pharmacy agent wrapped as a tool; the pharmacy agent paused for the pharmacist, the parent was handed an empty string, and the clinician was told the order was placed. No request to approve it ever left the tool, on either release. This issue is about delegation as the unit: what the layer above receives when a child pauses, cancels or runs in parallel, which store records an approval answered on an earlier resume, and whether a write into nested state reaches the record at all.</p>
+    <p class="links"><a href="issue-08/summary.html">Two-minute scan</a> &middot; <a href="issue-08/architect-intelligence-08.pdf">Carousel PDF</a> &middot; <a href="issue-08/details.html">Long-form edition</a> &middot; <a href="https://github.com/zkumar/ai-velocity-weekly/tree/main/issue-08/lab">Lab</a></p>
+  </div>
+
+  <div class="issue">
     <h3><a href="issue-07/summary.html">The sibling that failed: what the history keeps about a write when the call beside it fails</a></h3>
     <div class="m">Issue 07 &middot; week ending 16 October 2026</div>
     <p>A model asked for an allergy lookup and an apixaban order in one response; the lookup failed, the order went in, and the history the agent resumed from said the order had been interrupted, so it was written again. This issue is about the batch as the unit of failure: what survives in the transcript when a sibling raises or a caller cancels, who may write to the store an approval sits in, and what a resume should trust.</p>

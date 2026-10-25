@@ -1,0 +1,264 @@
+{
+ "issue": 8,
+ "week_ending": "2026-10-25",
+ "prices_read": "2026-10-25",
+ "workload": "10,000 docs x (4,000 in + 500 out) tokens",
+ "aa_index": "v4.3.2 (no newer version in the changelog), read 25 Oct 2026; healthcare index read 25 Oct, two rows readable, composition changed since 16 Oct",
+ "models": [
+  {
+   "model": "Claude Haiku 5.5",
+   "id": "claude-haiku-5-5",
+   "licence": "closed",
+   "price": {
+    "in": 0.1,
+    "out": 0.5,
+    "cached": 0.01
+   },
+   "aa": 43,
+   "med": null,
+   "verified": true,
+   "note": "unchanged; prompts over 100,000 tokens pay 0.50/2.50/0.05",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 6.5,
+   "cost_10k_docs_80pct_cached": 3.62
+  },
+  {
+   "model": "GPT-6 Luna",
+   "id": "gpt-6-luna",
+   "licence": "closed",
+   "price": {
+    "in": 0.1,
+    "out": 0.5,
+    "cached": 0.01
+   },
+   "aa": 38,
+   "med": null,
+   "verified": true,
+   "note": "unchanged; the 12-hour cache write (20 Oct) costs 2.5x the input price; the Decisions API went GA on this model on 22 Oct",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 6.5,
+   "cost_10k_docs_80pct_cached": 3.62
+  },
+  {
+   "model": "gpt-oss-120b on Nebius",
+   "id": "gpt-oss-120b",
+   "licence": "open, Apache 2.0",
+   "price": {
+    "in": 0.15,
+    "out": 0.6,
+    "cached": null
+   },
+   "aa": 12,
+   "med": null,
+   "verified": true,
+   "note": "unchanged; read from Nebius's Token Factory catalogue; currency not stated, USD assumed; no cached rate listed",
+   "src": "https://tokenfactory.nebius.com/model-catalog.md",
+   "cost_10k_docs_no_cache": 9.0,
+   "cost_10k_docs_80pct_cached": null
+  },
+  {
+   "model": "DeepSeek V4.1 Flash",
+   "id": "deepseek-flash",
+   "licence": "open, MIT",
+   "price": {
+    "in": 0.3,
+    "out": 1.2,
+    "cached": 0.006
+   },
+   "aa": 45,
+   "med": null,
+   "verified": true,
+   "note": "peak rate; off-peak 0.15/0.60/0.003 ($9.00); AA 45 for the 1017 build (18 Oct entry) against 39 last week; the model id is now plain deepseek-flash and the v4 names are retired",
+   "src": "https://api-docs.deepseek.com/quick_start/pricing",
+   "cost_10k_docs_no_cache": 18.0,
+   "cost_10k_docs_80pct_cached": 8.59
+  },
+  {
+   "model": "Gemini 3.8 Flash",
+   "id": "gemini-3.8-flash",
+   "licence": "closed",
+   "price": {
+    "in": 0.75,
+    "out": 3.75,
+    "cached": 0.075
+   },
+   "aa": 41,
+   "med": null,
+   "verified": true,
+   "note": "0.75/3.75/0.075 through 31 Dec; 1.50/7.50/0.15 from 1 Jan 2027; cache storage 0.50 per million tokens per hour, 1.00 from 1 Jan",
+   "src": "https://ai.google.dev/gemini-api/docs/pricing",
+   "cost_10k_docs_no_cache": 48.75,
+   "cost_10k_docs_80pct_cached": 27.15
+  },
+  {
+   "model": "Mistral Large 4",
+   "id": "mistral-large-4",
+   "licence": "open weights announced, licence not named",
+   "price": {
+    "in": 1.36,
+    "out": 4.18,
+    "cached": 0.14
+   },
+   "aa": 38,
+   "med": null,
+   "verified": true,
+   "note": "list price; the launch sale shown last week is gone from the page, so it ended as inferred; the 'preview' label is gone from the price page while AA keeps it",
+   "src": "https://docs.mistral.ai/inference/pricing",
+   "cost_10k_docs_no_cache": 75.3,
+   "cost_10k_docs_80pct_cached": 36.26
+  },
+  {
+   "model": "Grok 4.7",
+   "id": "grok-4.7",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 6,
+    "cached": 0.5
+   },
+   "aa": 46,
+   "med": null,
+   "verified": true,
+   "note": "unchanged; page dated 10 Oct; at or above 200k prompt tokens 4/12/1.00 on every token of the request",
+   "src": "https://docs.x.ai/developers/pricing",
+   "cost_10k_docs_no_cache": 110,
+   "cost_10k_docs_80pct_cached": 62.0
+  },
+  {
+   "model": "Kimi K3.1 Pro",
+   "id": "kimi-k3.1-pro",
+   "licence": "API only, weights promised by 4 Nov",
+   "price": {
+    "in": 2,
+    "out": 10,
+    "cached": 0.2
+   },
+   "aa": 55,
+   "med": null,
+   "verified": false,
+   "note": "new flagship about 23 Oct; AA 55, fourth on the index; price is a third-party figure (benchlm.ai, synced 23 Oct) because the vendor's tables did not render",
+   "src": "https://platform.kimi.ai/docs/pricing/chat",
+   "cost_10k_docs_no_cache": 130,
+   "cost_10k_docs_80pct_cached": 72.4
+  },
+  {
+   "model": "Claude Sonnet 5.5",
+   "id": "claude-sonnet-5-5",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 10,
+    "cached": 0.1
+   },
+   "aa": 56,
+   "med": 53,
+   "verified": true,
+   "note": "unchanged; medical index reads 53 today against 58 on 16 Oct after the index was recomposed",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 130,
+   "cost_10k_docs_80pct_cached": 69.2
+  },
+  {
+   "model": "GPT-6.1 Sol",
+   "id": "gpt-6.1-sol",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 10,
+    "cached": 0.1
+   },
+   "aa": 52,
+   "med": null,
+   "verified": true,
+   "note": "unchanged; the 12/60/0.60 row sits in the Ultrafast position, label still inferred; last week's long-context tier 4/15/0.20 is no longer on the page",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 130,
+   "cost_10k_docs_80pct_cached": 69.2
+  },
+  {
+   "model": "Gemini 4 Argon",
+   "id": "gemini-4-argon",
+   "licence": "closed",
+   "price": {
+    "in": 2,
+    "out": 10,
+    "cached": 0.1
+   },
+   "aa": 53,
+   "med": null,
+   "verified": true,
+   "note": "unchanged; 2/10/0.10 through 30 Nov 2026, then 4/20/0.20 from 1 Dec; implicit caching only",
+   "src": "https://ai.google.dev/gemini-api/docs/pricing",
+   "cost_10k_docs_no_cache": 130,
+   "cost_10k_docs_80pct_cached": 69.2
+  },
+  {
+   "model": "Kimi K3",
+   "id": "kimi-k3",
+   "licence": "API only",
+   "price": {
+    "in": 3,
+    "out": 15,
+    "cached": 0.3
+   },
+   "aa": null,
+   "med": null,
+   "verified": false,
+   "note": "price carried from 16 Oct: the vendor's pricing tables did not render on 25 Oct; demoted to previous-generation flagship; no longer listed on the AA leaderboard",
+   "src": "https://platform.kimi.ai/docs/pricing/chat",
+   "cost_10k_docs_no_cache": 195,
+   "cost_10k_docs_80pct_cached": 108.6
+  },
+  {
+   "model": "Claude Opus 5.5",
+   "id": "claude-opus-5-5",
+   "licence": "closed",
+   "price": {
+    "in": 4,
+    "out": 20,
+    "cached": 0.2
+   },
+   "aa": 58,
+   "med": 55,
+   "verified": true,
+   "note": "unchanged; medical index reads 55 today against 61 on 16 Oct after the index was recomposed; fast mode 8/40",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 260,
+   "cost_10k_docs_80pct_cached": 138.4
+  },
+  {
+   "model": "GPT-6 Astra",
+   "id": "gpt-6-astra",
+   "licence": "closed",
+   "price": {
+    "in": 10,
+    "out": 50,
+    "cached": 1.0
+   },
+   "aa": 53,
+   "med": null,
+   "verified": true,
+   "note": "unchanged; the long-context tier 20/75/2.00 carried last week is no longer on the page, which now prints Fast 20/100/2.00 and Ultrafast 60/300/6.00",
+   "src": "https://developers.openai.com/api/docs/pricing",
+   "cost_10k_docs_no_cache": 650,
+   "cost_10k_docs_80pct_cached": 362.0
+  },
+  {
+   "model": "Claude Fable 5.1",
+   "id": "claude-fable-5-1",
+   "licence": "closed",
+   "price": {
+    "in": 10,
+    "out": 50,
+    "cached": 0.25
+   },
+   "aa": 53,
+   "med": null,
+   "verified": true,
+   "note": "unchanged; its medical score (58 last week) could not be read from the recomposed index page; a Claude Mythos 5.1 row at the same price now appears on the page, launch date unverified, not on the AA leaderboard",
+   "src": "https://platform.claude.com/docs/en/about-claude/pricing",
+   "cost_10k_docs_no_cache": 650,
+   "cost_10k_docs_80pct_cached": 338.0
+  }
+ ]
+}
