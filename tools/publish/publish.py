@@ -45,16 +45,18 @@ def patch_pptx(src: Path, dst: Path):
         print("WARN python-pptx not installed (pip3 install python-pptx); PDF keeps the old repo URL")
         shutil.copyfile(src, dst); return
     prs = Presentation(str(src))
-    old_short, new_short = OLD_REPO.split("//")[1], REPO.split("//")[1]
+    pairs = [(OLD_REPO.split("//")[1], REPO.split("//")[1]),
+             (OLD_SITE.split("//")[1], SITE.split("//")[1])]  # deck footers carry the site address
     for slide in prs.slides:
         for sh in slide.shapes:
             if not sh.has_text_frame: continue
             for para in sh.text_frame.paragraphs:
                 for r in para.runs:
-                    if old_short in r.text:
-                        r.text = r.text.replace(old_short, new_short)
-                    if r.hyperlink.address and old_short in r.hyperlink.address:
-                        r.hyperlink.address = r.hyperlink.address.replace(old_short, new_short)
+                    for old_short, new_short in pairs:
+                        if old_short in r.text:
+                            r.text = r.text.replace(old_short, new_short)
+                        if r.hyperlink.address and old_short in r.hyperlink.address:
+                            r.hyperlink.address = r.hyperlink.address.replace(old_short, new_short)
     prs.save(str(dst))
 
 def to_pdf(soffice, pptx: Path, dest: Path):
